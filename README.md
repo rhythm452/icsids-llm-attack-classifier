@@ -35,8 +35,8 @@ HF_HUB_OFFLINE=1 python demo.py "..."
 
 ## Live prototype (`demo.py`)
 
-`ics_llm_ids.py` only reproduces the fixed evaluation set. `demo.py` is the
-working prototype — it classifies **any** typed ICS event description
+`ics_llm_ids.py` only reproduces the fixed evaluation set. `demo.py` is a
+CLI prototype — it classifies **any** typed ICS event description
 against the same 97-technique reference set, live:
 
 ```bash
@@ -50,6 +50,30 @@ python demo.py "Unauthorized remote login to the engineering workstation from an
 It reports a BENIGN/ATTACK verdict (using the threshold calibrated by
 `ics_llm_ids.py` and saved in `results.json`) plus the top-3 closest
 ATT&CK ICS techniques by cosine similarity.
+
+## Live prototype — web UI (`app.py`)
+
+Same classifier, served as a local web app with a dashboard-style UI —
+type an event in the browser instead of a terminal:
+
+```bash
+# Windows PowerShell
+$env:HF_HUB_OFFLINE = "1"
+python app.py
+
+# bash
+HF_HUB_OFFLINE=1 python app.py
+```
+
+Then open **http://127.0.0.1:8000**. The model and knowledge base load
+once at startup (leave the process running for the whole demo), and
+every query after that is sub-second. Shows a colored ATTACK/BENIGN
+badge, similarity score vs. threshold, a grounded explanation +
+mitigation suggestion (templated from the matched technique's own MITRE
+description — no fabricated content), the top-3 matched techniques with
+tactic + description, and a scrollable history of every query on the
+page. The backend also exposes `POST /api/analyze` directly (JSON in,
+JSON out) and interactive API docs at `/docs`.
 
 ## What it does
 
@@ -97,7 +121,9 @@ reported honestly rather than inflated.
 | `techniques.json` | Reference set (already built — 97 techniques) |
 | `procedure_examples.json` | Evaluation set (already built — 271 real examples) |
 | `ics_llm_ids.py` | Embeds, classifies, evaluates, prints + saves results |
-| `demo.py` | Working prototype — classifies any typed event description live |
+| `demo.py` | CLI prototype — classifies any typed event description live |
+| `app.py` | FastAPI web app — same classifier behind a browser UI + JSON API |
+| `static/index.html` | Frontend for `app.py` |
 | `results.json` | Produced after running `ics_llm_ids.py` |
 
 ## Mapping to Milestone 1 claims

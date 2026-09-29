@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICS Intrusion Detection — LLM Prototype</title>
+<style>
+  :root {
+    --bg: #0b1120;
+    --panel: #121a2e;
+    --panel-border: #223052;
+    --text: #e6ebf5;
+    --muted: #8b96ac;
+    --accent: #3b82f6;
+    --attack: #ef4444;
+    --benign: #22c55e;
+    --attack-bg: rgba(239,68,68,0.12);
+    --benign-bg: rgba(34,197,94,0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 28px 32px 16px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  header h1 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; max-width: 780px; }
+  main { max-width: 900px; margin: 0 auto; padding: 28px 32px 60px; }
+
+  .input-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  textarea {
+    width: 100%;
+    min-height: 90px;
+    resize: vertical;
+    background: #0d1526;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.98rem;
+    padding: 12px;
+    font-family: inherit;
+  }
+  textarea:focus { outline: 2px solid var(--accent); }
+  .row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+  .examples { font-size: 0.82rem; color: var(--muted); }
+  .examples button {
+    background: none; border: none; color: var(--accent); cursor: pointer;
+    font-size: 0.82rem; text-decoration: underline; padding: 0; margin-right: 12px;
+  }
+  button.analyze {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button.analyze:disabled { opacity: 0.6; cursor: default; }
+  button.analyze:hover:not(:disabled) { background: #2563eb; }
+
+  .loading {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    display: none;
+  }
+  .loading.active { display: block; }
+
+  #history { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
+
+  .result-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .result-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .event-text { color: var(--muted); font-size: 0.85rem; margin: 0 0 10px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em;
+  }
+  .badge.attack { background: var(--attack-bg); color: var(--attack); }
+  .badge.benign { background: var(--benign-bg); color: var(--benign); }
+  .score { color: var(--muted); font-size: 0.85rem; }
+
+  .explanation, .mitigation {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .explanation strong, .mitigation strong { color: var(--text); }
+
+  .matches { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .match {
+    background: #0d1526;
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .match-top { display: flex; justify-content: space-between; font-size: 0.88rem; }
+  .match-name { font-weight: 600; }
+  .match-meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+  .match-desc { color: var(--muted); font-size: 0.8rem; margin-top: 6px; line-height: 1.5; }
+  .sim-bar-track { height: 4px; background: #1c2740; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .sim-bar-fill { height: 100%; background: var(--accent); }
+
+  .timestamp { color: var(--muted); font-size: 0.75rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LLM-Based ICS Intrusion Detection — Live Prototype</h1>
+  <p>
+    Zero-shot classifier over 97 real MITRE ATT&amp;CK ICS techniques.
+    Each event description is embedded with a sentence-transformer model and compared by
+    cosine similarity against every technique's official MITRE description — no attack-specific
+    training. Implements and evaluates the pipeline described (but never empirically tested) in
+    Yoo et al., ICUFN 2024.
+  </p>
+</header>
+
+<main>
+  <div class="input-card">
+    <textarea id="eventText" placeholder="Describe an ICS event, e.g. &quot;Unauthorized remote login to the engineering workstation from an external IP followed by an unscheduled PLC firmware upload&quot;"></textarea>
+    <div class="row">
+      <div class="examples">
+        <button type="button" onclick="fillExample(0)">Attack example</button>
+        <button type="button" onclick="fillExample(1)">Benign example</button>
+      </div>
+      <button class="analyze" id="analyzeBtn" onclick="analyze()">Analyze (Enter)</button>
+    </div>
+    <div class="loading" id="loading">Analyzing…</div>
+  </div>
+
+  <div id="history"></div>
+</main>
+
+<script>
+const EXAMPLES = [
+  "Unauthorized remote login to the engineering workstation from an external IP followed by an unscheduled PLC firmware upload",
+  "HMI performed its routine 5-second polling cycle of the tank level sensor with no anomalies detected."
+];
+
+function fillExample(i) {
+  document.getElementById('eventText').value = EXAMPLES[i];
+}
+
+const textarea = document.getElementById('eventText');
+textarea.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    analyze();
+  }
+});
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+async function analyze() {
+  const text = textarea.value.trim();
+  if (!text) return;
+
+  const btn = document.getElementById('analyzeBtn');
+  const loading = document.getElementById('loading');
+  btn.disabled = true;
+  loading.classList.add('active');
+
+  try {
+    const resp = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event_text: text })
+    });
+    const data = await resp.json();
+    if (data.error) {
+      alert(data.error);
+      return;
+    }
+    renderResult(data);
+  } catch (err) {
+    alert('Request failed: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    loading.classList.remove('active');
+  }
+}
+
+function renderResult(data) {
+  const history = document.getElementById('history');
+  const card = document.createElement('div');
+  card.className = 'result-card';
+
+  const verdictClass = data.verdict === 'ATTACK' ? 'attack' : 'benign';
+  const time = new Date().toLocaleTimeString();
+
+  let matchesHtml = data.matches.map(m => `
+    <div class="match">
+      <div class="match-top">
+        <span class="match-name">${escapeHtml(m.name)}</span>
+        <span>${(m.similarity * 100).toFixed(1)}%</span>
+      </div>
+      <div class="match-meta">${escapeHtml(m.id)} · Tactic: ${escapeHtml(m.tactic)}</div>
+      <div class="sim-bar-track"><div class="sim-bar-fill" style="width:${(m.similarity * 100).toFixed(1)}%"></div></div>
+      <div class="match-desc">${escapeHtml(m.description.slice(0, 220))}${m.description.length > 220 ? '…' : ''}</div>
+    </div>
+  `).join('');
+
+  card.innerHTML = `
+    <p class="event-text">"${escapeHtml(data.event_text)}"  <span class="timestamp">· ${time}</span></p>
+    <div class="result-header">
+      <span class="badge ${verdictClass}">${data.verdict}</span>
+      <span class="score">similarity ${data.similarity.toFixed(3)} / threshold ${data.threshold.toFixed(3)}</span>
+    </div>
+    <div class="explanation"><strong>Explanation:</strong> ${escapeHtml(data.explanation)}</div>
+    <div class="mitigation"><strong>Recommended action:</strong> ${escapeHtml(data.mitigation)}</div>
+    <div class="matches">${matchesHtml}</div>
+  `;
+
+  history.insertBefore(card, history.firstChild);
+  textarea.value = '';
+  textarea.focus();
+}
+</script>
+
+</body>
+</html>

@@ -71,8 +71,13 @@ def main():
                     "technique_name": techniques[target]["name"],
                 })
 
+    def tactic_of(t):
+        phases = t.get("kill_chain_phases", [])
+        names = [p["phase_name"].replace("-", " ").title() for p in phases if p.get("kill_chain_name") == "mitre-ics-attack"]
+        return ", ".join(names) if names else "Unknown"
+
     tech_out = {
-        tid: {"name": t["name"], "description": t["description"]}
+        tid: {"name": t["name"], "description": t["description"], "tactic": tactic_of(t)}
         for tid, t in techniques.items()
     }
 
