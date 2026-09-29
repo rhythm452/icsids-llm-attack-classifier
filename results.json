@@ -1,0 +1,20 @@
+{
+  "model": "all-MiniLM-L6-v2",
+  "reference_techniques": 97,
+  "eval_samples": 271,
+  "task_a_top1_accuracy": 0.3210332103321033,
+  "task_a_top3_accuracy": 0.4797047970479705,
+  "task_a_macro_f1": 0.2651459073334073,
+  "task_b_threshold": 0.4157640337944031,
+  "task_b_detection_accuracy": 0.7447552447552448,
+  "task_b_confusion_matrix": [
+    [
+      10,
+      5
+    ],
+    [
+      68,
+      203
+    ]
+  ]
+}
