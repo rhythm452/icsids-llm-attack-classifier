@@ -27,29 +27,11 @@ flaky wifi:
 ```bash
 # Windows PowerShell
 $env:HF_HUB_OFFLINE = "1"
-python demo.py "..."
+python app.py
 
 # bash
-HF_HUB_OFFLINE=1 python demo.py "..."
+HF_HUB_OFFLINE=1 python app.py
 ```
-
-## Live prototype (`demo.py`)
-
-`ics_llm_ids.py` only reproduces the fixed evaluation set. `demo.py` is a
-CLI prototype — it classifies **any** typed ICS event description
-against the same 97-technique reference set, live:
-
-```bash
-# interactive
-python demo.py
-
-# one-shot
-python demo.py "Unauthorized remote login to the engineering workstation from an external IP followed by an unscheduled PLC firmware upload"
-```
-
-It reports a BENIGN/ATTACK verdict (using the threshold calibrated by
-`ics_llm_ids.py` and saved in `results.json`) plus the top-3 closest
-ATT&CK ICS techniques by cosine similarity.
 
 ## Live prototype — web UI (`app.py`)
 
@@ -121,7 +103,6 @@ reported honestly rather than inflated.
 | `techniques.json` | Reference set (already built — 97 techniques) |
 | `procedure_examples.json` | Evaluation set (already built — 271 real examples) |
 | `ics_llm_ids.py` | Embeds, classifies, evaluates, prints + saves results |
-| `demo.py` | CLI prototype — classifies any typed event description live |
 | `app.py` | FastAPI web app — same classifier behind a browser UI + JSON API |
 | `static/index.html` | Frontend for `app.py` |
 | `results.json` | Produced after running `ics_llm_ids.py` |

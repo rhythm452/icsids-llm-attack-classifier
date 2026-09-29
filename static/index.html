@@ -3,152 +3,421 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ICS Intrusion Detection — LLM Prototype</title>
+<title>ICS Intrusion Detection — LLM-Augmented Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b1120;
-    --panel: #121a2e;
-    --panel-border: #223052;
-    --text: #e6ebf5;
-    --muted: #8b96ac;
-    --accent: #3b82f6;
-    --attack: #ef4444;
-    --benign: #22c55e;
-    --attack-bg: rgba(239,68,68,0.12);
-    --benign-bg: rgba(34,197,94,0.12);
+    --bg: #0a0e17;
+    --bg-alt: #0d1424;
+    --panel: #111a2e;
+    --panel-2: #0e1727;
+    --border: #1f2c47;
+    --border-soft: #182238;
+    --text: #e8edf7;
+    --muted: #7c8aa8;
+    --muted-2: #566180;
+    --accent: #4f8cff;
+    --accent-soft: rgba(79,140,255,0.12);
+    --attack: #ff4d5e;
+    --attack-glow: rgba(255,77,94,0.35);
+    --attack-bg: rgba(255,77,94,0.10);
+    --benign: #2fd47a;
+    --benign-glow: rgba(47,212,122,0.30);
+    --benign-bg: rgba(47,212,122,0.10);
+    --amber: #f5a623;
+    --radius: 12px;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Consolas', monospace;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg);
+    font-family: var(--font);
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(79,140,255,0.07), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(47,212,122,0.05), transparent 55%),
+      var(--bg);
     color: var(--text);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
   }
-  header {
-    padding: 28px 32px 16px;
-    border-bottom: 1px solid var(--panel-border);
-  }
-  header h1 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 600; }
-  header p { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; max-width: 780px; }
-  main { max-width: 900px; margin: 0 auto; padding: 28px 32px 60px; }
 
+  /* ---------- Header ---------- */
+  header {
+    border-bottom: 1px solid var(--border-soft);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    background: rgba(10,14,23,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--accent), #2454c9);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 6px 16px rgba(79,140,255,0.25);
+    flex-shrink: 0;
+  }
+  .brand-mark svg { width: 20px; height: 20px; }
+  .brand-text h1 {
+    font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2;
+  }
+  .brand-text p { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .status-pill {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.75rem; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 12px; font-family: var(--mono);
+  }
+  .status-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--benign);
+    box-shadow: 0 0 8px var(--benign-glow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ---------- Layout ---------- */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 28px 32px 60px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  .main-col { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+  /* ---------- Input card ---------- */
   .input-card {
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 10px;
-    padding: 20px;
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
+  .input-card label {
+    display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
   }
   textarea {
-    width: 100%;
-    min-height: 90px;
-    resize: vertical;
-    background: #0d1526;
-    border: 1px solid var(--panel-border);
-    border-radius: 8px;
+    width: 100%; min-height: 100px; resize: vertical;
+    background: #060a12;
+    border: 1px solid var(--border);
+    border-radius: 9px;
     color: var(--text);
-    font-size: 0.98rem;
-    padding: 12px;
-    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    padding: 14px;
+    font-family: var(--font);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  textarea:focus { outline: 2px solid var(--accent); }
-  .row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
-  .examples { font-size: 0.82rem; color: var(--muted); }
-  .examples button {
-    background: none; border: none; color: var(--accent); cursor: pointer;
-    font-size: 0.82rem; text-decoration: underline; padding: 0; margin-right: 12px;
+  textarea::placeholder { color: var(--muted-2); }
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
   }
+  .input-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; flex-wrap: wrap; gap: 12px;
+  }
+  .examples { display: flex; gap: 8px; flex-wrap: wrap; }
+  .example-chip {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.76rem;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .example-chip:hover { border-color: var(--accent); color: var(--text); }
+
   button.analyze {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #2f66d8);
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 10px 22px;
-    font-size: 0.95rem;
+    border-radius: 9px;
+    padding: 12px 24px;
+    font-size: 0.92rem;
     font-weight: 600;
     cursor: pointer;
+    display: flex; align-items: center; gap: 9px;
+    box-shadow: 0 4px 14px rgba(79,140,255,0.28);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    white-space: nowrap;
   }
-  button.analyze:disabled { opacity: 0.6; cursor: default; }
-  button.analyze:hover:not(:disabled) { background: #2563eb; }
-
-  .loading {
-    margin-top: 14px;
-    color: var(--muted);
-    font-size: 0.9rem;
+  button.analyze:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(79,140,255,0.38); }
+  button.analyze:active:not(:disabled) { transform: translateY(0); }
+  button.analyze:disabled { opacity: 0.65; cursor: default; transform: none; }
+  .spinner {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.35); border-top-color: white;
+    animation: spin 0.7s linear infinite;
     display: none;
   }
-  .loading.active { display: block; }
+  button.analyze.loading .spinner { display: inline-block; }
+  button.analyze.loading .btn-label { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  #history { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
+  .kbd-hint { font-size: 0.72rem; color: var(--muted-2); margin-top: 8px; }
+  kbd {
+    font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 5px; font-size: 0.7rem;
+  }
 
+  /* ---------- Empty state ---------- */
+  .empty-state {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--muted-2);
+  }
+  .empty-state svg { width: 34px; height: 34px; margin-bottom: 12px; opacity: 0.5; }
+  .empty-state p { font-size: 0.88rem; max-width: 340px; margin: 0 auto; line-height: 1.5; }
+
+  /* ---------- Result card ---------- */
   .result-card {
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result-card.attack { box-shadow: 0 0 0 1px rgba(255,77,94,0.18), 0 12px 32px -12px rgba(255,77,94,0.22); }
+  .result-card.benign { box-shadow: 0 0 0 1px rgba(47,212,122,0.15), 0 12px 32px -12px rgba(47,212,122,0.15); }
+
+  .query-echo {
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.5;
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .verdict-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+  }
+  .verdict-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 20px; border-radius: 10px;
+    font-weight: 800; font-size: 1.15rem; letter-spacing: 0.03em;
+  }
+  .verdict-badge.attack {
+    background: var(--attack-bg); color: var(--attack);
+    box-shadow: 0 0 0 1px rgba(255,77,94,0.3), 0 0 24px var(--attack-glow);
+    animation: attackGlow 1.8s ease-in-out infinite;
+  }
+  .verdict-badge.benign {
+    background: var(--benign-bg); color: var(--benign);
+    box-shadow: 0 0 0 1px rgba(47,212,122,0.3), 0 0 18px var(--benign-glow);
+  }
+  @keyframes attackGlow {
+    0%,100% { box-shadow: 0 0 0 1px rgba(255,77,94,0.3), 0 0 16px var(--attack-glow); }
+    50% { box-shadow: 0 0 0 1px rgba(255,77,94,0.45), 0 0 30px var(--attack-glow); }
+  }
+  .verdict-badge .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+  .verdict-time { font-size: 0.78rem; color: var(--muted-2); font-family: var(--mono); }
+
+  .score-block { margin-bottom: 22px; }
+  .score-label-row {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;
+  }
+  .score-label {
+    font-size: 0.74rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.07em;
+  }
+  .score-value { font-family: var(--mono); font-size: 0.95rem; font-weight: 600; }
+  .score-track {
+    position: relative;
+    height: 8px; background: var(--panel-2); border-radius: 999px; overflow: visible;
+    border: 1px solid var(--border-soft);
+  }
+  .score-fill {
+    height: 100%; border-radius: 999px;
+    transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .score-fill.attack { background: linear-gradient(90deg, #ff8a6a, var(--attack)); }
+  .score-fill.benign { background: linear-gradient(90deg, #6ee7a8, var(--benign)); }
+  .threshold-marker {
+    position: absolute; top: -4px; width: 2px; height: 16px;
+    background: var(--amber);
+  }
+  .threshold-marker::after {
+    content: 'threshold';
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    font-size: 0.65rem; color: var(--amber); font-family: var(--mono); white-space: nowrap;
+  }
+  .score-caption { font-size: 0.72rem; color: var(--muted-2); margin-top: 20px; line-height: 1.5; }
+
+  .section-label {
+    font-size: 0.74rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .analysis-block { margin-bottom: 22px; }
+  .analysis-block p { font-size: 0.9rem; line-height: 1.6; color: #c7d0e3; }
+  .analysis-block p + p { margin-top: 10px; }
+  .analysis-block .tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 700;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 2px 8px; border-radius: 5px; margin-right: 8px;
+    text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle;
+  }
+
+  .matches { display: flex; flex-direction: column; gap: 10px; }
+  .match-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: 9px;
+    padding: 14px 16px;
+    transition: border-color 0.15s ease;
+  }
+  .match-card:hover { border-color: var(--border); }
+  .match-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .match-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .match-name { font-weight: 600; font-size: 0.92rem; }
+  .match-rank {
+    font-family: var(--mono); font-size: 0.68rem; color: var(--muted-2);
+    background: var(--panel-2); border: 1px solid var(--border-soft);
+    border-radius: 4px; padding: 1px 6px;
+  }
+  .match-sim { font-family: var(--mono); font-size: 0.85rem; font-weight: 600; color: var(--text); }
+  .match-id { font-family: var(--mono); font-size: 0.72rem; color: var(--muted-2); margin-top: 4px; }
+  .tactic-pill {
+    display: inline-block; font-size: 0.68rem; font-weight: 600;
+    background: rgba(79,140,255,0.12); color: #86adff;
+    padding: 2px 9px; border-radius: 999px; margin-top: 8px;
+  }
+  .match-desc { color: var(--muted); font-size: 0.8rem; margin-top: 8px; line-height: 1.55; }
+  .mini-bar-track { height: 3px; background: var(--panel-2); border-radius: 999px; margin-top: 10px; overflow: hidden; }
+  .mini-bar-fill { height: 100%; }
+
+  /* ---------- Sidebar / history ---------- */
+  .sidebar {
     background: var(--panel);
-    border: 1px solid var(--panel-border);
-    border-radius: 10px;
-    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    position: sticky;
+    top: 92px;
+    max-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
   }
-  .result-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
-  .event-text { color: var(--muted); font-size: 0.85rem; margin: 0 0 10px; }
-  .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 14px; border-radius: 999px; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.03em;
+  .sidebar h2 {
+    font-size: 0.78rem; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
   }
-  .badge.attack { background: var(--attack-bg); color: var(--attack); }
-  .badge.benign { background: var(--benign-bg); color: var(--benign); }
-  .score { color: var(--muted); font-size: 0.85rem; }
+  .sidebar h2 .count {
+    font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--border-soft);
+    border-radius: 999px; padding: 1px 8px; font-size: 0.7rem; color: var(--muted);
+  }
+  .history-list { overflow-y: auto; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .history-list::-webkit-scrollbar { width: 6px; }
+  .history-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .history-empty { color: var(--muted-2); font-size: 0.82rem; line-height: 1.5; padding: 8px 2px; }
 
-  .explanation, .mitigation {
-    margin-top: 12px;
-    font-size: 0.9rem;
-    line-height: 1.55;
-  }
-  .explanation strong, .mitigation strong { color: var(--text); }
-
-  .matches { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
-  .match {
-    background: #0d1526;
-    border: 1px solid var(--panel-border);
+  .history-item {
+    background: var(--panel-2);
+    border: 1px solid var(--border-soft);
     border-radius: 8px;
-    padding: 10px 14px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    animation: slideIn 0.3s ease;
   }
-  .match-top { display: flex; justify-content: space-between; font-size: 0.88rem; }
-  .match-name { font-weight: 600; }
-  .match-meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
-  .match-desc { color: var(--muted); font-size: 0.8rem; margin-top: 6px; line-height: 1.5; }
-  .sim-bar-track { height: 4px; background: #1c2740; border-radius: 2px; margin-top: 6px; overflow: hidden; }
-  .sim-bar-fill { height: 100%; background: var(--accent); }
+  .history-item:hover { border-color: var(--accent); background: #0f1830; }
+  .history-item.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .history-top { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+  .history-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .history-dot.attack { background: var(--attack); box-shadow: 0 0 6px var(--attack-glow); }
+  .history-dot.benign { background: var(--benign); box-shadow: 0 0 6px var(--benign-glow); }
+  .history-verdict { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.03em; }
+  .history-verdict.attack { color: var(--attack); }
+  .history-verdict.benign { color: var(--benign); }
+  .history-time { font-size: 0.68rem; color: var(--muted-2); margin-left: auto; font-family: var(--mono); }
+  .history-text { font-size: 0.78rem; color: var(--muted); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-  .timestamp { color: var(--muted); font-size: 0.75rem; }
+  footer {
+    text-align: center; color: var(--muted-2); font-size: 0.72rem;
+    padding: 20px 32px 32px;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>LLM-Based ICS Intrusion Detection — Live Prototype</h1>
-  <p>
-    Zero-shot classifier over 97 real MITRE ATT&amp;CK ICS techniques.
-    Each event description is embedded with a sentence-transformer model and compared by
-    cosine similarity against every technique's official MITRE description — no attack-specific
-    training. Implements and evaluates the pipeline described (but never empirically tested) in
-    Yoo et al., ICUFN 2024.
-  </p>
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L3 6v6c0 5.2 3.6 9.9 9 11 5.4-1.1 9-5.8 9-11V6l-9-4z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="brand-text">
+      <h1>ICS Intrusion Detection — LLM-Augmented Analysis</h1>
+      <p>Zero-shot classification of ICS events against 97 MITRE ATT&amp;CK ICS techniques</p>
+    </div>
+  </div>
+  <div class="status-pill"><span class="status-dot"></span>MODEL READY · all-MiniLM-L6-v2</div>
 </header>
 
-<main>
-  <div class="input-card">
-    <textarea id="eventText" placeholder="Describe an ICS event, e.g. &quot;Unauthorized remote login to the engineering workstation from an external IP followed by an unscheduled PLC firmware upload&quot;"></textarea>
-    <div class="row">
-      <div class="examples">
-        <button type="button" onclick="fillExample(0)">Attack example</button>
-        <button type="button" onclick="fillExample(1)">Benign example</button>
+<div class="layout">
+  <div class="main-col">
+    <div class="input-card">
+      <label for="eventText">Event Description</label>
+      <textarea id="eventText" placeholder="e.g. Unauthorized remote login to the engineering workstation from an external IP followed by an unscheduled PLC firmware upload"></textarea>
+      <div class="input-footer">
+        <div class="examples">
+          <span class="example-chip" onclick="fillExample(0)">⚠ Attack example</span>
+          <span class="example-chip" onclick="fillExample(1)">✓ Benign example</span>
+        </div>
+        <button class="analyze" id="analyzeBtn" onclick="analyze()">
+          <span class="spinner"></span>
+          <span class="btn-label">Analyze Event</span>
+        </button>
       </div>
-      <button class="analyze" id="analyzeBtn" onclick="analyze()">Analyze (Enter)</button>
     </div>
-    <div class="loading" id="loading">Analyzing…</div>
+
+    <div id="resultContainer">
+      <div class="empty-state" id="emptyState">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <p>Describe an ICS event above and click Analyze to see the verdict, similarity score, and matched ATT&amp;CK ICS techniques.</p>
+      </div>
+    </div>
   </div>
 
-  <div id="history"></div>
-</main>
+  <aside class="sidebar">
+    <h2>Session History <span class="count" id="historyCount">0</span></h2>
+    <div class="history-list" id="historyList">
+      <div class="history-empty" id="historyEmpty">No queries yet. Results from this session will appear here so you can revisit earlier examples.</div>
+    </div>
+  </aside>
+</div>
+
+<footer>Local prototype · runs entirely on 127.0.0.1 · no data leaves this machine</footer>
 
 <script>
 const EXAMPLES = [
@@ -156,11 +425,22 @@ const EXAMPLES = [
   "HMI performed its routine 5-second polling cycle of the tank level sensor with no anomalies detected."
 ];
 
+const textarea = document.getElementById('eventText');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const resultContainer = document.getElementById('resultContainer');
+const emptyState = document.getElementById('emptyState');
+const historyList = document.getElementById('historyList');
+const historyEmpty = document.getElementById('historyEmpty');
+const historyCount = document.getElementById('historyCount');
+
+let history = [];   // [{data, time}]
+let activeIndex = null;
+
 function fillExample(i) {
-  document.getElementById('eventText').value = EXAMPLES[i];
+  textarea.value = EXAMPLES[i];
+  textarea.focus();
 }
 
-const textarea = document.getElementById('eventText');
 textarea.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
@@ -176,12 +456,10 @@ function escapeHtml(s) {
 
 async function analyze() {
   const text = textarea.value.trim();
-  if (!text) return;
+  if (!text || analyzeBtn.classList.contains('loading')) return;
 
-  const btn = document.getElementById('analyzeBtn');
-  const loading = document.getElementById('loading');
-  btn.disabled = true;
-  loading.classList.add('active');
+  analyzeBtn.classList.add('loading');
+  analyzeBtn.disabled = true;
 
   try {
     const resp = await fetch('/api/analyze', {
@@ -194,49 +472,109 @@ async function analyze() {
       alert(data.error);
       return;
     }
-    renderResult(data);
+    const entry = { data, time: new Date() };
+    history.unshift(entry);
+    activeIndex = 0;
+    renderHistory();
+    renderResult(entry);
+    textarea.value = '';
   } catch (err) {
     alert('Request failed: ' + err.message);
   } finally {
-    btn.disabled = false;
-    loading.classList.remove('active');
+    analyzeBtn.classList.remove('loading');
+    analyzeBtn.disabled = false;
   }
 }
 
-function renderResult(data) {
-  const history = document.getElementById('history');
-  const card = document.createElement('div');
-  card.className = 'result-card';
+function fmtTime(d) {
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+
+function renderResult(entry) {
+  const data = entry.data;
+  emptyState.style.display = 'none';
 
   const verdictClass = data.verdict === 'ATTACK' ? 'attack' : 'benign';
-  const time = new Date().toLocaleTimeString();
+  const scorePct = Math.max(0, Math.min(100, data.similarity * 100));
+  const threshPct = Math.max(0, Math.min(100, data.threshold * 100));
 
-  let matchesHtml = data.matches.map(m => `
-    <div class="match">
+  const matchesHtml = data.matches.map((m, i) => `
+    <div class="match-card">
       <div class="match-top">
-        <span class="match-name">${escapeHtml(m.name)}</span>
-        <span>${(m.similarity * 100).toFixed(1)}%</span>
+        <div class="match-name-row">
+          <span class="match-rank">#${i + 1}</span>
+          <span class="match-name">${escapeHtml(m.name)}</span>
+        </div>
+        <span class="match-sim">${(m.similarity * 100).toFixed(1)}%</span>
       </div>
-      <div class="match-meta">${escapeHtml(m.id)} · Tactic: ${escapeHtml(m.tactic)}</div>
-      <div class="sim-bar-track"><div class="sim-bar-fill" style="width:${(m.similarity * 100).toFixed(1)}%"></div></div>
-      <div class="match-desc">${escapeHtml(m.description.slice(0, 220))}${m.description.length > 220 ? '…' : ''}</div>
+      <div class="match-id">${escapeHtml(m.id)}</div>
+      <span class="tactic-pill">${escapeHtml(m.tactic)}</span>
+      <div class="mini-bar-track"><div class="mini-bar-fill ${verdictClass}" style="width:${(m.similarity * 100).toFixed(1)}%; background: ${i === 0 ? (verdictClass === 'attack' ? 'var(--attack)' : 'var(--benign)') : 'var(--muted-2)'}"></div></div>
+      <div class="match-desc">${escapeHtml(m.description.slice(0, 240))}${m.description.length > 240 ? '…' : ''}</div>
     </div>
   `).join('');
 
+  const card = document.createElement('div');
+  card.className = `result-card ${verdictClass}`;
   card.innerHTML = `
-    <p class="event-text">"${escapeHtml(data.event_text)}"  <span class="timestamp">· ${time}</span></p>
-    <div class="result-header">
-      <span class="badge ${verdictClass}">${data.verdict}</span>
-      <span class="score">similarity ${data.similarity.toFixed(3)} / threshold ${data.threshold.toFixed(3)}</span>
+    <div class="query-echo">"${escapeHtml(data.event_text)}"</div>
+
+    <div class="verdict-row">
+      <span class="verdict-badge ${verdictClass}"><span class="dot"></span>${data.verdict}</span>
+      <span class="verdict-time">${fmtTime(entry.time)}</span>
     </div>
-    <div class="explanation"><strong>Explanation:</strong> ${escapeHtml(data.explanation)}</div>
-    <div class="mitigation"><strong>Recommended action:</strong> ${escapeHtml(data.mitigation)}</div>
+
+    <div class="score-block">
+      <div class="score-label-row">
+        <span class="score-label">Similarity Score (cosine, not a calibrated probability)</span>
+        <span class="score-value">${data.similarity.toFixed(3)}</span>
+      </div>
+      <div class="score-track">
+        <div class="score-fill ${verdictClass}" style="width:${scorePct}%"></div>
+        <div class="threshold-marker" style="left:${threshPct}%"></div>
+      </div>
+      <div class="score-caption">Detection threshold: ${data.threshold.toFixed(3)} — calibrated as the midpoint between mean attack and mean benign similarity on the evaluation set.</div>
+    </div>
+
+    <div class="analysis-block">
+      <div class="section-label">Analysis</div>
+      <p><span class="tag">Explanation</span>${escapeHtml(data.explanation)}</p>
+      <p><span class="tag">Recommended Action</span>${escapeHtml(data.mitigation)}</p>
+    </div>
+
+    <div class="section-label">Top-3 Matched ATT&amp;CK ICS Techniques</div>
     <div class="matches">${matchesHtml}</div>
   `;
 
-  history.insertBefore(card, history.firstChild);
-  textarea.value = '';
-  textarea.focus();
+  resultContainer.insertBefore(card, resultContainer.firstChild);
+}
+
+function renderHistory() {
+  historyCount.textContent = history.length;
+  historyEmpty.style.display = history.length ? 'none' : 'block';
+  historyList.querySelectorAll('.history-item').forEach(el => el.remove());
+
+  history.forEach((entry, i) => {
+    const verdictClass = entry.data.verdict === 'ATTACK' ? 'attack' : 'benign';
+    const item = document.createElement('div');
+    item.className = 'history-item' + (i === activeIndex ? ' active' : '');
+    item.innerHTML = `
+      <div class="history-top">
+        <span class="history-dot ${verdictClass}"></span>
+        <span class="history-verdict ${verdictClass}">${entry.data.verdict}</span>
+        <span class="history-time">${fmtTime(entry.time)}</span>
+      </div>
+      <div class="history-text">${escapeHtml(entry.data.event_text)}</div>
+    `;
+    item.addEventListener('click', () => {
+      activeIndex = i;
+      renderHistory();
+      resultContainer.querySelectorAll('.result-card').forEach(el => el.remove());
+      renderResult(entry);
+      resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    historyList.appendChild(item);
+  });
 }
 </script>
 

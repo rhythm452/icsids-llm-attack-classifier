@@ -1,7 +1,7 @@
 """
 FastAPI web app for the LLM-based ICS intrusion detector.
 
-Wraps the SAME zero-shot classification logic as demo.py / ics_llm_ids.py
+Wraps the SAME zero-shot classification logic as ics_llm_ids.py
 (embed event text with all-MiniLM-L6-v2, cosine-similarity against the 97
 real MITRE ATT&CK ICS techniques, threshold calibrated in results.json) --
 no changes to that logic, just a JSON API + a static frontend on top of it.
@@ -58,7 +58,7 @@ print(f"Ready. {len(tech_ids)} techniques loaded, threshold={THRESHOLD:.3f}")
 
 
 # ---------------------------------------------------------------------------
-# Detection + explanation logic (same math as demo.py, plus a templated,
+# Detection + explanation logic (same math as ics_llm_ids.py, plus a templated,
 # non-hallucinated explanation/mitigation grounded in the matched
 # technique's own MITRE description)
 # ---------------------------------------------------------------------------
