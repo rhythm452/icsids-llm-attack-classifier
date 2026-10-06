@@ -1,0 +1,673 @@
+{
+ "dataset": "X-IIoTID",
+ "task": "multiclass",
+ "tag": "_class1",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 134
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9855359881991144,
+   "train_time_s": 96.94404200000281
+  }
+ ],
+ "test": {
+  "accuracy": 0.9956798847969279,
+  "macro_f1": 0.9752526391641334,
+  "weighted_f1": 0.9957314693428466,
+  "roc_auc_ovr_macro": 0.9999367796510924,
+  "per_class": {
+   "BruteForce": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 2393
+   },
+   "C&C": {
+    "precision": 0.9795918367346939,
+    "recall": 1.0,
+    "f1": 0.9896907216494846,
+    "support": 240
+   },
+   "Dictionary": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 203
+   },
+   "Discovering_resources": {
+    "precision": 0.9778325123152709,
+    "recall": 0.9834847233691164,
+    "f1": 0.9806504734458625,
+    "support": 1211
+   },
+   "Exfiltration": {
+    "precision": 1.0,
+    "recall": 0.9991525423728813,
+    "f1": 0.9995760915642221,
+    "support": 1180
+   },
+   "Fake_notification": {
+    "precision": 0.8,
+    "recall": 1.0,
+    "f1": 0.8888888888888888,
+    "support": 4
+   },
+   "False_data_injection": {
+    "precision": 0.980225988700565,
+    "recall": 0.9971264367816092,
+    "f1": 0.9886039886039886,
+    "support": 348
+   },
+   "Generic_scanning": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 2548
+   },
+   "MQTT_cloud_broker_subscription": {
+    "precision": 0.9991039426523297,
+    "recall": 0.9991039426523297,
+    "f1": 0.9991039426523297,
+    "support": 1116
+   },
+   "MitM": {
+    "precision": 1.0,
+    "recall": 0.8823529411764706,
+    "f1": 0.9375,
+    "support": 17
+   },
+   "Modbus_register_reading": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 392
+   },
+   "Normal": {
+    "precision": 0.9968808170247019,
+    "recall": 0.9951785445231279,
+    "f1": 0.9960289534533026,
+    "support": 19911
+   },
+   "RDOS": {
+    "precision": 1.0,
+    "recall": 0.9994822676676158,
+    "f1": 0.9997410668047644,
+    "support": 3863
+   },
+   "Reverse_shell": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 151
+   },
+   "Scanning_vulnerability": {
+    "precision": 1.0,
+    "recall": 0.999251497005988,
+    "f1": 0.9996256083863722,
+    "support": 2672
+   },
+   "TCP Relay": {
+    "precision": 0.7931034482758621,
+    "recall": 0.8975609756097561,
+    "f1": 0.8421052631578947,
+    "support": 205
+   },
+   "crypto-ransomware": {
+    "precision": 0.9855072463768116,
+    "recall": 1.0,
+    "f1": 0.9927007299270073,
+    "support": 68
+   },
+   "fuzzing": {
+    "precision": 0.9337748344370861,
+    "recall": 0.8980891719745223,
+    "f1": 0.9155844155844156,
+    "support": 157
+   },
+   "insider_malcious": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 820
+   }
+  },
+  "confusion_matrix": [
+   [
+    2393,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    240,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    203,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1,
+    0,
+    1191,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    19,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    1179,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    347,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2548,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1115,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    15,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    392,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    4,
+    0,
+    25,
+    0,
+    1,
+    6,
+    0,
+    1,
+    0,
+    0,
+    19815,
+    0,
+    0,
+    0,
+    48,
+    1,
+    10,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3861,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    151,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    2670,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    21,
+    0,
+    0,
+    0,
+    184,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    68,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    16,
+    0,
+    0,
+    0,
+    0,
+    0,
+    141,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    820
+   ]
+  ],
+  "classes": [
+   "BruteForce",
+   "C&C",
+   "Dictionary",
+   "Discovering_resources",
+   "Exfiltration",
+   "Fake_notification",
+   "False_data_injection",
+   "Generic_scanning",
+   "MQTT_cloud_broker_subscription",
+   "MitM",
+   "Modbus_register_reading",
+   "Normal",
+   "RDOS",
+   "Reverse_shell",
+   "Scanning_vulnerability",
+   "TCP Relay",
+   "crypto-ransomware",
+   "fuzzing",
+   "insider_malcious"
+  ],
+  "train_time_s": 96.94404200000281,
+  "inference_s_per_1000": 0.16868628230103147
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 118,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "Avg_num_cswch/s",
+   "share": 0.10863648910301747
+  },
+  {
+   "feature": "service_port",
+   "share": 0.09794638462272577
+  },
+  {
+   "feature": "Duration",
+   "share": 0.07780215983022436
+  },
+  {
+   "feature": "Service_ssh",
+   "share": 0.051381181287491515
+  },
+  {
+   "feature": "Service_modbus",
+   "share": 0.04641320282391978
+  },
+  {
+   "feature": "Avg_num_Proc/s",
+   "share": 0.042523244586394573
+  },
+  {
+   "feature": "Service_mqtt",
+   "share": 0.04146359765668082
+  },
+  {
+   "feature": "Avg_nice_time",
+   "share": 0.04056762410539041
+  },
+  {
+   "feature": "Scr_bytes",
+   "share": 0.03355351810412324
+  },
+  {
+   "feature": "missingindicator_Avg_num_Proc/s",
+   "share": 0.029465415067125866
+  },
+  {
+   "feature": "Protocol_udp",
+   "share": 0.02691479889311692
+  },
+  {
+   "feature": "Service_http",
+   "share": 0.025003997042639007
+  },
+  {
+   "feature": "Service_websocket",
+   "share": 0.022336567865997203
+  },
+  {
+   "feature": "File_activity",
+   "share": 0.021881210007226936
+  },
+  {
+   "feature": "total_bytes",
+   "share": 0.020716772085693797
+  },
+  {
+   "feature": "Protocol_tcp",
+   "share": 0.019631921186358543
+  },
+  {
+   "feature": "Service_smtp",
+   "share": 0.018547396034603262
+  },
+  {
+   "feature": "anomaly_alert",
+   "share": 0.01795919577204522
+  },
+  {
+   "feature": "Process_activity",
+   "share": 0.017501723728569993
+  },
+  {
+   "feature": "missingindicator_Std_user_time",
+   "share": 0.014811055857611357
+  },
+  {
+   "feature": "Service_dns",
+   "share": 0.011980806903230076
+  },
+  {
+   "feature": "Std_user_time",
+   "share": 0.011922038489801752
+  },
+  {
+   "feature": "Des_bytes_ratio",
+   "share": 0.011583002372886416
+  },
+  {
+   "feature": "Service_other",
+   "share": 0.011496936207263327
+  },
+  {
+   "feature": "read_write_physical.process",
+   "share": 0.011086268203395764
+  }
+ ]
+}

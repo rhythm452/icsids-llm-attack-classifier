@@ -1,0 +1,86 @@
+{
+ "rows_raw": 32774,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-IoT_Thermostat",
+ "kind": "IoT/IIoT device telemetry",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 32774,
+ "rows_after_dedup": 30944,
+ "duplicates_removed": 1830,
+ "type_counts_before_dedup": {
+  "normal": 15000,
+  "injection": 5000,
+  "backdoor": 5000,
+  "password": 5000,
+  "ransomware": 2264,
+  "xss": 449,
+  "scanning": 61
+ },
+ "type_counts_after_dedup": {
+  "normal": 14105,
+  "injection": 4745,
+  "backdoor": 4737,
+  "password": 4736,
+  "ransomware": 2143,
+  "xss": 420,
+  "scanning": 58
+ },
+ "conflicting_label_rows": 117,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "current_temperature",
+  "thermostat_status"
+ ],
+ "features_categorical": [],
+ "dropped_columns": {
+  "date": "timestamp/date: identifies capture session, not behaviour",
+  "time": "timestamp/date: identifies capture session, not behaviour; leading-space format differs by label (leak)"
+ },
+ "n_rows": {
+  "train": 21660,
+  "val": 4642,
+  "test": 4642
+ },
+ "attack_ratio": {
+  "train": 0.5441828254847645,
+  "val": 0.5441619991383024,
+  "test": 0.5441619991383024
+ },
+ "type_counts": {
+  "train": {
+   "normal": 9873,
+   "injection": 3321,
+   "backdoor": 3316,
+   "password": 3315,
+   "ransomware": 1500,
+   "xss": 294,
+   "scanning": 41
+  },
+  "val": {
+   "normal": 2116,
+   "injection": 712,
+   "password": 711,
+   "backdoor": 710,
+   "ransomware": 321,
+   "xss": 63,
+   "scanning": 9
+  },
+  "test": {
+   "normal": 2116,
+   "injection": 712,
+   "backdoor": 711,
+   "password": 710,
+   "ransomware": 322,
+   "xss": 63,
+   "scanning": 8
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}

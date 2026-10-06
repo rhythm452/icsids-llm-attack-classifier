@@ -1,0 +1,68 @@
+{
+ "dataset": "Edge-IIoTset",
+ "task": "binary",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.9939077458659704,
+   "train_time_s": 0.636726799995813
+  },
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 5
+   },
+   "val_score": 0.9904761904761905,
+   "train_time_s": 0.671830700004648
+  },
+  {
+   "params": {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.9939077458659704,
+   "train_time_s": 0.5588300000017625
+  }
+ ],
+ "test": {
+  "accuracy": 0.9918032786885246,
+  "precision": 0.993006993006993,
+  "recall": 0.993006993006993,
+  "f1": 0.993006993006993,
+  "macro_f1": 0.9915530014539915,
+  "roc_auc": 0.9973430035311224,
+  "pr_auc": 0.9970839548623474,
+  "fpr": 0.009900990099009901,
+  "fnr": 0.006993006993006993,
+  "confusion_matrix": [
+   [
+    400,
+    4
+   ],
+   [
+    4,
+    568
+   ]
+  ],
+  "n_test": 976,
+  "n_attack": 572,
+  "train_time_s": 0.636726799995813,
+  "inference_s_per_1000": 0.044708504096665
+ },
+ "n_features_in": 42,
+ "n_features_encoded": 51,
+ "dropped_extra": []
+}

@@ -1,0 +1,620 @@
+{
+ "embedding_model": "all-MiniLM-L6-v2",
+ "embedding_model_is_stand_in": false,
+ "concepts": {
+  "Transport protocol": {
+   "Edge-IIoTset": "tcp.flags, tcp.connection.*",
+   "X-IIoTID": "Protocol",
+   "TON_IoT-Network": "proto"
+  },
+  "Application service": {
+   "Edge-IIoTset": "implied by http/mqtt/dns/mbtcp field groups",
+   "X-IIoTID": "Service",
+   "TON_IoT-Network": "service"
+  },
+  "Flow duration": {
+   "X-IIoTID": "Duration",
+   "TON_IoT-Network": "duration"
+  },
+  "Bytes per direction": {
+   "Edge-IIoTset": "tcp.len (per packet only)",
+   "X-IIoTID": "Scr_bytes, Des_bytes, Scr_ip_bytes, Des_ip_bytes",
+   "TON_IoT-Network": "src_bytes, dst_bytes, src_ip_bytes, dst_ip_bytes"
+  },
+  "Packets per direction": {
+   "X-IIoTID": "Scr_pkts, Des_pkts",
+   "TON_IoT-Network": "src_pkts, dst_pkts"
+  },
+  "TCP connection state / flags": {
+   "Edge-IIoTset": "tcp.connection.syn/fin/rst/synack, tcp.flags.ack",
+   "X-IIoTID": "Conn_state, is_syn_only, Is_SYN_ACK, is_pure_ack, FIN or RST",
+   "TON_IoT-Network": "conn_state"
+  },
+  "DNS fields": {
+   "Edge-IIoTset": "dns.qry.qu, dns.retransmission, ...",
+   "TON_IoT-Network": "dns_qclass, dns_qtype, dns_rcode, dns_AA/RD/RA"
+  },
+  "HTTP fields": {
+   "Edge-IIoTset": "http.request.method, http.response, ...",
+   "TON_IoT-Network": "http_method, http_status_code, ..."
+  },
+  "MQTT fields": {
+   "Edge-IIoTset": "mqtt.msgtype, mqtt.hdrflags, ...",
+   "X-IIoTID": "(Service = mqtt only)"
+  },
+  "Modbus": {
+   "Edge-IIoTset": "mbtcp.len, mbtcp.unit_id (framing only)",
+   "TON_IoT-Modbus": "FC1-FC4 register values",
+   "X-IIoTID": "(Service = modbus only)"
+  },
+  "Host CPU / memory / disk": {
+   "X-IIoTID": "Avg_/Std_ user, system, iowait, tps, kbmemused, ..."
+  },
+  "Host / IDS alerts": {
+   "X-IIoTID": "OSSEC_alert(_level), anomaly_alert, Login_attempt, File_activity, ..."
+  },
+  "Physical process values": {
+   "BATADAL": "tank levels, pump flows/status, valve flow/status, junction pressures",
+   "TON_IoT-Modbus": "register values (semantics undocumented)"
+  }
+ },
+ "granularity": {
+  "BATADAL": "hourly plant snapshot",
+  "Edge-IIoTset": "single packet",
+  "X-IIoTID": "connection flow + host window",
+  "TON_IoT-Network": "connection flow",
+  "TON_IoT-Modbus": "Modbus poll (4 register values)"
+ },
+ "sample_sizes": {
+  "train": 5000,
+  "test": 2000
+ },
+ "embedding_matrix": {
+  "BATADAL": {
+   "BATADAL": {
+    "f1": 0.12476370510396975,
+    "precision": 0.07349665924276169,
+    "recall": 0.4125,
+    "roc_auc": 0.4895431328036322,
+    "pr_auc": 0.08317795812572845,
+    "accuracy": 0.518210197710718
+   },
+   "Edge-IIoTset": {
+    "f1": 0.11842105263157894,
+    "precision": 1.0,
+    "recall": 0.06293706293706294,
+    "roc_auc": 0.7705008481617392,
+    "pr_auc": 0.8608994900463343,
+    "accuracy": 0.45081967213114754
+   },
+   "X-IIoTID": {
+    "f1": 0.0021208907741251328,
+    "precision": 1.0,
+    "recall": 0.0010615711252653928,
+    "roc_auc": 0.4869372773399546,
+    "pr_auc": 0.44052496040411815,
+    "accuracy": 0.530439121756487
+   },
+   "TON_IoT-Network": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "roc_auc": 0.4810840067147865,
+    "pr_auc": 0.7309695575997491,
+    "accuracy": 0.2305
+   },
+   "TON_IoT-Modbus": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "roc_auc": 0.49794858274126697,
+    "pr_auc": 0.5860687968546738,
+    "accuracy": 0.4229902329075883
+   }
+  },
+  "Edge-IIoTset": {
+   "BATADAL": {
+    "f1": 0.15369836695485112,
+    "precision": 0.08324661810613944,
+    "recall": 1.0,
+    "roc_auc": 0.5818955732122588,
+    "pr_auc": 0.11295745861678265,
+    "accuracy": 0.08324661810613944
+   },
+   "Edge-IIoTset": {
+    "f1": 0.9947735191637631,
+    "precision": 0.9913194444444444,
+    "recall": 0.9982517482517482,
+    "roc_auc": 0.998669338087655,
+    "pr_auc": 0.9991795334413835,
+    "accuracy": 0.9938524590163934
+   },
+   "X-IIoTID": {
+    "f1": 0.62746454514009,
+    "precision": 0.465366854797332,
+    "recall": 0.9628450106157113,
+    "roc_auc": 0.5531825142642373,
+    "pr_auc": 0.4675299065457302,
+    "accuracy": 0.4625748502994012
+   },
+   "TON_IoT-Network": {
+    "f1": 0.8906148867313916,
+    "precision": 0.8871695680206318,
+    "recall": 0.894087069525666,
+    "roc_auc": 0.8450412203884823,
+    "pr_auc": 0.9379736880917096,
+    "accuracy": 0.831
+   },
+   "TON_IoT-Modbus": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "roc_auc": 0.5138858052101835,
+    "pr_auc": 0.594230394042655,
+    "accuracy": 0.4229902329075883
+   }
+  },
+  "X-IIoTID": {
+   "BATADAL": {
+    "f1": 0.15369836695485112,
+    "precision": 0.08324661810613944,
+    "recall": 1.0,
+    "roc_auc": 0.5930902383654938,
+    "pr_auc": 0.11162047674814583,
+    "accuracy": 0.08324661810613944
+   },
+   "Edge-IIoTset": {
+    "f1": 0.2797494780793319,
+    "precision": 0.3471502590673575,
+    "recall": 0.23426573426573427,
+    "roc_auc": 0.2677573045766115,
+    "pr_auc": 0.5037056653042782,
+    "accuracy": 0.2930327868852459
+   },
+   "X-IIoTID": {
+    "f1": 0.8728991596638656,
+    "precision": 0.8638253638253638,
+    "recall": 0.8821656050955414,
+    "roc_auc": 0.9262557926597654,
+    "pr_auc": 0.9321915601114237,
+    "accuracy": 0.8792415169660679
+   },
+   "TON_IoT-Network": {
+    "f1": 0.8800253244697689,
+    "precision": 0.8580246913580247,
+    "recall": 0.9031838856400259,
+    "roc_auc": 0.5747851592506613,
+    "pr_auc": 0.7679479270936773,
+    "accuracy": 0.8105
+   },
+   "TON_IoT-Modbus": {
+    "f1": 0.7317770366841353,
+    "precision": 0.5770097670924117,
+    "recall": 1.0,
+    "roc_auc": 0.5118760176139727,
+    "pr_auc": 0.5878328910473198,
+    "accuracy": 0.5770097670924117
+   }
+  },
+  "TON_IoT-Network": {
+   "BATADAL": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "roc_auc": 0.5279653802497163,
+    "pr_auc": 0.08999536371909915,
+    "accuracy": 0.9146722164412071
+   },
+   "Edge-IIoTset": {
+    "f1": 0.7082405345211581,
+    "precision": 0.9754601226993865,
+    "recall": 0.5559440559440559,
+    "roc_auc": 0.9294576092224607,
+    "pr_auc": 0.9486445140861475,
+    "accuracy": 0.7315573770491803
+   },
+   "X-IIoTID": {
+    "f1": 0.6588900671615412,
+    "precision": 0.4939056703762586,
+    "recall": 0.9893842887473461,
+    "roc_auc": 0.5220550897437435,
+    "pr_auc": 0.4656817794384075,
+    "accuracy": 0.5184630738522954
+   },
+   "TON_IoT-Network": {
+    "f1": 0.9282758620689655,
+    "precision": 0.9889786921381337,
+    "recall": 0.8745938921377517,
+    "roc_auc": 0.9837331337502591,
+    "pr_auc": 0.9947172854251703,
+    "accuracy": 0.896
+   },
+   "TON_IoT-Modbus": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "roc_auc": 0.5112191940497336,
+    "pr_auc": 0.5888956612766774,
+    "accuracy": 0.4229902329075883
+   }
+  },
+  "TON_IoT-Modbus": {
+   "BATADAL": {
+    "f1": 0.15369836695485112,
+    "precision": 0.08324661810613944,
+    "recall": 1.0,
+    "roc_auc": 0.5,
+    "pr_auc": 0.08324661810613944,
+    "accuracy": 0.08324661810613944
+   },
+   "Edge-IIoTset": {
+    "f1": 0.7390180878552972,
+    "precision": 0.5860655737704918,
+    "recall": 1.0,
+    "roc_auc": 0.5,
+    "pr_auc": 0.5860655737704918,
+    "accuracy": 0.5860655737704918
+   },
+   "X-IIoTID": {
+    "f1": 0.639511201629328,
+    "precision": 0.47005988023952094,
+    "recall": 1.0,
+    "roc_auc": 0.5,
+    "pr_auc": 0.47005988023952094,
+    "accuracy": 0.47005988023952094
+   },
+   "TON_IoT-Network": {
+    "f1": 0.8697372139022322,
+    "precision": 0.7695,
+    "recall": 1.0,
+    "roc_auc": 0.5,
+    "pr_auc": 0.7695,
+    "accuracy": 0.7695
+   },
+   "TON_IoT-Modbus": {
+    "f1": 0.7317770366841353,
+    "precision": 0.5770097670924117,
+    "recall": 1.0,
+    "roc_auc": 0.5,
+    "pr_auc": 0.5770097670924117,
+    "accuracy": 0.5770097670924117
+   }
+  }
+ },
+ "embedding_merges": {
+  "Edge+X-IIoTID": {
+   "members": [
+    "Edge-IIoTset",
+    "X-IIoTID"
+   ],
+   "test": {
+    "Edge-IIoTset": {
+     "f1": 0.9947735191637631,
+     "precision": 0.9913194444444444,
+     "recall": 0.9982517482517482,
+     "roc_auc": 0.9979942705809042,
+     "pr_auc": 0.9985501136113087,
+     "accuracy": 0.9938524590163934
+    },
+    "X-IIoTID": {
+     "f1": 0.8177777777777778,
+     "precision": 0.8578088578088578,
+     "recall": 0.7813163481953291,
+     "roc_auc": 0.9165916969544305,
+     "pr_auc": 0.9194776602005752,
+     "accuracy": 0.8363273453093812
+    }
+   }
+  },
+  "Edge+TON-Net": {
+   "members": [
+    "Edge-IIoTset",
+    "TON_IoT-Network"
+   ],
+   "test": {
+    "Edge-IIoTset": {
+     "f1": 0.9921259842519685,
+     "precision": 0.9929947460595446,
+     "recall": 0.9912587412587412,
+     "roc_auc": 0.9991799660735303,
+     "pr_auc": 0.9994233546550029,
+     "accuracy": 0.9907786885245902
+    },
+    "TON_IoT-Network": {
+     "f1": 0.9324648611587247,
+     "precision": 0.9869375907111756,
+     "recall": 0.8836907082521117,
+     "roc_auc": 0.9802277445844063,
+     "pr_auc": 0.9932293044240086,
+     "accuracy": 0.9015
+    }
+   }
+  },
+  "X-IIoTID+TON-Net": {
+   "members": [
+    "X-IIoTID",
+    "TON_IoT-Network"
+   ],
+   "test": {
+    "X-IIoTID": {
+     "f1": 0.7642276422764228,
+     "precision": 0.9299847792998478,
+     "recall": 0.648619957537155,
+     "roc_auc": 0.9186768545507614,
+     "pr_auc": 0.9236998816903039,
+     "accuracy": 0.81187624750499
+    },
+    "TON_IoT-Network": {
+     "f1": 0.9408967391304348,
+     "precision": 0.9857651245551602,
+     "recall": 0.8999350227420403,
+     "roc_auc": 0.9776808052105841,
+     "pr_auc": 0.99165111667105,
+     "accuracy": 0.913
+    }
+   }
+  },
+  "Network trio": {
+   "members": [
+    "Edge-IIoTset",
+    "X-IIoTID",
+    "TON_IoT-Network"
+   ],
+   "test": {
+    "Edge-IIoTset": {
+     "f1": 0.9912587412587412,
+     "precision": 0.9912587412587412,
+     "recall": 0.9912587412587412,
+     "roc_auc": 0.9985135532784047,
+     "pr_auc": 0.9988923145589385,
+     "accuracy": 0.9897540983606558
+    },
+    "X-IIoTID": {
+     "f1": 0.7386934673366834,
+     "precision": 0.9046153846153846,
+     "recall": 0.6242038216560509,
+     "roc_auc": 0.9131510869608678,
+     "pr_auc": 0.9150660833739648,
+     "accuracy": 0.7924151696606786
+    },
+    "TON_IoT-Network": {
+     "f1": 0.936734693877551,
+     "precision": 0.9828693790149893,
+     "recall": 0.8947368421052632,
+     "roc_auc": 0.9774736109173069,
+     "pr_auc": 0.9918409907817218,
+     "accuracy": 0.907
+    }
+   }
+  },
+  "BATADAL+TON-Modbus": {
+   "members": [
+    "BATADAL",
+    "TON_IoT-Modbus"
+   ],
+   "test": {
+    "BATADAL": {
+     "f1": 0.0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "roc_auc": 0.5067678774120318,
+     "pr_auc": 0.10085342258860763,
+     "accuracy": 0.9167533818938606
+    },
+    "TON_IoT-Modbus": {
+     "f1": 0.7317770366841353,
+     "precision": 0.5770097670924117,
+     "recall": 1.0,
+     "roc_auc": 0.4735674770574304,
+     "pr_auc": 0.5573129306678903,
+     "accuracy": 0.5770097670924117
+    }
+   }
+  },
+  "All 5": {
+   "members": [
+    "BATADAL",
+    "Edge-IIoTset",
+    "X-IIoTID",
+    "TON_IoT-Network",
+    "TON_IoT-Modbus"
+   ],
+   "test": {
+    "BATADAL": {
+     "f1": 0.0,
+     "precision": 0.0,
+     "recall": 0.0,
+     "roc_auc": 0.5511066969353009,
+     "pr_auc": 0.09668378594396729,
+     "accuracy": 0.9167533818938606
+    },
+    "Edge-IIoTset": {
+     "f1": 0.9947735191637631,
+     "precision": 0.9913194444444444,
+     "recall": 0.9982517482517482,
+     "roc_auc": 0.9985524994807173,
+     "pr_auc": 0.9989111941512289,
+     "accuracy": 0.9938524590163934
+    },
+    "X-IIoTID": {
+     "f1": 0.8283582089552238,
+     "precision": 0.8319057815845824,
+     "recall": 0.8248407643312102,
+     "roc_auc": 0.9081341138180175,
+     "pr_auc": 0.909339286771961,
+     "accuracy": 0.8393213572854291
+    },
+    "TON_IoT-Network": {
+     "f1": 0.9692110327132777,
+     "precision": 0.9569347688410387,
+     "recall": 0.98180636777128,
+     "roc_auc": 0.9746137658760865,
+     "pr_auc": 0.9900862354192405,
+     "accuracy": 0.952
+    },
+    "TON_IoT-Modbus": {
+     "f1": 0.7319884726224783,
+     "precision": 0.5799086757990868,
+     "recall": 0.9921875,
+     "roc_auc": 0.5018825858496152,
+     "pr_auc": 0.5894761547975589,
+     "accuracy": 0.5807663410969196
+    }
+   }
+  }
+ },
+ "embedding_sample_counts": {
+  "BATADAL": {
+   "train": 5000,
+   "test": 961
+  },
+  "Edge-IIoTset": {
+   "train": 4561,
+   "test": 976
+  },
+  "X-IIoTID": {
+   "train": 4998,
+   "test": 2004
+  },
+  "TON_IoT-Network": {
+   "train": 5000,
+   "test": 2000
+  },
+  "TON_IoT-Modbus": {
+   "train": 5000,
+   "test": 1331
+  }
+ },
+ "rowlevel": {
+  "features": {
+   "proto": [
+    "Protocol",
+    "proto"
+   ],
+   "service": [
+    "Service",
+    "service"
+   ],
+   "duration": [
+    "Duration",
+    "duration"
+   ],
+   "src_bytes": [
+    "Scr_bytes",
+    "src_bytes"
+   ],
+   "dst_bytes": [
+    "Des_bytes",
+    "dst_bytes"
+   ],
+   "missed_bytes": [
+    "missed_bytes",
+    "missed_bytes"
+   ],
+   "src_pkts": [
+    "Scr_pkts",
+    "src_pkts"
+   ],
+   "src_ip_bytes": [
+    "Scr_ip_bytes",
+    "src_ip_bytes"
+   ],
+   "dst_pkts": [
+    "Des_pkts",
+    "dst_pkts"
+   ],
+   "dst_ip_bytes": [
+    "Des_ip_bytes",
+    "dst_ip_bytes"
+   ]
+  },
+  "service_vocab": {
+   "X-IIoTID": [
+    "coap",
+    "dhcp",
+    "dns",
+    "echo",
+    "http",
+    "https",
+    "imap",
+    "modbus",
+    "mqtt",
+    "mysql",
+    "netbios-ns",
+    "other",
+    "private",
+    "simple_service_discovery",
+    "smtp",
+    "ssh",
+    "websocket"
+   ],
+   "TON_IoT-Network": [
+    "dce_rpc",
+    "dns",
+    "ftp",
+    "gssapi",
+    "http",
+    "na",
+    "smb",
+    "smb;gssapi",
+    "ssl"
+   ]
+  },
+  "matrix": {
+   "X-IIoTID": {
+    "X-IIoTID": {
+     "f1": 0.9851084952489009,
+     "precision": 0.9829059829059829,
+     "recall": 0.9873209006140551,
+     "roc_auc": 0.999145962153827,
+     "pr_auc": 0.9990549671222504,
+     "accuracy": 0.9859996266567108
+    },
+    "TON_IoT-Network": {
+     "f1": 0.8050381237332304,
+     "precision": 0.9665121668597915,
+     "recall": 0.6897949057227919,
+     "roc_auc": 0.8157462678308801,
+     "pr_auc": 0.9438645534663744,
+     "accuracy": 0.7428225857788529
+    }
+   },
+   "TON_IoT-Network": {
+    "X-IIoTID": {
+     "f1": 0.5480441060645839,
+     "precision": 0.4454125177809388,
+     "recall": 0.7121332726859222,
+     "roc_auc": 0.5513930254928953,
+     "pr_auc": 0.608790045794293,
+     "accuracy": 0.44910530947491933
+    },
+    "TON_IoT-Network": {
+     "f1": 0.9971062422488631,
+     "precision": 0.9968589849561911,
+     "recall": 0.9973536222295732,
+     "roc_auc": 0.9998102740294185,
+     "pr_auc": 0.9999424958549091,
+     "accuracy": 0.9955439556941881
+    }
+   }
+  },
+  "merge": {
+   "X-IIoTID": {
+    "f1": 0.9851179466750135,
+    "precision": 0.9860438621475364,
+    "recall": 0.984193768478508,
+    "roc_auc": 0.9991357549738593,
+    "pr_auc": 0.999042696046375,
+    "accuracy": 0.9860529614123044
+   },
+   "TON_IoT-Network": {
+    "f1": 0.996568404514822,
+    "precision": 0.9964448119057462,
+    "recall": 0.9966920277869666,
+    "roc_auc": 0.9995471658579954,
+    "pr_auc": 0.9998650220845184,
+    "accuracy": 0.9947164046088229
+   }
+  }
+ }
+}

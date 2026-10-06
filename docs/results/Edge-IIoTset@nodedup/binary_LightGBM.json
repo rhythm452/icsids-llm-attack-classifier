@@ -1,0 +1,159 @@
+{
+ "dataset": "Edge-IIoTset@nodedup",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 298
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9937497305918358,
+   "train_time_s": 2.2870560999945155
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9937497305918358,
+   "train_time_s": 4.2873491999998805
+  }
+ ],
+ "test": {
+  "accuracy": 0.9960266666666666,
+  "precision": 0.9872398732551169,
+  "recall": 1.0,
+  "f1": 0.9935789700495583,
+  "macro_f1": 0.9953511222484495,
+  "roc_auc": 0.9992450315227641,
+  "pr_auc": 0.9966655986295554,
+  "fpr": 0.005736947481903588,
+  "fnr": 0.0,
+  "confusion_matrix": [
+   [
+    25823,
+    149
+   ],
+   [
+    0,
+    11528
+   ]
+  ],
+  "n_test": 37500,
+  "n_attack": 11528,
+  "train_time_s": 2.2870560999945155,
+  "inference_s_per_1000": 0.005989965333331687
+ },
+ "n_features_in": 42,
+ "n_features_encoded": 55,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "service_port",
+   "share": 0.8524119469046574
+  },
+  {
+   "feature": "tcp.flags",
+   "share": 0.07852773511628525
+  },
+  {
+   "feature": "tcp.len",
+   "share": 0.023370903344673826
+  },
+  {
+   "feature": "len_http_file_data",
+   "share": 0.013526903373216836
+  },
+  {
+   "feature": "mqtt.hdrflags",
+   "share": 0.012711030332067276
+  },
+  {
+   "feature": "tcp.connection.rst",
+   "share": 0.005051965087008585
+  },
+  {
+   "feature": "tcp.connection.syn",
+   "share": 0.0045449684809485144
+  },
+  {
+   "feature": "udp.port",
+   "share": 0.0025040593620286986
+  },
+  {
+   "feature": "arp.opcode",
+   "share": 0.00211537042499885
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "share": 0.0014941687208103861
+  },
+  {
+   "feature": "tcp.connection.fin",
+   "share": 0.0009624744872777621
+  },
+  {
+   "feature": "len_tcp_payload",
+   "share": 0.0009258606626160502
+  },
+  {
+   "feature": "len_http_uri",
+   "share": 0.000604999007695114
+  },
+  {
+   "feature": "arp.hw.size",
+   "share": 0.0004090642661916039
+  },
+  {
+   "feature": "dns.retransmission",
+   "share": 0.00028116331701932926
+  },
+  {
+   "feature": "http.request.method_0",
+   "share": 9.704089524057653e-05
+  },
+  {
+   "feature": "mqtt.msgtype",
+   "share": 9.626193429695671e-05
+  },
+  {
+   "feature": "http.response",
+   "share": 9.567954024217329e-05
+  },
+  {
+   "feature": "udp.time_delta",
+   "share": 7.496312021391787e-05
+  },
+  {
+   "feature": "len_http_query",
+   "share": 6.220132657387052e-05
+  },
+  {
+   "feature": "http.content_length",
+   "share": 5.159169266481002e-05
+  },
+  {
+   "feature": "len_dns_name",
+   "share": 4.500729271861886e-05
+  },
+  {
+   "feature": "http.request.version_0",
+   "share": 2.8676270591775652e-05
+  },
+  {
+   "feature": "tcp.connection.synack",
+   "share": 4.503115174405996e-06
+  },
+  {
+   "feature": "http.request.method_get",
+   "share": 1.2280978154048743e-06
+  }
+ ]
+}

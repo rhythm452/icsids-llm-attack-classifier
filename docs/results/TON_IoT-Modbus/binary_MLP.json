@@ -1,0 +1,69 @@
+{
+ "dataset": "TON_IoT-Modbus",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   128,
+   64
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   128,
+   64
+  ],
+  "epochs": 8
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.49117647058823527,
+   "train_time_s": 2.209372600002098
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.5661861074705111,
+   "train_time_s": 1.521214799999143
+  }
+ ],
+ "test": {
+  "accuracy": 0.48459804658151767,
+  "precision": 0.5535248041775457,
+  "recall": 0.5520833333333334,
+  "f1": 0.5528031290743155,
+  "macro_f1": 0.4723235503527606,
+  "roc_auc": 0.4777790112492599,
+  "pr_auc": 0.5585154994813546,
+  "fpr": 0.6074600355239786,
+  "fnr": 0.4479166666666667,
+  "confusion_matrix": [
+   [
+    221,
+    342
+   ],
+   [
+    344,
+    424
+   ]
+  ],
+  "n_test": 1331,
+  "n_attack": 768,
+  "train_time_s": 1.521214799999143,
+  "inference_s_per_1000": 0.020615176561561074
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": []
+}

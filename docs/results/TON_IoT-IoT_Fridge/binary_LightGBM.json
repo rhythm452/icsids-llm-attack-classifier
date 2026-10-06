@@ -1,0 +1,71 @@
+{
+ "dataset": "TON_IoT-IoT_Fridge",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 10
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.7235772357723578,
+   "train_time_s": 0.06909459999587853
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.7235772357723578,
+   "train_time_s": 0.05414770000061253
+  }
+ ],
+ "test": {
+  "accuracy": 0.5220125786163522,
+  "precision": 0.8061224489795918,
+  "recall": 0.5808823529411765,
+  "f1": 0.6752136752136753,
+  "macro_f1": 0.38522588522588525,
+  "roc_auc": 0.38634910485933505,
+  "pr_auc": 0.8132893848881785,
+  "fpr": 0.8260869565217391,
+  "fnr": 0.41911764705882354,
+  "confusion_matrix": [
+   [
+    4,
+    19
+   ],
+   [
+    57,
+    79
+   ]
+  ],
+  "n_test": 159,
+  "n_attack": 136,
+  "train_time_s": 0.06909459999587853,
+  "inference_s_per_1000": 0.030442138342333242
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 3,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "fridge_temperature",
+   "share": 0.9747546337945323
+  },
+  {
+   "feature": "temp_condition_high",
+   "share": 0.025245366205467704
+  },
+  {
+   "feature": "temp_condition_low",
+   "share": 0.0
+  }
+ ]
+}

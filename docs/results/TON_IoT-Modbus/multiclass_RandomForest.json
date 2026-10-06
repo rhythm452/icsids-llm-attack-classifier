@@ -1,0 +1,131 @@
+{
+ "dataset": "TON_IoT-Modbus",
+ "task": "multiclass",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.11918300659587479,
+   "train_time_s": 1.4327094000036595
+  }
+ ],
+ "test": {
+  "accuracy": 0.3688955672426747,
+  "macro_f1": 0.11894339980500522,
+  "weighted_f1": 0.2636242839191132,
+  "roc_auc_ovr_macro": 0.508148716241778,
+  "per_class": {
+   "backdoor": {
+    "precision": 0.11475409836065574,
+    "recall": 0.03017241379310345,
+    "f1": 0.04778156996587031,
+    "support": 232
+   },
+   "injection": {
+    "precision": 0.08888888888888889,
+    "recall": 0.020100502512562814,
+    "f1": 0.03278688524590164,
+    "support": 199
+   },
+   "normal": {
+    "precision": 0.42019837691614065,
+    "recall": 0.827708703374778,
+    "f1": 0.5574162679425837,
+    "support": 563
+   },
+   "password": {
+    "precision": 0.12389380530973451,
+    "recall": 0.054474708171206226,
+    "f1": 0.07567567567567568,
+    "support": 257
+   },
+   "scanning": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 44
+   },
+   "xss": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 36
+   }
+  },
+  "confusion_matrix": [
+   [
+    7,
+    11,
+    189,
+    23,
+    1,
+    1
+   ],
+   [
+    5,
+    4,
+    167,
+    23,
+    0,
+    0
+   ],
+   [
+    34,
+    19,
+    466,
+    44,
+    0,
+    0
+   ],
+   [
+    11,
+    10,
+    221,
+    14,
+    0,
+    1
+   ],
+   [
+    3,
+    1,
+    35,
+    5,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    31,
+    4,
+    0,
+    0
+   ]
+  ],
+  "classes": [
+   "backdoor",
+   "injection",
+   "normal",
+   "password",
+   "scanning",
+   "xss"
+  ],
+  "train_time_s": 1.4327094000036595,
+  "inference_s_per_1000": 0.0848616078146296
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": []
+}

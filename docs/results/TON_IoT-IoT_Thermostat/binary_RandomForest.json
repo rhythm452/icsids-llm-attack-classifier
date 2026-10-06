@@ -1,0 +1,68 @@
+{
+ "dataset": "TON_IoT-IoT_Thermostat",
+ "task": "binary",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": 20,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": 20,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.553840063341251,
+   "train_time_s": 4.361047600003076
+  },
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 5
+   },
+   "val_score": 0.536,
+   "train_time_s": 3.4860969000001205
+  },
+  {
+   "params": {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.5565217391304348,
+   "train_time_s": 2.6486922999974922
+  }
+ ],
+ "test": {
+  "accuracy": 0.5105557949159845,
+  "precision": 0.5483625285605483,
+  "recall": 0.5700712589073634,
+  "f1": 0.5590062111801242,
+  "macro_f1": 0.5045757096558898,
+  "roc_auc": 0.5061098975194835,
+  "pr_auc": 0.5447148734843303,
+  "fpr": 0.5604914933837429,
+  "fnr": 0.42992874109263657,
+  "confusion_matrix": [
+   [
+    930,
+    1186
+   ],
+   [
+    1086,
+    1440
+   ]
+  ],
+  "n_test": 4642,
+  "n_attack": 2526,
+  "train_time_s": 2.6486922999974922,
+  "inference_s_per_1000": 0.027314024127631894
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": []
+}

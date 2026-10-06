@@ -1,0 +1,63 @@
+{
+ "dataset": "TON_IoT-IoT_Thermostat",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 1.0
+ },
+ "refit_params": {
+  "C": 1.0
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.6450885668276972,
+   "train_time_s": 0.02981710000312887
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.645306713894703,
+   "train_time_s": 0.02793999999994412
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.645306713894703,
+   "train_time_s": 0.026732599995739292
+  }
+ ],
+ "test": {
+  "accuracy": 0.5320982335200345,
+  "precision": 0.5487334801762115,
+  "recall": 0.7889944576405384,
+  "f1": 0.6472880805456317,
+  "macro_f1": 0.4762352110981517,
+  "roc_auc": 0.5053404891584983,
+  "pr_auc": 0.5467480725628572,
+  "fpr": 0.7745746691871456,
+  "fnr": 0.2110055423594616,
+  "confusion_matrix": [
+   [
+    477,
+    1639
+   ],
+   [
+    533,
+    1993
+   ]
+  ],
+  "n_test": 4642,
+  "n_attack": 2526,
+  "train_time_s": 0.02793999999994412,
+  "inference_s_per_1000": 0.0019300732447034273
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": []
+}

@@ -1,0 +1,63 @@
+{
+ "dataset": "Edge-IIoTset",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 10.0
+ },
+ "refit_params": {
+  "C": 10.0
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.9480401093892434,
+   "train_time_s": 0.0246638000025996
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.964349376114082,
+   "train_time_s": 0.01935580000281334
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.9653333333333334,
+   "train_time_s": 0.03586070000164909
+  }
+ ],
+ "test": {
+  "accuracy": 0.9641393442622951,
+  "precision": 0.9890710382513661,
+  "recall": 0.9493006993006993,
+  "f1": 0.9687778768956289,
+  "macro_f1": 0.9633299733455281,
+  "roc_auc": 0.9954844042096518,
+  "pr_auc": 0.9966499571136258,
+  "fpr": 0.01485148514851485,
+  "fnr": 0.050699300699300696,
+  "confusion_matrix": [
+   [
+    398,
+    6
+   ],
+   [
+    29,
+    543
+   ]
+  ],
+  "n_test": 976,
+  "n_attack": 572,
+  "train_time_s": 0.03586070000164909,
+  "inference_s_per_1000": 0.0065806352498928725
+ },
+ "n_features_in": 42,
+ "n_features_encoded": 51,
+ "dropped_extra": []
+}

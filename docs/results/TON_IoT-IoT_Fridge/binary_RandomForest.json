@@ -1,0 +1,68 @@
+{
+ "dataset": "TON_IoT-IoT_Fridge",
+ "task": "binary",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.8723404255319149,
+   "train_time_s": 0.8181394999992335
+  },
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 5
+   },
+   "val_score": 0.7430830039525692,
+   "train_time_s": 0.8051171000042814
+  },
+  {
+   "params": {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.8723404255319149,
+   "train_time_s": 0.7609849000000395
+  }
+ ],
+ "test": {
+  "accuracy": 0.8050314465408805,
+  "precision": 0.847682119205298,
+  "recall": 0.9411764705882353,
+  "f1": 0.89198606271777,
+  "macro_f1": 0.445993031358885,
+  "roc_auc": 0.1309143222506394,
+  "pr_auc": 0.7252791623198189,
+  "fpr": 1.0,
+  "fnr": 0.058823529411764705,
+  "confusion_matrix": [
+   [
+    0,
+    23
+   ],
+   [
+    8,
+    128
+   ]
+  ],
+  "n_test": 159,
+  "n_attack": 136,
+  "train_time_s": 0.8181394999992335,
+  "inference_s_per_1000": 0.40156226415727464
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 3,
+ "dropped_extra": []
+}

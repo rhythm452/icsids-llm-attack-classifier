@@ -1,0 +1,481 @@
+{
+ "embedding_model": "all-MiniLM-L6-v2",
+ "n_techniques": 97,
+ "threshold_deployed": 0.4157640337944031,
+ "threshold_recomputed": 0.41576406359672546,
+ "threshold_matches": true,
+ "analyst_techniques_missing_from_techniques_json": [
+  "Spoof Reporting Message",
+  "Unauthorized Command Message"
+ ],
+ "datasets": {
+  "BATADAL": {
+   "n_test": 961,
+   "n_attack": 80,
+   "deployed_threshold": {
+    "accuracy": 0.9167533818938606,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "macro_f1": 0.4782844733984799,
+    "roc_auc": 0.4774120317820659,
+    "pr_auc": 0.07636812854716973,
+    "fpr": 0.0,
+    "fnr": 1.0,
+    "confusion_matrix": [
+     [
+      881,
+      0
+     ],
+     [
+      80,
+      0
+     ]
+    ],
+    "n_test": 961,
+    "n_attack": 80,
+    "threshold": 0.4157640337944031
+   },
+   "tuned_threshold": {
+    "accuracy": 0.08428720083246619,
+    "precision": 0.08333333333333333,
+    "recall": 1.0,
+    "f1": 0.15384615384615385,
+    "macro_f1": 0.0780568637711495,
+    "roc_auc": 0.4774120317820659,
+    "pr_auc": 0.07636812854716973,
+    "fpr": 0.9988649262202043,
+    "fnr": 0.0,
+    "confusion_matrix": [
+     [
+      1,
+      880
+     ],
+     [
+      0,
+      80
+     ]
+    ],
+    "n_test": 961,
+    "n_attack": 80,
+    "threshold": 0.14295408129692078
+   },
+   "mean_max_sim": {
+    "normal": 0.15611904859542847,
+    "attack": 0.15551209449768066
+   },
+   "pct_rows_flagged_attack_at_deployed": 0.0,
+   "inference_s_per_1000": 25.486247450570662,
+   "technique_agreement_attack_rows": 0.0,
+   "top1_technique_by_type": {
+    "attack": {
+     "Point & Tag Identification": 51,
+     "Loss of Productivity and Revenue": 21,
+     "Detect Operating Mode": 5
+    }
+   }
+  },
+  "Edge-IIoTset": {
+   "n_test": 976,
+   "n_attack": 572,
+   "deployed_threshold": {
+    "accuracy": 0.5040983606557377,
+    "precision": 0.5540540540540541,
+    "recall": 0.7884615384615384,
+    "f1": 0.6507936507936508,
+    "macro_f1": 0.39783498794099503,
+    "roc_auc": 0.4344557051859032,
+    "pr_auc": 0.5973949334750627,
+    "fpr": 0.8985148514851485,
+    "fnr": 0.21153846153846154,
+    "confusion_matrix": [
+     [
+      41,
+      363
+     ],
+     [
+      121,
+      451
+     ]
+    ],
+    "n_test": 976,
+    "n_attack": 572,
+    "threshold": 0.4157640337944031
+   },
+   "tuned_threshold": {
+    "accuracy": 0.5973360655737705,
+    "precision": 0.594111461619348,
+    "recall": 0.9877622377622378,
+    "f1": 0.7419566644780039,
+    "macro_f1": 0.41293637419704393,
+    "roc_auc": 0.4344557051859032,
+    "pr_auc": 0.5973949334750627,
+    "fpr": 0.9554455445544554,
+    "fnr": 0.012237762237762238,
+    "confusion_matrix": [
+     [
+      18,
+      386
+     ],
+     [
+      7,
+      565
+     ]
+    ],
+    "n_test": 976,
+    "n_attack": 572,
+    "threshold": 0.33784589171409607
+   },
+   "mean_max_sim": {
+    "normal": 0.4785449206829071,
+    "attack": 0.4685938358306885
+   },
+   "pct_rows_flagged_attack_at_deployed": 83.40163934426229,
+   "inference_s_per_1000": 9.170030635247162,
+   "technique_agreement_attack_rows": 0.0,
+   "top1_technique_by_type": {
+    "SQL_injection": {
+     "Commonly Used Port": 39
+    },
+    "Ransomware": {
+     "Commonly Used Port": 5
+    },
+    "Vulnerability_scanner": {
+     "Commonly Used Port": 392
+    },
+    "Fingerprinting": {
+     "Commonly Used Port": 40,
+     "Standard Application Layer Protocol": 1
+    },
+    "MITM": {
+     "Commonly Used Port": 17
+    },
+    "XSS": {
+     "Commonly Used Port": 7
+    },
+    "DDoS_HTTP": {
+     "Commonly Used Port": 34
+    },
+    "Backdoor": {
+     "Commonly Used Port": 21
+    },
+    "DDoS_TCP": {
+     "Commonly Used Port": 8
+    },
+    "Uploading": {
+     "Commonly Used Port": 4,
+     "Standard Application Layer Protocol": 2
+    },
+    "Password": {
+     "Commonly Used Port": 1,
+     "Standard Application Layer Protocol": 1
+    }
+   }
+  },
+  "X-IIoTID": {
+   "n_test": 2004,
+   "n_attack": 942,
+   "deployed_threshold": {
+    "accuracy": 0.5299401197604791,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "macro_f1": 0.34637964774951074,
+    "roc_auc": 0.4589125993098788,
+    "pr_auc": 0.4336269297851533,
+    "fpr": 0.0,
+    "fnr": 1.0,
+    "confusion_matrix": [
+     [
+      1062,
+      0
+     ],
+     [
+      942,
+      0
+     ]
+    ],
+    "n_test": 2004,
+    "n_attack": 942,
+    "threshold": 0.4157640337944031
+   },
+   "tuned_threshold": {
+    "accuracy": 0.47005988023952094,
+    "precision": 0.47005988023952094,
+    "recall": 1.0,
+    "f1": 0.639511201629328,
+    "macro_f1": 0.319755600814664,
+    "roc_auc": 0.4589125993098788,
+    "pr_auc": 0.4336269297851533,
+    "fpr": 1.0,
+    "fnr": 0.0,
+    "confusion_matrix": [
+     [
+      0,
+      1062
+     ],
+     [
+      0,
+      942
+     ]
+    ],
+    "n_test": 2004,
+    "n_attack": 942,
+    "threshold": 0.2832455635070801
+   },
+   "mean_max_sim": {
+    "normal": 0.35203129053115845,
+    "attack": 0.3484081029891968
+   },
+   "pct_rows_flagged_attack_at_deployed": 0.0,
+   "inference_s_per_1000": 16.931833233232737,
+   "technique_agreement_attack_rows": 0.004250797024442083,
+   "top1_technique_by_type": {
+    "RDOS": {
+     "Standard Application Layer Protocol": 125,
+     "Adversary-in-the-Middle": 81
+    },
+    "MQTT_cloud_broker_subscription": {
+     "Commonly Used Port": 26,
+     "Adversary-in-the-Middle": 24,
+     "Standard Application Layer Protocol": 10
+    },
+    "Exfiltration": {
+     "Standard Application Layer Protocol": 39,
+     "Adversary-in-the-Middle": 24
+    },
+    "Scanning_vulnerability": {
+     "Commonly Used Port": 86,
+     "Standard Application Layer Protocol": 56,
+     "Adversary-in-the-Middle": 1
+    },
+    "Discovering_resources": {
+     "Standard Application Layer Protocol": 35,
+     "Adversary-in-the-Middle": 29,
+     "Commonly Used Port": 1
+    },
+    "BruteForce": {
+     "Standard Application Layer Protocol": 108,
+     "Commonly Used Port": 20
+    },
+    "False_data_injection": {
+     "Standard Application Layer Protocol": 16,
+     "Adversary-in-the-Middle": 3
+    },
+    "Generic_scanning": {
+     "Commonly Used Port": 118,
+     "Standard Application Layer Protocol": 18
+    },
+    "Reverse_shell": {
+     "Standard Application Layer Protocol": 5,
+     "Commonly Used Port": 3
+    },
+    "insider_malcious": {
+     "Standard Application Layer Protocol": 35,
+     "Commonly Used Port": 9
+    },
+    "crypto-ransomware": {
+     "Standard Application Layer Protocol": 2,
+     "Commonly Used Port": 1,
+     "Network Connection Enumeration": 1
+    },
+    "TCP Relay": {
+     "Standard Application Layer Protocol": 9,
+     "Commonly Used Port": 2
+    },
+    "fuzzing": {
+     "Standard Application Layer Protocol": 6,
+     "Commonly Used Port": 2
+    },
+    "Modbus_register_reading": {
+     "Standard Application Layer Protocol": 11,
+     "Adversary-in-the-Middle": 6,
+     "Commonly Used Port": 4
+    },
+    "C&C": {
+     "Adversary-in-the-Middle": 6,
+     "Standard Application Layer Protocol": 4,
+     "Network Connection Enumeration": 2
+    },
+    "Dictionary": {
+     "Standard Application Layer Protocol": 9,
+     "Adversary-in-the-Middle": 2
+    },
+    "Fake_notification": {
+     "Adversary-in-the-Middle": 1
+    },
+    "MitM": {
+     "Commonly Used Port": 1
+    }
+   }
+  },
+  "TON_IoT-Network": {
+   "n_test": 2000,
+   "n_attack": 1539,
+   "deployed_threshold": {
+    "accuracy": 0.77,
+    "precision": 0.7698849424712356,
+    "recall": 1.0,
+    "f1": 0.8699830412662521,
+    "macro_f1": 0.4371560227976282,
+    "roc_auc": 0.7397132261842845,
+    "pr_auc": 0.8941236554177256,
+    "fpr": 0.9978308026030369,
+    "fnr": 0.0,
+    "confusion_matrix": [
+     [
+      1,
+      460
+     ],
+     [
+      0,
+      1539
+     ]
+    ],
+    "n_test": 2000,
+    "n_attack": 1539,
+    "threshold": 0.4157640337944031
+   },
+   "tuned_threshold": {
+    "accuracy": 0.777,
+    "precision": 0.7778342653787493,
+    "recall": 0.9941520467836257,
+    "f1": 0.8727895037079293,
+    "macro_f1": 0.48497774780538166,
+    "roc_auc": 0.7397132261842845,
+    "pr_auc": 0.8941236554177256,
+    "fpr": 0.9479392624728851,
+    "fnr": 0.005847953216374269,
+    "confusion_matrix": [
+     [
+      24,
+      437
+     ],
+     [
+      9,
+      1530
+     ]
+    ],
+    "n_test": 2000,
+    "n_attack": 1539,
+    "threshold": 0.4710424542427063
+   },
+   "mean_max_sim": {
+    "normal": 0.5185288190841675,
+    "attack": 0.5432888269424438
+   },
+   "pct_rows_flagged_attack_at_deployed": 99.95,
+   "inference_s_per_1000": 7.8311096000034,
+   "technique_agreement_attack_rows": 0.0,
+   "top1_technique_by_type": {
+    "xss": {
+     "Commonly Used Port": 167
+    },
+    "injection": {
+     "Commonly Used Port": 379
+    },
+    "ddos": {
+     "Commonly Used Port": 239
+    },
+    "dos": {
+     "Commonly Used Port": 276
+    },
+    "scanning": {
+     "Commonly Used Port": 110
+    },
+    "password": {
+     "Commonly Used Port": 293
+    },
+    "backdoor": {
+     "Commonly Used Port": 46
+    },
+    "mitm": {
+     "Commonly Used Port": 19,
+     "Network Connection Enumeration": 1
+    },
+    "ransomware": {
+     "Commonly Used Port": 9
+    }
+   }
+  },
+  "TON_IoT-Modbus": {
+   "n_test": 1331,
+   "n_attack": 768,
+   "deployed_threshold": {
+    "accuracy": 0.4229902329075883,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "macro_f1": 0.2972544878563886,
+    "roc_auc": 0.5086104018650088,
+    "pr_auc": 0.5872153524087718,
+    "fpr": 0.0,
+    "fnr": 1.0,
+    "confusion_matrix": [
+     [
+      563,
+      0
+     ],
+     [
+      768,
+      0
+     ]
+    ],
+    "n_test": 1331,
+    "n_attack": 768,
+    "threshold": 0.4157640337944031
+   },
+   "tuned_threshold": {
+    "accuracy": 0.5770097670924117,
+    "precision": 0.5770097670924117,
+    "recall": 1.0,
+    "f1": 0.7317770366841353,
+    "macro_f1": 0.36588851834206765,
+    "roc_auc": 0.5086104018650088,
+    "pr_auc": 0.5872153524087718,
+    "fpr": 1.0,
+    "fnr": 0.0,
+    "confusion_matrix": [
+     [
+      0,
+      563
+     ],
+     [
+      0,
+      768
+     ]
+    ],
+    "n_test": 1331,
+    "n_attack": 768,
+    "threshold": 0.24909096956253052
+   },
+   "mean_max_sim": {
+    "normal": 0.2640504539012909,
+    "attack": 0.2642453610897064
+   },
+   "pct_rows_flagged_attack_at_deployed": 0.0,
+   "inference_s_per_1000": 6.457325600000331,
+   "technique_agreement_attack_rows": 0.0,
+   "top1_technique_by_type": {
+    "injection": {
+     "Manipulate I/O Image": 199
+    },
+    "password": {
+     "Manipulate I/O Image": 255,
+     "Change Operating Mode": 2
+    },
+    "backdoor": {
+     "Manipulate I/O Image": 230,
+     "Change Operating Mode": 2
+    },
+    "xss": {
+     "Manipulate I/O Image": 36
+    },
+    "scanning": {
+     "Manipulate I/O Image": 43,
+     "Change Operating Mode": 1
+    }
+   }
+  }
+ }
+}

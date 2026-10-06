@@ -1,0 +1,71 @@
+{
+ "dataset": "TON_IoT-IoT_Weather",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 1093
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.965894373291121,
+   "train_time_s": 2.9196704999994836
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9776512455516014,
+   "train_time_s": 3.8764489000022877
+  }
+ ],
+ "test": {
+  "accuracy": 0.9742060010528163,
+  "precision": 0.9825962910128389,
+  "recall": 0.9756373937677054,
+  "f1": 0.9791044776119403,
+  "macro_f1": 0.9727060320674874,
+  "roc_auc": 0.9951022455224728,
+  "pr_auc": 0.9972184252625753,
+  "fpr": 0.028123559243891195,
+  "fnr": 0.024362606232294616,
+  "confusion_matrix": [
+   [
+    2108,
+    61
+   ],
+   [
+    86,
+    3444
+   ]
+  ],
+  "n_test": 5699,
+  "n_attack": 3530,
+  "train_time_s": 3.8764489000022877,
+  "inference_s_per_1000": 0.02989259519253778
+ },
+ "n_features_in": 3,
+ "n_features_encoded": 3,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "pressure",
+   "share": 0.6834194587713317
+  },
+  {
+   "feature": "humidity",
+   "share": 0.21580519205255708
+  },
+  {
+   "feature": "temperature",
+   "share": 0.10077534917611128
+  }
+ ]
+}

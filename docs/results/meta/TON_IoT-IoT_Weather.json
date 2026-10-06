@@ -1,0 +1,92 @@
+{
+ "rows_raw": 39260,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-IoT_Weather",
+ "kind": "IoT/IIoT device telemetry",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 39260,
+ "rows_after_dedup": 37988,
+ "duplicates_removed": 1272,
+ "type_counts_before_dedup": {
+  "normal": 15000,
+  "ddos": 5000,
+  "backdoor": 5000,
+  "injection": 5000,
+  "password": 5000,
+  "ransomware": 2865,
+  "xss": 866,
+  "scanning": 529
+ },
+ "type_counts_after_dedup": {
+  "normal": 14458,
+  "password": 4874,
+  "backdoor": 4847,
+  "injection": 4827,
+  "ddos": 4825,
+  "ransomware": 2776,
+  "xss": 856,
+  "scanning": 525
+ },
+ "conflicting_label_rows": 0,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "temperature",
+  "pressure",
+  "humidity"
+ ],
+ "features_categorical": [],
+ "dropped_columns": {
+  "date": "timestamp/date: identifies capture session, not behaviour",
+  "time": "timestamp/date: identifies capture session, not behaviour; leading-space format differs by label (leak)"
+ },
+ "n_rows": {
+  "train": 26591,
+  "val": 5698,
+  "test": 5699
+ },
+ "attack_ratio": {
+  "train": 0.6194201045466511,
+  "val": 0.6193401193401193,
+  "test": 0.6194069134935953
+ },
+ "type_counts": {
+  "train": {
+   "normal": 10120,
+   "password": 3412,
+   "backdoor": 3393,
+   "injection": 3379,
+   "ddos": 3377,
+   "ransomware": 1943,
+   "xss": 599,
+   "scanning": 368
+  },
+  "val": {
+   "normal": 2169,
+   "password": 731,
+   "backdoor": 727,
+   "ddos": 724,
+   "injection": 724,
+   "ransomware": 416,
+   "xss": 128,
+   "scanning": 79
+  },
+  "test": {
+   "normal": 2169,
+   "password": 731,
+   "backdoor": 727,
+   "ddos": 724,
+   "injection": 724,
+   "ransomware": 417,
+   "xss": 129,
+   "scanning": 78
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}

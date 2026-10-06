@@ -1,0 +1,147 @@
+{
+ "dataset": "TON_IoT-Modbus",
+ "task": "multiclass",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 54
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.15985323843559793,
+   "train_time_s": 14.597270799997204
+  }
+ ],
+ "test": {
+  "accuracy": 0.2494365138993238,
+  "macro_f1": 0.1676159186491675,
+  "weighted_f1": 0.2558269546407055,
+  "roc_auc_ovr_macro": 0.5177109517280668,
+  "per_class": {
+   "backdoor": {
+    "precision": 0.19678714859437751,
+    "recall": 0.21120689655172414,
+    "f1": 0.20374220374220375,
+    "support": 232
+   },
+   "injection": {
+    "precision": 0.1348314606741573,
+    "recall": 0.18090452261306533,
+    "f1": 0.15450643776824036,
+    "support": 199
+   },
+   "normal": {
+    "precision": 0.4143763213530655,
+    "recall": 0.3481349911190053,
+    "f1": 0.3783783783783784,
+    "support": 563
+   },
+   "password": {
+    "precision": 0.17204301075268819,
+    "recall": 0.1867704280155642,
+    "f1": 0.1791044776119403,
+    "support": 257
+   },
+   "scanning": {
+    "precision": 0.02631578947368421,
+    "recall": 0.022727272727272728,
+    "f1": 0.024390243902439025,
+    "support": 44
+   },
+   "xss": {
+    "precision": 0.08,
+    "recall": 0.05555555555555555,
+    "f1": 0.06557377049180328,
+    "support": 36
+   }
+  },
+  "confusion_matrix": [
+   [
+    49,
+    51,
+    80,
+    39,
+    8,
+    5
+   ],
+   [
+    33,
+    36,
+    70,
+    50,
+    6,
+    4
+   ],
+   [
+    102,
+    117,
+    196,
+    123,
+    16,
+    9
+   ],
+   [
+    48,
+    47,
+    104,
+    48,
+    5,
+    5
+   ],
+   [
+    9,
+    7,
+    12,
+    15,
+    1,
+    0
+   ],
+   [
+    8,
+    9,
+    11,
+    4,
+    2,
+    2
+   ]
+  ],
+  "classes": [
+   "backdoor",
+   "injection",
+   "normal",
+   "password",
+   "scanning",
+   "xss"
+  ],
+  "train_time_s": 14.597270799997204,
+  "inference_s_per_1000": 0.037570848988547886
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "FC3_Read_Holding_Register",
+   "share": 0.2596834311844262
+  },
+  {
+   "feature": "FC2_Read_Discrete_Value",
+   "share": 0.2510524700077583
+  },
+  {
+   "feature": "FC4_Read_Coil",
+   "share": 0.24962786898086076
+  },
+  {
+   "feature": "FC1_Read_Input_Register",
+   "share": 0.23963622982695473
+  }
+ ]
+}
