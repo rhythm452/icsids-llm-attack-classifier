@@ -1,0 +1,335 @@
+{
+ "name": "ics_ids_merged_v1",
+ "version": "1.0.0",
+ "trained": "2026-10-06",
+ "task": "binary attack vs normal",
+ "datasets": [
+  "Edge-IIoTset",
+  "TON_IoT-Network",
+  "X-IIoTID"
+ ],
+ "embedding_model": "all-MiniLM-L6-v2",
+ "normalize_embeddings": true,
+ "representation": "The three datasets share almost no columns, so each row is rendered as one short English event description (dataset prefix + up to 20 non-zero fields as 'field name value', plus HTTP method and URI path without host where present) and embedded with all-MiniLM-L6-v2 into a 384-dim normalised vector. The classifier's features are those 384 embedding dimensions; no raw dataset column is a model input.",
+ "description_fields_per_dataset": {
+  "Edge-IIoTset": [
+   "arp.opcode",
+   "arp.hw.size",
+   "http.content_length",
+   "http.response",
+   "tcp.connection.fin",
+   "tcp.connection.rst",
+   "tcp.connection.syn",
+   "tcp.connection.synack",
+   "tcp.flags",
+   "tcp.flags.ack",
+   "tcp.len",
+   "udp.port",
+   "udp.time_delta",
+   "dns.qry.qu",
+   "dns.retransmission",
+   "dns.retransmit_request",
+   "dns.retransmit_request_in",
+   "mqtt.conflag.cleansess",
+   "mqtt.conflags",
+   "mqtt.hdrflags",
+   "mqtt.len",
+   "mqtt.msgtype",
+   "mqtt.proto_len",
+   "mqtt.topic_len",
+   "mqtt.ver",
+   "mbtcp.len",
+   "mbtcp.unit_id",
+   "service_port",
+   "len_tcp_payload",
+   "len_http_file_data",
+   "len_http_uri",
+   "len_http_query",
+   "inj_http_uri",
+   "inj_http_query",
+   "len_mqtt_msg",
+   "len_dns_name",
+   "http.request.method",
+   "http.referer",
+   "http.request.version",
+   "mqtt.protoname",
+   "mqtt.topic",
+   "mqtt.conack.flags"
+  ],
+  "TON_IoT-Network": [
+   "duration",
+   "src_bytes",
+   "dst_bytes",
+   "missed_bytes",
+   "src_pkts",
+   "src_ip_bytes",
+   "dst_pkts",
+   "dst_ip_bytes",
+   "dns_qclass",
+   "dns_qtype",
+   "dns_rcode",
+   "http_trans_depth",
+   "http_request_body_len",
+   "http_response_body_len",
+   "http_status_code",
+   "service_port",
+   "len_dns_query",
+   "len_http_uri",
+   "inj_http_uri",
+   "len_http_user_agent",
+   "len_ssl_subject",
+   "len_ssl_issuer",
+   "proto",
+   "service",
+   "conn_state",
+   "dns_AA",
+   "dns_RD",
+   "dns_RA",
+   "dns_rejected",
+   "ssl_version",
+   "ssl_cipher",
+   "ssl_resumed",
+   "ssl_established",
+   "http_method",
+   "http_version",
+   "http_orig_mime_types",
+   "http_resp_mime_types",
+   "weird_name",
+   "weird_addl",
+   "weird_notice"
+  ],
+  "X-IIoTID": [
+   "Duration",
+   "Scr_bytes",
+   "Des_bytes",
+   "Conn_state",
+   "missed_bytes",
+   "is_syn_only",
+   "Is_SYN_ACK",
+   "is_pure_ack",
+   "is_with_payload",
+   "FIN or RST",
+   "Scr_pkts",
+   "Scr_ip_bytes",
+   "Des_pkts",
+   "Des_ip_bytes",
+   "anomaly_alert",
+   "total_bytes",
+   "total_packet",
+   "paket_rate",
+   "byte_rate",
+   "Scr_packts_ratio",
+   "Des_pkts_ratio",
+   "Scr_bytes_ratio",
+   "Des_bytes_ratio",
+   "Avg_user_time",
+   "Std_user_time",
+   "Avg_nice_time",
+   "Std_nice_time",
+   "Avg_system_time",
+   "Std_system_time",
+   "Avg_iowait_time",
+   "Std_iowait_time",
+   "Avg_ideal_time",
+   "Std_ideal_time",
+   "Avg_tps",
+   "Std_tps",
+   "Avg_rtps",
+   "Std_rtps",
+   "Avg_wtps",
+   "Std_wtps",
+   "Avg_ldavg_1",
+   "Std_ldavg_1",
+   "Avg_kbmemused",
+   "Std_kbmemused",
+   "Avg_num_Proc/s",
+   "Std_num_proc/s",
+   "Avg_num_cswch/s",
+   "std_num_cswch/s",
+   "OSSEC_alert",
+   "OSSEC_alert_level",
+   "Login_attempt",
+   "Succesful_login",
+   "File_activity",
+   "Process_activity",
+   "read_write_physical.process",
+   "is_privileged",
+   "service_port",
+   "Protocol",
+   "Service"
+  ]
+ },
+ "features": "384 sentence-embedding dimensions (emb_0..emb_383)",
+ "input": "one event description string (template: dataset_study/textrep.py describe())",
+ "test_protocol": "held-out test rows from each dataset's test split (same rows as the dataset study); never used for model selection, early stopping or thresholding",
+ "single_dataset_baseline_same_test_rows": {
+  "Edge-IIoTset": {
+   "f1": 0.9947735191637631,
+   "roc_auc": 0.998669338087655
+  },
+  "TON_IoT-Network": {
+   "f1": 0.9282758620689655,
+   "roc_auc": 0.9837331337502591
+  },
+  "X-IIoTID": {
+   "f1": 0.8728991596638656,
+   "roc_auc": 0.9262557926597654
+  }
+ },
+ "decision_threshold": 0.5,
+ "positive_class": 1,
+ "selected": "LightGBM (leaves=31)",
+ "candidates": {
+  "LogReg probe": {
+   "val_f1_per_dataset": {
+    "Edge-IIoTset": 0.987012987012987,
+    "TON_IoT-Network": 0.9275028768699655,
+    "X-IIoTID": 0.8538487622923024
+   },
+   "val_mean_f1": 0.9227882087250849,
+   "train_time_s": 1.301058800003375
+  },
+  "LightGBM (leaves=31)": {
+   "val_f1_per_dataset": {
+    "Edge-IIoTset": 0.9913194444444444,
+    "TON_IoT-Network": 0.9974025974025974,
+    "X-IIoTID": 0.9653695108889683
+   },
+   "val_mean_f1": 0.9846971842453368,
+   "train_time_s": 12.523006000003079
+  },
+  "LightGBM (leaves=127)": {
+   "val_f1_per_dataset": {
+    "Edge-IIoTset": 0.9904596704249783,
+    "TON_IoT-Network": 0.997618532149816,
+    "X-IIoTID": 0.963915684172919
+   },
+   "val_mean_f1": 0.9839979622492377,
+   "train_time_s": 15.924276799996733
+  }
+ },
+ "train_rows": {
+  "Edge-IIoTset": 4561,
+  "TON_IoT-Network": 19999,
+  "X-IIoTID": 20000
+ },
+ "val_rows": {
+  "Edge-IIoTset": 976,
+  "TON_IoT-Network": 3001,
+  "X-IIoTID": 3000
+ },
+ "weighting": "equal total weight per dataset; classes balanced within each dataset",
+ "test_per_dataset": {
+  "Edge-IIoTset": {
+   "accuracy": 0.9918032786885246,
+   "precision": 0.993006993006993,
+   "recall": 0.993006993006993,
+   "f1": 0.993006993006993,
+   "macro_f1": 0.9915530014539915,
+   "roc_auc": 0.9989635982829052,
+   "pr_auc": 0.9992974556571979,
+   "fpr": 0.009900990099009901,
+   "fnr": 0.006993006993006993,
+   "confusion_matrix": [
+    [
+     400,
+     4
+    ],
+    [
+     4,
+     568
+    ]
+   ],
+   "n_test": 976,
+   "n_attack": 572
+  },
+  "TON_IoT-Network": {
+   "accuracy": 0.9915,
+   "precision": 0.9960886571056062,
+   "recall": 0.9928525016244314,
+   "f1": 0.9944679466319557,
+   "macro_f1": 0.9880646097776823,
+   "roc_auc": 0.999682865877637,
+   "pr_auc": 0.9999046509793836,
+   "fpr": 0.013015184381778741,
+   "fnr": 0.007147498375568551,
+   "confusion_matrix": [
+    [
+     455,
+     6
+    ],
+    [
+     11,
+     1528
+    ]
+   ],
+   "n_test": 2000,
+   "n_attack": 1539
+  },
+  "X-IIoTID": {
+   "accuracy": 0.9700598802395209,
+   "precision": 0.9691489361702128,
+   "recall": 0.9670912951167728,
+   "f1": 0.9681190223166843,
+   "macro_f1": 0.9699485045732057,
+   "roc_auc": 0.9950959812235857,
+   "pr_auc": 0.9953832703870564,
+   "fpr": 0.027306967984934087,
+   "fnr": 0.032908704883227176,
+   "confusion_matrix": [
+    [
+     1033,
+     29
+    ],
+    [
+     31,
+     911
+    ]
+   ],
+   "n_test": 2004,
+   "n_attack": 942
+  },
+  "MERGED (all three test sets pooled)": {
+   "accuracy": 0.9829317269076305,
+   "precision": 0.9871963230466185,
+   "recall": 0.9849328529315428,
+   "f1": 0.9860632890637809,
+   "macro_f1": 0.9820241335243795,
+   "roc_auc": 0.9981067054260733,
+   "pr_auc": 0.9988457912873574,
+   "fpr": 0.020238713025428127,
+   "fnr": 0.015067147068457255,
+   "confusion_matrix": [
+    [
+     1888,
+     39
+    ],
+    [
+     46,
+     3007
+    ]
+   ],
+   "n_test": 4980,
+   "n_attack": 3053
+  }
+ },
+ "webapp_prose_check": {
+  "procedure_examples_flagged_attack": 0.6236162361623616,
+  "n_procedure_examples": 271,
+  "benign_sentences_flagged_attack": 0.6666666666666666,
+  "n_benign": 15,
+  "accuracy": 0.6083916083916084,
+  "precision": 0.9441340782122905,
+  "recall": 0.6236162361623616,
+  "f1": 0.7511111111111111,
+  "macro_f1": 0.41653916211293257,
+  "roc_auc": 0.5525215252152521,
+  "pr_auc": 0.9627646810760057,
+  "fpr": 0.6666666666666666,
+  "fnr": 0.3763837638376384,
+  "n_test": 286,
+  "n_attack": 271
+ },
+ "inference_s_per_1000_events_cpu": 5.254828500001167,
+ "seed": 42
+}

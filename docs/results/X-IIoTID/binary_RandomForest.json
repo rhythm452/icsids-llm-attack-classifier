@@ -1,0 +1,68 @@
+{
+ "dataset": "X-IIoTID",
+ "task": "binary",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.9946417374451348,
+   "train_time_s": 23.39306729999953
+  },
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 5
+   },
+   "val_score": 0.9939259132517752,
+   "train_time_s": 22.718552300000738
+  },
+  {
+   "params": {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.994267134422863,
+   "train_time_s": 23.09291530000337
+  }
+ ],
+ "test": {
+  "accuracy": 0.9944798527960745,
+  "precision": 0.9977661950856291,
+  "recall": 0.990448032749602,
+  "f1": 0.9940936456758068,
+  "macro_f1": 0.9944561492627739,
+  "roc_auc": 0.9998428402684875,
+  "pr_auc": 0.9998239093346019,
+  "fpr": 0.0019587162874792827,
+  "fnr": 0.009551967250397999,
+  "confusion_matrix": [
+   [
+    19872,
+    39
+   ],
+   [
+    168,
+    17420
+   ]
+  ],
+  "n_test": 37499,
+  "n_attack": 17588,
+  "train_time_s": 23.39306729999953,
+  "inference_s_per_1000": 0.008446147897383176
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 118,
+ "dropped_extra": []
+}

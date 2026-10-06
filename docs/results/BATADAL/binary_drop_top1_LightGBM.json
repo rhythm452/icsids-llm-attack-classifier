@@ -1,0 +1,161 @@
+{
+ "dataset": "BATADAL",
+ "task": "binary",
+ "tag": "_drop_top1",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 70
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.52,
+   "train_time_s": 0.4023849000004702
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.4897959183673469,
+   "train_time_s": 0.4496225999973831
+  }
+ ],
+ "test": {
+  "accuracy": 0.9136316337148803,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1": 0.0,
+  "macro_f1": 0.47743338771071236,
+  "roc_auc": 0.48859960272417713,
+  "pr_auc": 0.08510159373150125,
+  "fpr": 0.00340522133938706,
+  "fnr": 1.0,
+  "confusion_matrix": [
+   [
+    878,
+    3
+   ],
+   [
+    80,
+    0
+   ]
+  ],
+  "n_test": 961,
+  "n_attack": 80,
+  "train_time_s": 0.4023849000004702,
+  "inference_s_per_1000": 0.005414464095346707
+ },
+ "n_features_in": 35,
+ "n_features_encoded": 35,
+ "dropped_extra": [
+  "L_T1"
+ ],
+ "feature_importance_gain": [
+  {
+   "feature": "P_J317",
+   "share": 0.12215131295442441
+  },
+  {
+   "feature": "F_PU10",
+   "share": 0.1030343213260193
+  },
+  {
+   "feature": "P_J269",
+   "share": 0.10266653063452925
+  },
+  {
+   "feature": "P_J14",
+   "share": 0.07746376877401548
+  },
+  {
+   "feature": "F_V2",
+   "share": 0.07316091905248212
+  },
+  {
+   "feature": "F_PU1",
+   "share": 0.06902290758397035
+  },
+  {
+   "feature": "P_J302",
+   "share": 0.06846275678722824
+  },
+  {
+   "feature": "F_PU11",
+   "share": 0.05397369786018539
+  },
+  {
+   "feature": "L_T6",
+   "share": 0.035547008526642845
+  },
+  {
+   "feature": "P_J415",
+   "share": 0.030257566790360492
+  },
+  {
+   "feature": "P_J307",
+   "share": 0.02723806701279283
+  },
+  {
+   "feature": "F_PU8",
+   "share": 0.025928753698447708
+  },
+  {
+   "feature": "F_PU7",
+   "share": 0.024481221333124175
+  },
+  {
+   "feature": "L_T7",
+   "share": 0.02334364258726771
+  },
+  {
+   "feature": "F_PU2",
+   "share": 0.02041578275321104
+  },
+  {
+   "feature": "P_J306",
+   "share": 0.019382945939436673
+  },
+  {
+   "feature": "L_T3",
+   "share": 0.01850351672743257
+  },
+  {
+   "feature": "P_J422",
+   "share": 0.018260943606918458
+  },
+  {
+   "feature": "L_T4",
+   "share": 0.017678941737537156
+  },
+  {
+   "feature": "L_T2",
+   "share": 0.016897200149637446
+  },
+  {
+   "feature": "P_J300",
+   "share": 0.012683887780349134
+  },
+  {
+   "feature": "P_J256",
+   "share": 0.012512937947238068
+  },
+  {
+   "feature": "L_T5",
+   "share": 0.009105485061138969
+  },
+  {
+   "feature": "F_PU4",
+   "share": 0.005403683084052977
+  },
+  {
+   "feature": "S_PU11",
+   "share": 0.00444683719494792
+  }
+ ]
+}

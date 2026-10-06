@@ -1,0 +1,167 @@
+{
+ "dataset": "TON_IoT-Network",
+ "flag_accuracy_over_99": {
+  "RandomForest": 0.9975810045197021,
+  "LightGBM": 0.9975173467439048,
+  "MLP": 0.9905786491819976
+ },
+ "train_test_overlap": {
+  "test_rows": 15709,
+  "test_rows_seen_in_train": 33,
+  "pct_seen_in_train": 0.210070660131135,
+  "seen_with_same_label": 33,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "dst_pkts",
+   "train_auc": 0.836710329842701,
+   "stump_test_f1": 0.9231078419550625
+  },
+  {
+   "feature": "dst_ip_bytes",
+   "train_auc": 0.7793556938182841,
+   "stump_test_f1": 0.9231078419550625
+  },
+  {
+   "feature": "proto",
+   "train_auc": 0.7119309693696494,
+   "stump_test_f1": 0.8811953352769679
+  },
+  {
+   "feature": "dst_bytes",
+   "train_auc": 0.6636279258630863,
+   "stump_test_f1": 0.6236308034473173
+  },
+  {
+   "feature": "dns_RD",
+   "train_auc": 0.6513856054990582,
+   "stump_test_f1": 0.8648905803996194
+  },
+  {
+   "feature": "dns_qtype",
+   "train_auc": 0.6498736925877786,
+   "stump_test_f1": 0.8649548264384213
+  },
+  {
+   "feature": "dns_RA",
+   "train_auc": 0.6474866791467094,
+   "stump_test_f1": 0.8840865961814027
+  },
+  {
+   "feature": "dns_AA",
+   "train_auc": 0.6435588899831383,
+   "stump_test_f1": 0.8648905803996194
+  },
+  {
+   "feature": "dns_qclass",
+   "train_auc": 0.643332339934527,
+   "stump_test_f1": 0.8649548264384213
+  },
+  {
+   "feature": "len_dns_query",
+   "train_auc": 0.6366896217560114,
+   "stump_test_f1": 0.8649676984661726
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "conn_state_s0",
+   "share": 0.2988050526015097
+  },
+  {
+   "feature": "proto_tcp",
+   "share": 0.2160994960884291
+  },
+  {
+   "feature": "proto_udp",
+   "share": 0.06482423155769008
+  },
+  {
+   "feature": "dst_pkts",
+   "share": 0.06444084698519255
+  },
+  {
+   "feature": "dns_rejected_t",
+   "share": 0.05022497083966305
+  },
+  {
+   "feature": "service_port",
+   "share": 0.04643945137892494
+  },
+  {
+   "feature": "src_pkts",
+   "share": 0.040393060223317546
+  },
+  {
+   "feature": "src_ip_bytes",
+   "share": 0.03972682731641444
+  },
+  {
+   "feature": "dst_ip_bytes",
+   "share": 0.03665988245208093
+  },
+  {
+   "feature": "duration",
+   "share": 0.02149445032415062
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "conn_state",
+   0.3057563016228901
+  ],
+  [
+   "proto",
+   0.28092372764611917
+  ],
+  [
+   "dst_pkts",
+   0.06444084698519255
+  ],
+  [
+   "dns_rejected",
+   0.05022497083966305
+  ],
+  [
+   "service_port",
+   0.04643945137892494
+  ],
+  [
+   "src_pkts",
+   0.040393060223317546
+  ],
+  [
+   "src_ip_bytes",
+   0.03972682731641444
+  ],
+  [
+   "dst_ip_bytes",
+   0.03665988245208093
+  ],
+  [
+   "duration",
+   0.02149445032415062
+  ],
+  [
+   "ssl_version",
+   0.020508512066961665
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9975173467439048,
+   "f1": 0.9983864962144718,
+   "macro_f1": 0.996502479513335,
+   "roc_auc": 0.999958364546586,
+   "pr_auc": 0.9999874967592915
+  },
+  "without top-1 feature (conn_state)": {
+   "accuracy": 0.9973900311923102,
+   "f1": 0.998303612065042,
+   "macro_f1": 0.9963238297599317,
+   "roc_auc": 0.9999499277084148,
+   "pr_auc": 0.9999849481722204
+  }
+ }
+}

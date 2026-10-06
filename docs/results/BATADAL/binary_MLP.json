@@ -1,0 +1,69 @@
+{
+ "dataset": "BATADAL",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   256,
+   128
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   256,
+   128
+  ],
+  "epochs": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.2125,
+   "train_time_s": 1.3696848999970825
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.14715719063545152,
+   "train_time_s": 0.18713999999454245
+  }
+ ],
+ "test": {
+  "accuracy": 0.7419354838709677,
+  "precision": 0.038461538461538464,
+  "recall": 0.0875,
+  "f1": 0.05343511450381679,
+  "macro_f1": 0.4520187620711855,
+  "roc_auc": 0.1668416572077185,
+  "pr_auc": 0.049123790277867806,
+  "fpr": 0.19863791146424517,
+  "fnr": 0.9125,
+  "confusion_matrix": [
+   [
+    706,
+    175
+   ],
+   [
+    73,
+    7
+   ]
+  ],
+  "n_test": 961,
+  "n_attack": 80,
+  "train_time_s": 1.3696848999970825,
+  "inference_s_per_1000": 0.002705827257867309
+ },
+ "n_features_in": 36,
+ "n_features_encoded": 36,
+ "dropped_extra": []
+}

@@ -1,0 +1,78 @@
+{
+ "dataset": "TON_IoT-Modbus@nodedup",
+ "flag_accuracy_over_99": {},
+ "train_test_overlap": {
+  "test_rows": 4666,
+  "test_rows_seen_in_train": 4367,
+  "pct_seen_in_train": 93.59194170595799,
+  "seen_with_same_label": 4367,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "FC2_Read_Discrete_Value",
+   "train_auc": 0.512020413593857,
+   "stump_test_f1": 0.4488649660659958
+  },
+  {
+   "feature": "FC1_Read_Input_Register",
+   "train_auc": 0.5066224773393481,
+   "stump_test_f1": 0.22659113628790403
+  },
+  {
+   "feature": "FC3_Read_Holding_Register",
+   "train_auc": 0.5035730462843289,
+   "stump_test_f1": 0.6819532908704883
+  },
+  {
+   "feature": "FC4_Read_Coil",
+   "train_auc": 0.5012577865632682,
+   "stump_test_f1": 0.6708148148148149
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "FC3_Read_Holding_Register",
+   "share": 0.25423376613365745
+  },
+  {
+   "feature": "FC2_Read_Discrete_Value",
+   "share": 0.25257948183380236
+  },
+  {
+   "feature": "FC4_Read_Coil",
+   "share": 0.25224364706563507
+  },
+  {
+   "feature": "FC1_Read_Input_Register",
+   "share": 0.24094310496690513
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "FC3_Read_Holding_Register",
+   0.25423376613365745
+  ],
+  [
+   "FC2_Read_Discrete_Value",
+   0.25257948183380236
+  ],
+  [
+   "FC4_Read_Coil",
+   0.25224364706563507
+  ],
+  [
+   "FC1_Read_Input_Register",
+   0.24094310496690513
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9714959279897128,
+   "f1": 0.9721699100230173,
+   "macro_f1": 0.9714792005638917,
+   "roc_auc": 0.9942871596762325,
+   "pr_auc": 0.9900582652582771
+  }
+ }
+}

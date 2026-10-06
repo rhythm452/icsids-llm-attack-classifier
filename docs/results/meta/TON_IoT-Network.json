@@ -1,0 +1,165 @@
+{
+ "rows_raw": 211043,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-Network",
+ "kind": "network traffic (Zeek flows)",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 211043,
+ "rows_after_dedup": 104722,
+ "duplicates_removed": 106321,
+ "type_counts_before_dedup": {
+  "normal": 50000,
+  "backdoor": 20000,
+  "ddos": 20000,
+  "dos": 20000,
+  "injection": 20000,
+  "password": 20000,
+  "scanning": 20000,
+  "ransomware": 20000,
+  "xss": 20000,
+  "mitm": 1043
+ },
+ "type_counts_after_dedup": {
+  "normal": 24114,
+  "injection": 19850,
+  "password": 15353,
+  "dos": 14473,
+  "ddos": 12532,
+  "xss": 8740,
+  "scanning": 5744,
+  "backdoor": 2423,
+  "mitm": 1039,
+  "ransomware": 454
+ },
+ "conflicting_label_rows": 19,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "duration",
+  "src_bytes",
+  "dst_bytes",
+  "missed_bytes",
+  "src_pkts",
+  "src_ip_bytes",
+  "dst_pkts",
+  "dst_ip_bytes",
+  "dns_qclass",
+  "dns_qtype",
+  "dns_rcode",
+  "http_trans_depth",
+  "http_request_body_len",
+  "http_response_body_len",
+  "http_status_code",
+  "service_port",
+  "len_dns_query",
+  "len_http_uri",
+  "inj_http_uri",
+  "len_http_user_agent",
+  "len_ssl_subject",
+  "len_ssl_issuer"
+ ],
+ "features_categorical": [
+  "proto",
+  "service",
+  "conn_state",
+  "dns_AA",
+  "dns_RD",
+  "dns_RA",
+  "dns_rejected",
+  "ssl_version",
+  "ssl_cipher",
+  "ssl_resumed",
+  "ssl_established",
+  "http_method",
+  "http_version",
+  "http_orig_mime_types",
+  "http_resp_mime_types",
+  "weird_name",
+  "weird_addl",
+  "weird_notice"
+ ],
+ "dropped_columns": {
+  "src_ip": "IP address: host identifier, lets the model memorise testbed hosts",
+  "dst_ip": "IP address: host identifier, lets the model memorise testbed hosts",
+  "src_port": "raw client/server port: replaced by derived service_port (the lower, server-side port)",
+  "dst_port": "raw client/server port: replaced by derived service_port (the lower, server-side port)",
+  "dns_query": "raw string: replaced by length (+ injection-character count for URIs/queries) summaries",
+  "ssl_subject": "raw string: replaced by length (+ injection-character count for URIs/queries) summaries",
+  "ssl_issuer": "raw string: replaced by length (+ injection-character count for URIs/queries) summaries",
+  "http_uri": "raw string: replaced by length (+ injection-character count for URIs/queries) summaries",
+  "http_user_agent": "raw string: replaced by length (+ injection-character count for URIs/queries) summaries"
+ },
+ "derived_features": [
+  "service_port",
+  "len_dns_query",
+  "len_http_uri",
+  "inj_http_uri",
+  "len_http_user_agent",
+  "len_ssl_subject",
+  "len_ssl_issuer"
+ ],
+ "derived_doc": {
+  "service_port": "lower non-zero of the two port numbers (server/service side); client ephemeral port discarded",
+  "len_*": "character length of the raw string (bytes for hex payloads); 0 when absent",
+  "inj_*": "count of injection-typical characters ' \" < > % ; and '..' in the URI/query",
+  "__txt_http": "HTTP method + first 80 chars of URI: used ONLY in the text descriptions, never as a tabular feature"
+ },
+ "text_only_columns": [
+  "__txt_http"
+ ],
+ "n_rows": {
+  "train": 73305,
+  "val": 15708,
+  "test": 15709
+ },
+ "attack_ratio": {
+  "train": 0.7697292135597844,
+  "val": 0.7697351667939903,
+  "test": 0.7697498249411165
+ },
+ "type_counts": {
+  "train": {
+   "normal": 16880,
+   "injection": 13895,
+   "password": 10747,
+   "dos": 10131,
+   "ddos": 8772,
+   "xss": 6118,
+   "scanning": 4021,
+   "backdoor": 1696,
+   "mitm": 727,
+   "ransomware": 318
+  },
+  "val": {
+   "normal": 3617,
+   "injection": 2977,
+   "password": 2303,
+   "dos": 2171,
+   "ddos": 1880,
+   "xss": 1311,
+   "scanning": 861,
+   "backdoor": 364,
+   "mitm": 156,
+   "ransomware": 68
+  },
+  "test": {
+   "normal": 3617,
+   "injection": 2978,
+   "password": 2303,
+   "dos": 2171,
+   "ddos": 1880,
+   "xss": 1311,
+   "scanning": 862,
+   "backdoor": 363,
+   "mitm": 156,
+   "ransomware": 68
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}

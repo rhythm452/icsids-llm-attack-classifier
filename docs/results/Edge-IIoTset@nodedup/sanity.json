@@ -1,0 +1,158 @@
+{
+ "dataset": "Edge-IIoTset@nodedup",
+ "flag_accuracy_over_99": {
+  "LightGBM": 0.9960266666666666
+ },
+ "train_test_overlap": {
+  "test_rows": 37500,
+  "test_rows_seen_in_train": 37162,
+  "pct_seen_in_train": 99.09866666666667,
+  "seen_with_same_label": 37162,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "service_port",
+   "train_auc": 0.9151239576230139,
+   "stump_test_f1": 0.9415698856703872
+  },
+  {
+   "feature": "tcp.flags",
+   "train_auc": 0.6854514191357792,
+   "stump_test_f1": 0.6196752425137073
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "train_auc": 0.6786504134078246,
+   "stump_test_f1": 0.5494182035597663
+  },
+  {
+   "feature": "mqtt.hdrflags",
+   "train_auc": 0.6019925742574257,
+   "stump_test_f1": 0.5278025776617906
+  },
+  {
+   "feature": "mqtt.msgtype",
+   "train_auc": 0.6019925742574257,
+   "stump_test_f1": 0.5278025776617906
+  },
+  {
+   "feature": "mqtt.len",
+   "train_auc": 0.5767367986798679,
+   "stump_test_f1": 0.5119914727305027
+  },
+  {
+   "feature": "len_tcp_payload",
+   "train_auc": 0.5373272722476263,
+   "stump_test_f1": 0.332720328193521
+  },
+  {
+   "feature": "len_http_file_data",
+   "train_auc": 0.5362301329119806,
+   "stump_test_f1": 0.13553291282548924
+  },
+  {
+   "feature": "http.content_length",
+   "train_auc": 0.5361557765591598,
+   "stump_test_f1": 0.13538212697128993
+  },
+  {
+   "feature": "tcp.len",
+   "train_auc": 0.5360060776502411,
+   "stump_test_f1": 0.3380102940139604
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "service_port",
+   "share": 0.8524119469046574
+  },
+  {
+   "feature": "tcp.flags",
+   "share": 0.07852773511628525
+  },
+  {
+   "feature": "tcp.len",
+   "share": 0.023370903344673826
+  },
+  {
+   "feature": "len_http_file_data",
+   "share": 0.013526903373216836
+  },
+  {
+   "feature": "mqtt.hdrflags",
+   "share": 0.012711030332067276
+  },
+  {
+   "feature": "tcp.connection.rst",
+   "share": 0.005051965087008585
+  },
+  {
+   "feature": "tcp.connection.syn",
+   "share": 0.0045449684809485144
+  },
+  {
+   "feature": "udp.port",
+   "share": 0.0025040593620286986
+  },
+  {
+   "feature": "arp.opcode",
+   "share": 0.00211537042499885
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "share": 0.0014941687208103861
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "service_port",
+   0.8524119469046574
+  ],
+  [
+   "tcp.flags",
+   0.07852773511628525
+  ],
+  [
+   "tcp.len",
+   0.023370903344673826
+  ],
+  [
+   "len_http_file_data",
+   0.013526903373216836
+  ],
+  [
+   "mqtt.hdrflags",
+   0.012711030332067276
+  ],
+  [
+   "tcp.connection.rst",
+   0.005051965087008585
+  ],
+  [
+   "tcp.connection.syn",
+   0.0045449684809485144
+  ],
+  [
+   "udp.port",
+   0.0025040593620286986
+  ],
+  [
+   "arp.opcode",
+   0.00211537042499885
+  ],
+  [
+   "tcp.flags.ack",
+   0.0014941687208103861
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9960266666666666,
+   "f1": 0.9935789700495583,
+   "macro_f1": 0.9953511222484495,
+   "roc_auc": 0.9992450315227641,
+   "pr_auc": 0.9966655986295554
+  }
+ }
+}

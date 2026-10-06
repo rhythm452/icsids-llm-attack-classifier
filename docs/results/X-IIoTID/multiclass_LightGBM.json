@@ -1,0 +1,331 @@
+{
+ "dataset": "X-IIoTID",
+ "task": "multiclass",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 135
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.995034946590029,
+   "train_time_s": 58.22657359999721
+  }
+ ],
+ "test": {
+  "accuracy": 0.9957865543081149,
+  "macro_f1": 0.99394908921842,
+  "weighted_f1": 0.995788163639108,
+  "roc_auc_ovr_macro": 0.9999743683331284,
+  "per_class": {
+   "C&C": {
+    "precision": 0.9795918367346939,
+    "recall": 1.0,
+    "f1": 0.9896907216494846,
+    "support": 240
+   },
+   "Exfiltration": {
+    "precision": 1.0,
+    "recall": 0.9991525423728813,
+    "f1": 0.9995760915642221,
+    "support": 1180
+   },
+   "Exploitation": {
+    "precision": 0.9940119760479041,
+    "recall": 0.9880952380952381,
+    "f1": 0.991044776119403,
+    "support": 168
+   },
+   "Lateral _movement": {
+    "precision": 0.9790454016298021,
+    "recall": 0.981903093987157,
+    "f1": 0.9804721655494025,
+    "support": 1713
+   },
+   "Normal": {
+    "precision": 0.9959341431583174,
+    "recall": 0.9964843553814474,
+    "f1": 0.9962091732985213,
+    "support": 19911
+   },
+   "RDOS": {
+    "precision": 1.0,
+    "recall": 0.9994822676676158,
+    "f1": 0.9997410668047644,
+    "support": 3863
+   },
+   "Reconnaissance": {
+    "precision": 0.9958860277312205,
+    "recall": 0.99210686095932,
+    "f1": 0.9939928522545814,
+    "support": 6588
+   },
+   "Tampering": {
+    "precision": 0.9777777777777777,
+    "recall": 1.0,
+    "f1": 0.9887640449438202,
+    "support": 352
+   },
+   "Weaponization": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 3416
+   },
+   "crypto-ransomware": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 68
+   }
+  },
+  "confusion_matrix": [
+   [
+    240,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    1179,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    166,
+    0,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    1682,
+    30,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    4,
+    0,
+    0,
+    34,
+    19841,
+    0,
+    25,
+    7,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    3861,
+    2,
+    0,
+    0,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    2,
+    48,
+    0,
+    6536,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    352,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3416,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    68
+   ]
+  ],
+  "classes": [
+   "C&C",
+   "Exfiltration",
+   "Exploitation",
+   "Lateral _movement",
+   "Normal",
+   "RDOS",
+   "Reconnaissance",
+   "Tampering",
+   "Weaponization",
+   "crypto-ransomware"
+  ],
+  "train_time_s": 58.22657359999721,
+  "inference_s_per_1000": 0.08099758660217754
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 118,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "service_port",
+   "share": 0.19630146649920446
+  },
+  {
+   "feature": "Avg_num_cswch/s",
+   "share": 0.08326121339264116
+  },
+  {
+   "feature": "Service_mqtt",
+   "share": 0.08212881942461633
+  },
+  {
+   "feature": "Duration",
+   "share": 0.08096916867333613
+  },
+  {
+   "feature": "Avg_num_Proc/s",
+   "share": 0.054485530160205194
+  },
+  {
+   "feature": "Scr_bytes",
+   "share": 0.0534313646533027
+  },
+  {
+   "feature": "Avg_nice_time",
+   "share": 0.04485261134745951
+  },
+  {
+   "feature": "anomaly_alert",
+   "share": 0.039823578476849635
+  },
+  {
+   "feature": "Service_http",
+   "share": 0.036178563995346566
+  },
+  {
+   "feature": "Avg_user_time",
+   "share": 0.024801458502477173
+  },
+  {
+   "feature": "File_activity",
+   "share": 0.02478929509663855
+  },
+  {
+   "feature": "Service_modbus",
+   "share": 0.021639207785404145
+  },
+  {
+   "feature": "byte_rate",
+   "share": 0.01729203412427659
+  },
+  {
+   "feature": "Des_ip_bytes",
+   "share": 0.017171830101463132
+  },
+  {
+   "feature": "Scr_ip_bytes",
+   "share": 0.01656052795527435
+  },
+  {
+   "feature": "Service_other",
+   "share": 0.01571614381703978
+  },
+  {
+   "feature": "Service_dns",
+   "share": 0.013689979414878406
+  },
+  {
+   "feature": "Std_user_time",
+   "share": 0.013389699762437788
+  },
+  {
+   "feature": "read_write_physical.process",
+   "share": 0.012860963444049427
+  },
+  {
+   "feature": "Protocol_icmp",
+   "share": 0.01218842506478589
+  },
+  {
+   "feature": "Des_bytes",
+   "share": 0.011805315509446754
+  },
+  {
+   "feature": "Protocol_tcp",
+   "share": 0.010650863977669489
+  },
+  {
+   "feature": "Avg_system_time",
+   "share": 0.009495753984881975
+  },
+  {
+   "feature": "Conn_state",
+   "share": 0.006939888751069963
+  },
+  {
+   "feature": "Service_coap",
+   "share": 0.006586644716322839
+  }
+ ]
+}

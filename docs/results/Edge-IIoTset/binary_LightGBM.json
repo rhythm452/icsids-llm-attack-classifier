@@ -1,0 +1,159 @@
+{
+ "dataset": "Edge-IIoTset",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 123
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9947735191637631,
+   "train_time_s": 0.5942565000004834
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9947735191637631,
+   "train_time_s": 0.5738631999993231
+  }
+ ],
+ "test": {
+  "accuracy": 0.9938524590163934,
+  "precision": 0.9964912280701754,
+  "recall": 0.993006993006993,
+  "f1": 0.9947460595446584,
+  "macro_f1": 0.9936693260686256,
+  "roc_auc": 0.9995218271827183,
+  "pr_auc": 0.9996490500832065,
+  "fpr": 0.0049504950495049506,
+  "fnr": 0.006993006993006993,
+  "confusion_matrix": [
+   [
+    402,
+    2
+   ],
+   [
+    4,
+    568
+   ]
+  ],
+  "n_test": 976,
+  "n_attack": 572,
+  "train_time_s": 0.5942565000004834,
+  "inference_s_per_1000": 0.009378790980649608
+ },
+ "n_features_in": 42,
+ "n_features_encoded": 51,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "http.request.method_0",
+   "share": 0.4911877044430519
+  },
+  {
+   "feature": "udp.port",
+   "share": 0.1737850667444262
+  },
+  {
+   "feature": "service_port",
+   "share": 0.1511149123955203
+  },
+  {
+   "feature": "http.request.version_0",
+   "share": 0.07286153383368847
+  },
+  {
+   "feature": "tcp.flags",
+   "share": 0.03663629591892598
+  },
+  {
+   "feature": "udp.time_delta",
+   "share": 0.029873553074355436
+  },
+  {
+   "feature": "tcp.len",
+   "share": 0.022922518370621724
+  },
+  {
+   "feature": "tcp.connection.fin",
+   "share": 0.006857045220368125
+  },
+  {
+   "feature": "len_tcp_payload",
+   "share": 0.005749690960925573
+  },
+  {
+   "feature": "tcp.connection.rst",
+   "share": 0.0046181758549953805
+  },
+  {
+   "feature": "http.response",
+   "share": 0.001586436858129764
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "share": 0.0014861781843276967
+  },
+  {
+   "feature": "len_http_uri",
+   "share": 0.0005742973144890481
+  },
+  {
+   "feature": "dns.retransmission",
+   "share": 0.00026570391990060155
+  },
+  {
+   "feature": "dns.qry.qu",
+   "share": 0.0002455625943074179
+  },
+  {
+   "feature": "tcp.connection.syn",
+   "share": 0.0001900606344827842
+  },
+  {
+   "feature": "http.request.version_http/1.1",
+   "share": 4.526367748050618e-05
+  },
+  {
+   "feature": "len_http_query",
+   "share": 2.7904071826279004e-15
+  },
+  {
+   "feature": "http.request.method_get",
+   "share": 1.9169486415295752e-16
+  },
+  {
+   "feature": "http.content_length",
+   "share": 1.6789286775525999e-16
+  },
+  {
+   "feature": "dns.retransmit_request",
+   "share": 0.0
+  },
+  {
+   "feature": "arp.hw.size",
+   "share": 0.0
+  },
+  {
+   "feature": "arp.opcode",
+   "share": 0.0
+  },
+  {
+   "feature": "tcp.connection.synack",
+   "share": 0.0
+  },
+  {
+   "feature": "mqtt.topic_len",
+   "share": 0.0
+  }
+ ]
+}

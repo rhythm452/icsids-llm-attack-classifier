@@ -1,0 +1,163 @@
+{
+ "dataset": "BATADAL",
+ "flag_accuracy_over_99": {},
+ "train_test_overlap": {
+  "test_rows": 961,
+  "test_rows_seen_in_train": 0,
+  "pct_seen_in_train": 0.0,
+  "seen_with_same_label": 0,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "L_T1",
+   "train_auc": 0.7438571909076492,
+   "stump_test_f1": 0.12558139534883722
+  },
+  {
+   "feature": "P_J269",
+   "train_auc": 0.6724034116357412,
+   "stump_test_f1": 0.1
+  },
+  {
+   "feature": "F_PU1",
+   "train_auc": 0.6723110451184295,
+   "stump_test_f1": 0.1
+  },
+  {
+   "feature": "F_PU11",
+   "train_auc": 0.6172514512871188,
+   "stump_test_f1": 0.0
+  },
+  {
+   "feature": "S_PU11",
+   "train_auc": 0.6172026538817466,
+   "stump_test_f1": 0.0
+  },
+  {
+   "feature": "P_J302",
+   "train_auc": 0.602602208779699,
+   "stump_test_f1": 0.14864864864864866
+  },
+  {
+   "feature": "P_J307",
+   "train_auc": 0.6017255982474761,
+   "stump_test_f1": 0.14402173913043478
+  },
+  {
+   "feature": "F_V2",
+   "train_auc": 0.5746456524125959,
+   "stump_test_f1": 0.16326530612244897
+  },
+  {
+   "feature": "F_PU10",
+   "train_auc": 0.571676853125038,
+   "stump_test_f1": 0.11811023622047244
+  },
+  {
+   "feature": "P_J14",
+   "train_auc": 0.5622606966526723,
+   "stump_test_f1": 0.04395604395604396
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "L_T1",
+   "share": 0.13842142305285593
+  },
+  {
+   "feature": "P_J317",
+   "share": 0.12331068193360029
+  },
+  {
+   "feature": "F_PU10",
+   "share": 0.08157864190516044
+  },
+  {
+   "feature": "P_J302",
+   "share": 0.07471893773208144
+  },
+  {
+   "feature": "P_J269",
+   "share": 0.06196320403024914
+  },
+  {
+   "feature": "F_PU1",
+   "share": 0.0574816082321682
+  },
+  {
+   "feature": "F_PU11",
+   "share": 0.05034038515457136
+  },
+  {
+   "feature": "F_V2",
+   "share": 0.04312147633232131
+  },
+  {
+   "feature": "P_J422",
+   "share": 0.042631391591141835
+  },
+  {
+   "feature": "L_T7",
+   "share": 0.03947310806467583
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "L_T1",
+   0.13842142305285593
+  ],
+  [
+   "P_J317",
+   0.12331068193360029
+  ],
+  [
+   "F_PU10",
+   0.08157864190516044
+  ],
+  [
+   "P_J302",
+   0.07471893773208144
+  ],
+  [
+   "P_J269",
+   0.06196320403024914
+  ],
+  [
+   "F_PU1",
+   0.0574816082321682
+  ],
+  [
+   "F_PU11",
+   0.05034038515457136
+  ],
+  [
+   "F_V2",
+   0.04312147633232131
+  ],
+  [
+   "P_J422",
+   0.042631391591141835
+  ],
+  [
+   "L_T7",
+   0.03947310806467583
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9146722164412071,
+   "f1": 0.0,
+   "macro_f1": 0.4777173913043478,
+   "roc_auc": 0.5083924517593643,
+   "pr_auc": 0.08962290767696983
+  },
+  "without top-1 feature (L_T1)": {
+   "accuracy": 0.9136316337148803,
+   "f1": 0.0,
+   "macro_f1": 0.47743338771071236,
+   "roc_auc": 0.48859960272417713,
+   "pr_auc": 0.08510159373150125
+  }
+ }
+}

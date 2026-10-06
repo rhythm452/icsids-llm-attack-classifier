@@ -1,0 +1,63 @@
+{
+ "dataset": "TON_IoT-Modbus",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 0.1
+ },
+ "refit_params": {
+  "C": 0.1
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.5294117647058824,
+   "train_time_s": 0.012963299996044952
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.5294117647058824,
+   "train_time_s": 0.010584700001345482
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.5294117647058824,
+   "train_time_s": 0.010225099998933729
+  }
+ ],
+ "test": {
+  "accuracy": 0.5259203606311045,
+  "precision": 0.604261796042618,
+  "recall": 0.5169270833333334,
+  "f1": 0.5571929824561404,
+  "macro_f1": 0.5235439447446425,
+  "roc_auc": 0.5383894871225577,
+  "pr_auc": 0.600777621054932,
+  "fpr": 0.46181172291296624,
+  "fnr": 0.4830729166666667,
+  "confusion_matrix": [
+   [
+    303,
+    260
+   ],
+   [
+    371,
+    397
+   ]
+  ],
+  "n_test": 1331,
+  "n_attack": 768,
+  "train_time_s": 0.012963299996044952,
+  "inference_s_per_1000": 0.003354545452593176
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": []
+}

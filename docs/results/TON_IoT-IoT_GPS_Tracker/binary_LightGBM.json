@@ -1,0 +1,67 @@
+{
+ "dataset": "TON_IoT-IoT_GPS_Tracker",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 339
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9417613636363636,
+   "train_time_s": 26.14145219999773
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9425973287865871,
+   "train_time_s": 14.757773900004395
+  }
+ ],
+ "test": {
+  "accuracy": 0.9258620689655173,
+  "precision": 0.9598720558301832,
+  "recall": 0.9187308655719455,
+  "f1": 0.9388509670079636,
+  "macro_f1": 0.9223589335915474,
+  "roc_auc": 0.9747053848222977,
+  "pr_auc": 0.9871839460193783,
+  "fpr": 0.06252831898504757,
+  "fnr": 0.08126913442805456,
+  "confusion_matrix": [
+   [
+    2069,
+    138
+   ],
+   [
+    292,
+    3301
+   ]
+  ],
+  "n_test": 5800,
+  "n_attack": 3593,
+  "train_time_s": 14.757773900004395,
+  "inference_s_per_1000": 0.011735879310561297
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "longitude",
+   "share": 0.5045196357638252
+  },
+  {
+   "feature": "latitude",
+   "share": 0.49548036423617486
+  }
+ ]
+}

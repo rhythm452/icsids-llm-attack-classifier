@@ -1,0 +1,63 @@
+{
+ "dataset": "X-IIoTID",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 10.0
+ },
+ "refit_params": {
+  "C": 10.0
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.9675360151824481,
+   "train_time_s": 12.471881899997243
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.9694106803387292,
+   "train_time_s": 23.479409999999916
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.9694856648897854,
+   "train_time_s": 28.148255000000063
+  }
+ ],
+ "test": {
+  "accuracy": 0.9717859142910478,
+  "precision": 0.984182776801406,
+  "recall": 0.9551967250397999,
+  "f1": 0.969473137515148,
+  "macro_f1": 0.9716230338046736,
+  "roc_auc": 0.9918467290884053,
+  "pr_auc": 0.9900617195664682,
+  "fpr": 0.013560343528702726,
+  "fnr": 0.04480327496020014,
+  "confusion_matrix": [
+   [
+    19641,
+    270
+   ],
+   [
+    788,
+    16800
+   ]
+  ],
+  "n_test": 37499,
+  "n_attack": 17588,
+  "train_time_s": 28.148255000000063,
+  "inference_s_per_1000": 0.0031135150270705228
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 118,
+ "dropped_extra": []
+}
