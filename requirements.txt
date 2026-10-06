@@ -1,5 +1,7 @@
 sentence-transformers
-scikit-learn
+scikit-learn==1.5.2
+lightgbm==4.7.0
+joblib
 numpy
 fastapi
 uvicorn
