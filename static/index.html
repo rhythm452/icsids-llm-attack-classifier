@@ -479,6 +479,49 @@
   .history-time { font-size: 0.68rem; color: var(--muted-2); margin-left: auto; font-family: var(--mono); }
   .history-text { font-size: 0.79rem; color: var(--muted); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
+  /* ================= Mode switch / structured mode ================= */
+  .mode-switch {
+    display: inline-flex; background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 11px; padding: 4px; gap: 4px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .mode-btn {
+    background: transparent; border: none; color: var(--muted); font-family: var(--font);
+    font-size: 0.82rem; font-weight: 600; padding: 9px 15px; border-radius: 8px; cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .mode-btn:hover { color: var(--text); }
+  .mode-btn.active { background: var(--accent-soft); color: var(--accent); box-shadow: 0 0 0 1px rgba(34,211,238,0.3) inset; }
+  .mode-btn.active.experimental { background: rgba(245,166,35,0.10); color: var(--amber); box-shadow: 0 0 0 1px rgba(245,166,35,0.35) inset; }
+  .warn-banner {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.35);
+    color: #f6c776; border-radius: 10px; padding: 12px 14px; font-size: 0.83rem; line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .warn-banner strong { color: var(--amber); }
+  .struct-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .struct-controls select {
+    background: #050810; color: var(--text); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 10px; font-family: var(--font); font-size: 0.82rem;
+  }
+  .struct-controls select:focus { outline: none; border-color: var(--accent); }
+  .sample-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--muted-2); margin-bottom: 10px; min-height: 1em; }
+  textarea.mono { font-family: var(--mono); font-size: 0.8rem; min-height: 190px; }
+  .info-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .info-pill {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+    background: var(--panel-2); border: 1px solid var(--border-soft); border-radius: 999px; padding: 3px 10px;
+  }
+  .truth-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600;
+    border-radius: 10px; padding: 9px 14px; margin-bottom: 22px;
+  }
+  .truth-badge.correct { color: var(--benign); background: var(--benign-bg); box-shadow: 0 0 0 1px rgba(47,212,122,0.35); }
+  .truth-badge.wrong { color: var(--attack); background: var(--attack-bg); box-shadow: 0 0 0 1px rgba(255,77,94,0.35); }
+  .history-truth { font-size: 0.66rem; font-family: var(--mono); margin-left: 4px; }
+  .history-truth.correct { color: var(--benign); }
+  .history-truth.wrong { color: var(--attack); }
+
   /* ================= Footer ================= */
   footer {
     text-align: center; color: var(--muted-2); font-size: 0.78rem;
@@ -503,21 +546,21 @@
     </div>
     <span class="brand-name">ICS Intrusion Detection</span>
   </div>
-  <div class="nav-status"><span class="nav-dot"></span>MODEL READY · all-MiniLM-L6-v2</div>
+  <div class="nav-status" id="navStatus"><span class="nav-dot"></span>LOADING MODEL…</div>
 </nav>
 
 <section class="hero">
   <div class="hero-badge">⚡ LLM-Augmented Analysis · MITRE ATT&amp;CK ICS</div>
   <h1>Detect ICS threats by <span>meaning</span>, not just signatures.</h1>
   <p>
-    A zero-shot classifier that reads a free-text description of an industrial control
-    system event and grounds its verdict in the official MITRE ATT&amp;CK ICS knowledge
-    base — no attack-specific training required.
+    A supervised detector reads a structured network event, rendered as text and embedded
+    with a transformer language model, and decides attack vs normal. Each verdict comes
+    with the closest MITRE ATT&amp;CK ICS techniques as an approximate explanation.
   </p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="num">97</div><div class="lbl">ATT&amp;CK ICS Techniques</div></div>
-    <div class="hero-stat"><div class="num">271</div><div class="lbl">Real Procedure Examples</div></div>
-    <div class="hero-stat"><div class="num">0</div><div class="lbl">Attack-Specific Training</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="lbl">Training Datasets</div></div>
+    <div class="hero-stat"><div class="num" id="heroF1">—</div><div class="lbl">Held-out F1 (pooled)</div></div>
   </div>
   <div class="hero-scroll-cue">
     Try it live below
@@ -530,16 +573,52 @@
     <div class="section-title"><span class="ti-dot"></span>Analyze an Event</div>
 
     <div class="input-card">
-      <div class="field-label">Event Description</div>
-      <div class="textarea-wrap">
-        <div class="ghost-placeholder" id="ghostPlaceholder"></div>
-        <textarea id="eventText"></textarea>
+      <div class="mode-switch" role="tablist">
+        <button class="mode-btn active" id="modeStructBtn" onclick="setMode('structured')">Structured event (detector)</button>
+        <button class="mode-btn experimental" id="modeTextBtn" onclick="setMode('free_text')">Free text (experimental, low-confidence)</button>
       </div>
+
+      <div id="structPanel">
+        <div class="struct-controls">
+          <select id="sampleSource">
+            <option value="">Any dataset</option>
+            <option>Edge-IIoTset</option>
+            <option>TON_IoT-Network</option>
+            <option>X-IIoTID</option>
+          </select>
+          <select id="sampleLabel">
+            <option value="">Attack or normal</option>
+            <option value="ATTACK">Attack only</option>
+            <option value="BENIGN">Normal only</option>
+          </select>
+          <span class="example-chip" onclick="loadSample()"><span class="chip-dot" style="background:var(--accent)"></span>Load sample event</span>
+        </div>
+        <div class="sample-meta" id="sampleMeta">Load a held-out test event, or edit the JSON to describe your own (source must be one of the three training datasets).</div>
+        <div class="field-label">Structured Event (JSON)</div>
+        <textarea id="eventJson" class="mono" spellcheck="false"></textarea>
+      </div>
+
+      <div id="textPanel" style="display:none">
+        <div class="warn-banner">
+          <span>⚠</span>
+          <span><strong>Experimental, low-confidence.</strong> Free-text verdicts use the original text-similarity
+          method, which is <strong>not a reliable detector</strong>: in the dataset study it scored near chance
+          (ROC-AUC 0.43–0.74) on real ICS/IIoT data. The supervised detector's probability is shown for reference,
+          but it was not trained on prose and is also near chance here.</span>
+        </div>
+        <div class="field-label">Event Description</div>
+        <div class="textarea-wrap">
+          <div class="ghost-placeholder" id="ghostPlaceholder"></div>
+          <textarea id="eventText"></textarea>
+        </div>
+      </div>
+
       <div class="input-footer">
-        <div class="examples">
+        <div class="examples" id="textExamples" style="display:none">
           <span class="example-chip attack-chip" onclick="fillExample(0)"><span class="chip-dot"></span>Try an attack example</span>
           <span class="example-chip benign-chip" onclick="fillExample(1)"><span class="chip-dot"></span>Try a benign example</span>
         </div>
+        <span></span>
         <button class="analyze" id="analyzeBtn" onclick="analyze()">
           <span class="dots"><span></span><span></span><span></span></span>
           <span class="btn-label">Analyze Event →</span>
@@ -550,7 +629,7 @@
     <div id="resultContainer">
       <div class="empty-state" id="emptyState">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <p>Describe an ICS event above and click Analyze to see the verdict, similarity gauge, and matched ATT&amp;CK ICS techniques.</p>
+        <p>Load a sample event (or write your own) and click Analyze to see the verdict, attack probability, and approximate ATT&amp;CK ICS technique matches.</p>
       </div>
     </div>
   </div>
@@ -590,8 +669,62 @@ const historyEmpty = document.getElementById('historyEmpty');
 const historyCount = document.getElementById('historyCount');
 const ghost = document.getElementById('ghostPlaceholder');
 
+const eventJson = document.getElementById('eventJson');
+const sampleMeta = document.getElementById('sampleMeta');
+
 let history = [];
 let activeIndex = null;
+let mode = 'structured';
+let SAMPLES = [];
+let currentSample = null;   // held-out sample currently loaded in the JSON editor
+let sampleCursor = 0;
+
+/* Mode switch */
+function setMode(m) {
+  mode = m;
+  document.getElementById('modeStructBtn').classList.toggle('active', m === 'structured');
+  document.getElementById('modeTextBtn').classList.toggle('active', m === 'free_text');
+  document.getElementById('structPanel').style.display = m === 'structured' ? '' : 'none';
+  document.getElementById('textPanel').style.display = m === 'free_text' ? '' : 'none';
+  document.getElementById('textExamples').style.display = m === 'free_text' ? '' : 'none';
+}
+
+/* Startup: model info + held-out samples */
+fetch('/api/health').then(r => r.json()).then(h => {
+  const d = h.detector;
+  document.getElementById('navStatus').innerHTML =
+    `<span class="nav-dot"></span>DETECTOR READY · ${escapeHtml(d.name)} v${escapeHtml(d.version)} · ${escapeHtml(d.embedding_model.split('/').pop())}`;
+  const pooled = Object.entries(d.test_f1 || {}).find(([k]) => k.startsWith('MERGED'));
+  if (pooled) document.getElementById('heroF1').textContent = pooled[1].toFixed(3);
+}).catch(() => {});
+fetch('/api/samples').then(r => r.json()).then(s => { SAMPLES = s.samples || []; }).catch(() => {});
+
+/* Deterministic shuffle so repeated clicks walk through all samples */
+function sampleOrder(list) {
+  return list.map((s, i) => [((i * 7919) % 104729), s]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+}
+
+function loadSample() {
+  const src = document.getElementById('sampleSource').value;
+  const lab = document.getElementById('sampleLabel').value;
+  const pool = sampleOrder(SAMPLES.filter(s => (!src || s.source === src) && (!lab || s.true_label === lab)));
+  if (!pool.length) { sampleMeta.textContent = 'No samples loaded (is the server running?)'; return; }
+  const s = pool[sampleCursor % pool.length];
+  sampleCursor++;
+  currentSample = s;
+  const ev = { source: s.source, fields: s.fields };
+  if (s.http_request) ev.http_request = s.http_request;
+  eventJson.value = JSON.stringify(ev, null, 2);
+  sampleMeta.textContent = `Held-out sample ${s.id} · ${s.source} · true label hidden until analyzed`;
+}
+
+/* Editing the JSON by hand detaches it from the loaded sample's ground truth */
+eventJson.addEventListener('input', () => {
+  if (currentSample) {
+    currentSample = null;
+    sampleMeta.textContent = 'Custom event (edited) · no ground-truth label';
+  }
+});
 
 /* Rotating ghost placeholder */
 let ghostIdx = 0;
@@ -637,30 +770,46 @@ function escapeHtml(s) {
 }
 
 async function analyze() {
-  const text = textarea.value.trim();
-  if (!text || analyzeBtn.classList.contains('loading')) return;
+  if (analyzeBtn.classList.contains('loading')) return;
+  let url, body, sample = null;
+  if (mode === 'structured') {
+    const raw = eventJson.value.trim();
+    if (!raw) { loadSample(); return; }
+    try { body = JSON.parse(raw); } catch (e) { alert('Structured event is not valid JSON: ' + e.message); return; }
+    url = '/api/analyze_event';
+    sample = currentSample;
+  } else {
+    const text = textarea.value.trim();
+    if (!text) return;
+    url = '/api/analyze';
+    body = { event_text: text };
+  }
 
   analyzeBtn.classList.add('loading');
   analyzeBtn.disabled = true;
 
   try {
-    const resp = await fetch('/api/analyze', {
+    const resp = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ event_text: text })
+      body: JSON.stringify(body)
     });
     const data = await resp.json();
-    if (data.error) {
-      alert(data.error);
+    if (data.error || data.detail) {
+      alert(data.error || JSON.stringify(data.detail));
       return;
     }
-    const entry = { data, time: new Date() };
+    const entry = { data, time: new Date(), sample };
     history.unshift(entry);
     activeIndex = 0;
     renderHistory();
     renderResult(entry);
-    textarea.value = '';
-    syncGhostVisibility();
+    if (mode === 'free_text') {
+      textarea.value = '';
+      syncGhostVisibility();
+    } else if (sample) {
+      sampleMeta.textContent = `Held-out sample ${sample.id} · ${sample.source} · true label: ${sample.true_label} (${sample.true_type})`;
+    }
 
     setTimeout(() => {
       resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -684,9 +833,27 @@ function renderResult(entry) {
   emptyState.style.display = 'none';
 
   const verdictClass = data.verdict === 'ATTACK' ? 'attack' : 'benign';
-  const scorePct = Math.max(0, Math.min(100, data.similarity * 100));
+  const structured = data.mode === 'structured';
+  // Structured: gauge = detector attack probability vs 0.5. Free text: legacy similarity vs its threshold.
+  const score = structured ? data.attack_probability : data.similarity;
+  const scorePct = Math.max(0, Math.min(100, score * 100));
   const threshPct = Math.max(0, Math.min(100, data.threshold * 100));
   const dashOffset = CIRC * (1 - scorePct / 100);
+  const m = data.model || {};
+  const s = entry.sample;
+  const truthHtml = s ? (() => {
+    const ok = s.true_label === data.verdict;
+    return `<div class="truth-badge ${ok ? 'correct' : 'wrong'}">${ok ? '✓ Correct' : '✗ Wrong'} · ground truth: ${escapeHtml(s.true_label)} (${escapeHtml(s.true_type)}) · held-out test sample ${escapeHtml(s.id)}</div>`;
+  })() : '';
+  const pills = [
+    `${structured ? 'Structured event' : 'Free text · experimental'}`,
+    `model ${m.name || '?'} v${m.version || '?'}`,
+    structured ? `source ${data.source}` : `similarity verdict`,
+  ].map(p => `<span class="info-pill">${escapeHtml(p)}</span>`).join('');
+  const gaugeLabel = structured ? 'Attack probability (detector)' : 'Similarity score (cosine, not a calibrated probability)';
+  const caption = structured
+    ? `Attack probability: <strong style="color:var(--text)">${data.attack_probability.toFixed(3)}</strong> vs. decision threshold <strong style="color:var(--amber)">${data.threshold.toFixed(2)}</strong> — from ${escapeHtml(m.classifier || 'the detector')} on ${escapeHtml((m.embedding_model || '').split('/').pop())} embeddings, trained on ${escapeHtml((m.training_datasets || []).join(', '))}.`
+    : `Raw similarity: <strong style="color:var(--text)">${data.similarity.toFixed(3)}</strong> vs. similarity threshold <strong style="color:var(--amber)">${data.threshold.toFixed(3)}</strong>. Detector probability (not trained on prose, near chance here): <strong style="color:var(--text)">${data.attack_probability.toFixed(3)}</strong>.`;
 
   const matchesHtml = data.matches.map((m, i) => `
     <div class="match-card">
@@ -710,10 +877,15 @@ function renderResult(entry) {
     <div class="verdict-hero">
       <span class="verdict-badge-lg ${verdictClass}"><span class="vdot"></span>${data.verdict}</span>
       <div class="verdict-meta">
-        <span class="verdict-sub">${verdictClass === 'attack' ? 'Matches a known ATT&CK ICS technique above the detection threshold' : 'Does not closely match any ATT&CK ICS technique'}</span>
+        <span class="verdict-sub">${structured
+          ? (verdictClass === 'attack' ? 'Detector attack probability at or above the decision threshold' : 'Detector attack probability below the decision threshold')
+          : (verdictClass === 'attack' ? 'Experimental: text similarity above the threshold (not a reliable detector)' : 'Experimental: text similarity below the threshold (not a reliable detector)')}</span>
         <span class="verdict-time">${fmtTime(entry.time)}</span>
+        <div class="info-row">${pills}</div>
       </div>
     </div>
+
+    ${truthHtml}
 
     <div class="gauge-row">
       <div class="gauge-wrap">
@@ -724,16 +896,16 @@ function renderResult(entry) {
         </svg>
         <div class="gauge-center">
           <div class="gauge-value">${(scorePct).toFixed(1)}</div>
-          <div class="gauge-unit">% Similarity</div>
+          <div class="gauge-unit">${structured ? '% Attack prob.' : '% Similarity'}</div>
         </div>
       </div>
       <div class="gauge-info">
-        <div class="score-label">Similarity Score (cosine, not a calibrated probability)</div>
+        <div class="score-label">${gaugeLabel}</div>
         <div class="score-track">
           <div class="score-fill ${verdictClass} js-score-fill" data-w="${scorePct}"></div>
-          <div class="threshold-marker" style="left:${threshPct}%" data-val="${data.threshold.toFixed(3)}"></div>
+          <div class="threshold-marker" style="left:${threshPct}%" data-val="${data.threshold.toFixed(structured ? 2 : 3)}"></div>
         </div>
-        <div class="score-caption">Raw score: <strong style="color:var(--text)">${data.similarity.toFixed(3)}</strong> vs. detection threshold <strong style="color:var(--amber)">${data.threshold.toFixed(3)}</strong> — calibrated as the midpoint between mean attack and mean benign similarity on the evaluation set.</div>
+        <div class="score-caption">${caption}</div>
       </div>
     </div>
 
@@ -742,7 +914,7 @@ function renderResult(entry) {
       <p><span class="tag">Recommended Action</span>${escapeHtml(data.mitigation)}</p>
     </div>
 
-    <div class="section-label">Top-3 Matched ATT&amp;CK ICS Techniques</div>
+    <div class="section-label">Top-3 ATT&amp;CK ICS Technique Matches · approximate explanation (text similarity, not the basis of the verdict)</div>
     <div class="matches">${matchesHtml}</div>
   `;
 
@@ -771,6 +943,8 @@ function renderHistory() {
       <div class="history-top">
         <span class="history-dot ${verdictClass}"></span>
         <span class="history-verdict ${verdictClass}">${entry.data.verdict}</span>
+        ${entry.sample ? `<span class="history-truth ${entry.sample.true_label === entry.data.verdict ? 'correct' : 'wrong'}">${entry.sample.true_label === entry.data.verdict ? '✓' : '✗'}</span>` : ''}
+        ${entry.data.mode === 'free_text' ? '<span class="history-truth" style="color:var(--amber)">text</span>' : ''}
         <span class="history-time">${fmtTime(entry.time)}</span>
       </div>
       <div class="history-text">${escapeHtml(entry.data.event_text)}</div>
