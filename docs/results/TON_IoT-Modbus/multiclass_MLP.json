@@ -1,0 +1,138 @@
+{
+ "dataset": "TON_IoT-Modbus",
+ "task": "multiclass",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   128,
+   64
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   128,
+   64
+  ],
+  "epochs": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.10772455529975465,
+   "train_time_s": 1.149088699996355
+  }
+ ],
+ "test": {
+  "accuracy": 0.1284748309541698,
+  "macro_f1": 0.09559270261778724,
+  "weighted_f1": 0.1452750058555805,
+  "roc_auc_ovr_macro": 0.4962188014816258,
+  "per_class": {
+   "backdoor": {
+    "precision": 0.168,
+    "recall": 0.1810344827586207,
+    "f1": 0.17427385892116182,
+    "support": 232
+   },
+   "injection": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 199
+   },
+   "normal": {
+    "precision": 0.42857142857142855,
+    "recall": 0.13854351687388988,
+    "f1": 0.20939597315436242,
+    "support": 563
+   },
+   "password": {
+    "precision": 0.14736842105263157,
+    "recall": 0.10894941634241245,
+    "f1": 0.12527964205816555,
+    "support": 257
+   },
+   "scanning": {
+    "precision": 0.0344311377245509,
+    "recall": 0.5227272727272727,
+    "f1": 0.06460674157303371,
+    "support": 44
+   },
+   "xss": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 36
+   }
+  },
+  "confusion_matrix": [
+   [
+    42,
+    2,
+    32,
+    30,
+    118,
+    8
+   ],
+   [
+    43,
+    0,
+    19,
+    36,
+    95,
+    6
+   ],
+   [
+    101,
+    2,
+    78,
+    87,
+    277,
+    18
+   ],
+   [
+    49,
+    0,
+    39,
+    28,
+    138,
+    3
+   ],
+   [
+    7,
+    1,
+    5,
+    7,
+    23,
+    1
+   ],
+   [
+    8,
+    0,
+    9,
+    2,
+    17,
+    0
+   ]
+  ],
+  "classes": [
+   "backdoor",
+   "injection",
+   "normal",
+   "password",
+   "scanning",
+   "xss"
+  ],
+  "train_time_s": 1.149088699996355,
+  "inference_s_per_1000": 0.0038742298997394954
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": []
+}

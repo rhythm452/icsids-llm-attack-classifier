@@ -1,0 +1,501 @@
+{
+ "dataset": "Edge-IIoTset",
+ "task": "multiclass",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 91
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.6443980975115708,
+   "train_time_s": 8.131623299996136
+  }
+ ],
+ "test": {
+  "accuracy": 0.9620901639344263,
+  "macro_f1": 0.5991924802089704,
+  "weighted_f1": 0.9675662098491246,
+  "roc_auc_ovr_macro": null,
+  "per_class": {
+   "Backdoor": {
+    "precision": 0.75,
+    "recall": 0.7142857142857143,
+    "f1": 0.7317073170731707,
+    "support": 21
+   },
+   "DDoS_HTTP": {
+    "precision": 0.9117647058823529,
+    "recall": 0.9117647058823529,
+    "f1": 0.9117647058823529,
+    "support": 34
+   },
+   "DDoS_ICMP": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "DDoS_TCP": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 8
+   },
+   "DDoS_UDP": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "Fingerprinting": {
+    "precision": 1.0,
+    "recall": 0.975609756097561,
+    "f1": 0.9876543209876543,
+    "support": 41
+   },
+   "MITM": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "support": 17
+   },
+   "Normal": {
+    "precision": 0.9975186104218362,
+    "recall": 0.995049504950495,
+    "f1": 0.9962825278810409,
+    "support": 404
+   },
+   "Password": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 2
+   },
+   "Port_Scanning": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 0
+   },
+   "Ransomware": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "support": 5
+   },
+   "SQL_injection": {
+    "precision": 0.9722222222222222,
+    "recall": 0.8974358974358975,
+    "f1": 0.9333333333333333,
+    "support": 39
+   },
+   "Uploading": {
+    "precision": 0.5,
+    "recall": 0.16666666666666666,
+    "f1": 0.25,
+    "support": 6
+   },
+   "Vulnerability_scanner": {
+    "precision": 0.9974093264248705,
+    "recall": 0.9821428571428571,
+    "f1": 0.9897172236503856,
+    "support": 392
+   },
+   "XSS": {
+    "precision": 0.5,
+    "recall": 0.7142857142857143,
+    "f1": 0.5882352941176471,
+    "support": 7
+   }
+  },
+  "confusion_matrix": [
+   [
+    15,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    31,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    8,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0,
+    40,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    17,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    402,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    35,
+    0,
+    0,
+    2
+   ],
+   [
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    3,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    385,
+    1
+   ],
+   [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5
+   ]
+  ],
+  "classes": [
+   "Backdoor",
+   "DDoS_HTTP",
+   "DDoS_ICMP",
+   "DDoS_TCP",
+   "DDoS_UDP",
+   "Fingerprinting",
+   "MITM",
+   "Normal",
+   "Password",
+   "Port_Scanning",
+   "Ransomware",
+   "SQL_injection",
+   "Uploading",
+   "Vulnerability_scanner",
+   "XSS"
+  ],
+  "train_time_s": 8.131623299996136,
+  "inference_s_per_1000": 0.06303852459212544
+ },
+ "n_features_in": 42,
+ "n_features_encoded": 51,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "service_port",
+   "share": 0.32691187765324575
+  },
+  {
+   "feature": "tcp.len",
+   "share": 0.18874841598149586
+  },
+  {
+   "feature": "tcp.flags",
+   "share": 0.14009133753517905
+  },
+  {
+   "feature": "inj_http_query",
+   "share": 0.0427259038430915
+  },
+  {
+   "feature": "udp.port",
+   "share": 0.04133812524534026
+  },
+  {
+   "feature": "len_http_file_data",
+   "share": 0.03801568448552302
+  },
+  {
+   "feature": "len_tcp_payload",
+   "share": 0.03413527208681358
+  },
+  {
+   "feature": "http.content_length",
+   "share": 0.022475916403632862
+  },
+  {
+   "feature": "tcp.connection.syn",
+   "share": 0.021694535080282525
+  },
+  {
+   "feature": "udp.time_delta",
+   "share": 0.02124629183743133
+  },
+  {
+   "feature": "tcp.connection.rst",
+   "share": 0.020608832334908147
+  },
+  {
+   "feature": "inj_http_uri",
+   "share": 0.018901494715913684
+  },
+  {
+   "feature": "len_http_uri",
+   "share": 0.012739082231353272
+  },
+  {
+   "feature": "http.response",
+   "share": 0.011628386945658707
+  },
+  {
+   "feature": "http.request.version_http/1.1",
+   "share": 0.00974470742931358
+  },
+  {
+   "feature": "http.request.method_post",
+   "share": 0.009310252452335983
+  },
+  {
+   "feature": "tcp.connection.fin",
+   "share": 0.00896198046910062
+  },
+  {
+   "feature": "http.request.method_get",
+   "share": 0.008440364481431295
+  },
+  {
+   "feature": "http.request.method_0",
+   "share": 0.00711349749160856
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "share": 0.006228828867786054
+  },
+  {
+   "feature": "dns.retransmission",
+   "share": 0.005213332528931755
+  },
+  {
+   "feature": "http.request.version_0",
+   "share": 0.0020851345289558173
+  },
+  {
+   "feature": "dns.qry.qu",
+   "share": 0.0008985580455667552
+  },
+  {
+   "feature": "len_http_query",
+   "share": 0.0007418702529541433
+  },
+  {
+   "feature": "len_dns_name",
+   "share": 3.170721458917852e-07
+  }
+ ]
+}

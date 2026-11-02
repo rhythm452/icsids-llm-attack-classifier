@@ -1,0 +1,161 @@
+{
+ "dataset": "TON_IoT-Network",
+ "task": "binary",
+ "tag": "_drop_top1",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 171
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9987173652199098,
+   "train_time_s": 1.7553717999981018
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9988001158508834,
+   "train_time_s": 2.0911189000034938
+  }
+ ],
+ "test": {
+  "accuracy": 0.9973900311923102,
+  "precision": 0.9989235737351991,
+  "recall": 0.9976844194508766,
+  "f1": 0.998303612065042,
+  "macro_f1": 0.9963238297599317,
+  "roc_auc": 0.9999499277084148,
+  "pr_auc": 0.9999849481722204,
+  "fpr": 0.0035941387890517005,
+  "fnr": 0.002315580549123387,
+  "confusion_matrix": [
+   [
+    3604,
+    13
+   ],
+   [
+    28,
+    12064
+   ]
+  ],
+  "n_test": 15709,
+  "n_attack": 12092,
+  "train_time_s": 2.0911189000034938,
+  "inference_s_per_1000": 0.008827933032209754
+ },
+ "n_features_in": 39,
+ "n_features_encoded": 80,
+ "dropped_extra": [
+  "conn_state"
+ ],
+ "feature_importance_gain": [
+  {
+   "feature": "dst_pkts",
+   "share": 0.2736975825968332
+  },
+  {
+   "feature": "proto_tcp",
+   "share": 0.15198706630142342
+  },
+  {
+   "feature": "proto_udp",
+   "share": 0.1477732099899545
+  },
+  {
+   "feature": "dst_ip_bytes",
+   "share": 0.0928201304720821
+  },
+  {
+   "feature": "dns_rejected_t",
+   "share": 0.059087294051297916
+  },
+  {
+   "feature": "src_pkts",
+   "share": 0.05885363467888802
+  },
+  {
+   "feature": "service_port",
+   "share": 0.053803700156822
+  },
+  {
+   "feature": "src_ip_bytes",
+   "share": 0.0430591506995377
+  },
+  {
+   "feature": "duration",
+   "share": 0.024777847102441176
+  },
+  {
+   "feature": "ssl_version_na",
+   "share": 0.020669705355103433
+  },
+  {
+   "feature": "src_bytes",
+   "share": 0.015036798517443765
+  },
+  {
+   "feature": "http_status_code",
+   "share": 0.01322403933978042
+  },
+  {
+   "feature": "dst_bytes",
+   "share": 0.009104234519444313
+  },
+  {
+   "feature": "dns_RA_t",
+   "share": 0.005848723600756412
+  },
+  {
+   "feature": "ssl_cipher_na",
+   "share": 0.005674320003841468
+  },
+  {
+   "feature": "dns_RD_t",
+   "share": 0.0034149041895426085
+  },
+  {
+   "feature": "len_dns_query",
+   "share": 0.0030270461401941348
+  },
+  {
+   "feature": "dns_RA_f",
+   "share": 0.002694968060630879
+  },
+  {
+   "feature": "dns_rejected_f",
+   "share": 0.0022304211442275203
+  },
+  {
+   "feature": "dns_rcode",
+   "share": 0.0014814425278311736
+  },
+  {
+   "feature": "service_dns",
+   "share": 0.0014430199737354126
+  },
+  {
+   "feature": "dns_qtype",
+   "share": 0.0013910301348960279
+  },
+  {
+   "feature": "len_http_user_agent",
+   "share": 0.0012698730890386325
+  },
+  {
+   "feature": "service_ssl",
+   "share": 0.0012063325995929888
+  },
+  {
+   "feature": "weird_name_na",
+   "share": 0.0009164999300815998
+  }
+ ]
+}

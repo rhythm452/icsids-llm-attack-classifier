@@ -1,0 +1,166 @@
+{
+ "dataset": "X-IIoTID",
+ "flag_accuracy_over_99": {
+  "RandomForest": 0.9944798527960745,
+  "LightGBM": 0.996186564975066
+ },
+ "train_test_overlap": {
+  "test_rows": 37499,
+  "test_rows_seen_in_train": 0,
+  "pct_seen_in_train": 0.0,
+  "seen_with_same_label": 0,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "service_port",
+   "train_auc": 0.7826000613834202,
+   "stump_test_f1": 0.6161120203673395
+  },
+  {
+   "feature": "Avg_num_cswch/s",
+   "train_auc": 0.6959125718854007,
+   "stump_test_f1": 0.5605361370841526
+  },
+  {
+   "feature": "Avg_system_time",
+   "train_auc": 0.6811560824956012,
+   "stump_test_f1": 0.5779304422498927
+  },
+  {
+   "feature": "Avg_ideal_time",
+   "train_auc": 0.6643303197261892,
+   "stump_test_f1": 0.5757192328183272
+  },
+  {
+   "feature": "Avg_user_time",
+   "train_auc": 0.6399492099179882,
+   "stump_test_f1": 0.35668789808917195
+  },
+  {
+   "feature": "byte_rate",
+   "train_auc": 0.6377705959393021,
+   "stump_test_f1": 0.6813303065699866
+  },
+  {
+   "feature": "is_with_payload",
+   "train_auc": 0.636225501191161,
+   "stump_test_f1": 0.4454754368468976
+  },
+  {
+   "feature": "Avg_ldavg_1",
+   "train_auc": 0.6348241672723176,
+   "stump_test_f1": 0.39571502323180174
+  },
+  {
+   "feature": "Std_system_time",
+   "train_auc": 0.6327911218493175,
+   "stump_test_f1": 0.39554035221081973
+  },
+  {
+   "feature": "Service",
+   "train_auc": 0.6301149651594697,
+   "stump_test_f1": 0.6902705200668302
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "Service_dns",
+   "share": 0.21461523224482948
+  },
+  {
+   "feature": "read_write_physical.process",
+   "share": 0.1686840397144608
+  },
+  {
+   "feature": "Des_bytes_ratio",
+   "share": 0.15666222020432177
+  },
+  {
+   "feature": "Duration",
+   "share": 0.05872616351241752
+  },
+  {
+   "feature": "service_port",
+   "share": 0.046794298898097664
+  },
+  {
+   "feature": "Avg_num_cswch/s",
+   "share": 0.04023228991537808
+  },
+  {
+   "feature": "Service_modbus",
+   "share": 0.03626410048433441
+  },
+  {
+   "feature": "is_with_payload",
+   "share": 0.03101121471213908
+  },
+  {
+   "feature": "Scr_bytes_ratio",
+   "share": 0.029743627285699497
+  },
+  {
+   "feature": "Service_mqtt",
+   "share": 0.027427511880496448
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "Service",
+   0.2827968577036531
+  ],
+  [
+   "read_write_physical.process",
+   0.1686840397144608
+  ],
+  [
+   "Des_bytes_ratio",
+   0.15666222020432177
+  ],
+  [
+   "Duration",
+   0.05872616351241752
+  ],
+  [
+   "service_port",
+   0.046794298898097664
+  ],
+  [
+   "Avg_num_cswch/s",
+   0.04023228991537808
+  ],
+  [
+   "is_with_payload",
+   0.03101121471213908
+  ],
+  [
+   "Scr_bytes_ratio",
+   0.029743627285699497
+  ],
+  [
+   "Des_bytes",
+   0.021202491848591395
+  ],
+  [
+   "Des_pkts",
+   0.0193953693822739
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.996186564975066,
+   "f1": 0.9959283619486917,
+   "macro_f1": 0.9961711674577824,
+   "roc_auc": 0.9999350189992041,
+   "pr_auc": 0.9999276104168606
+  },
+  "without top-1 feature (Service)": {
+   "accuracy": 0.996079895463879,
+   "f1": 0.9958149466192171,
+   "macro_f1": 0.9960641206649619,
+   "roc_auc": 0.99993719493182,
+   "pr_auc": 0.9999295793063583
+  }
+ }
+}

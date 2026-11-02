@@ -1,0 +1,33 @@
+{
+ "rows_raw": 39587,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-IoT_Garage_Door",
+ "kind": "IoT/IIoT device telemetry",
+ "evaluable": false,
+ "reason": "only 16 unique rows after de-duplication (per label: {1: 14, 0: 2})",
+ "rows_after_cleaning": 39587,
+ "rows_after_dedup": 16,
+ "type_counts_before_dedup": {
+  "normal": 15000,
+  "ddos": 5000,
+  "backdoor": 5000,
+  "injection": 5000,
+  "password": 5000,
+  "ransomware": 2902,
+  "xss": 1156,
+  "scanning": 529
+ },
+ "type_counts_after_dedup": {
+  "ddos": 2,
+  "backdoor": 2,
+  "injection": 2,
+  "normal": 2,
+  "password": 2,
+  "ransomware": 2,
+  "xss": 2,
+  "scanning": 2
+ },
+ "conflicting_label_rows": 16
+}

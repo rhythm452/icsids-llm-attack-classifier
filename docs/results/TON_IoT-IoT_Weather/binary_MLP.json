@@ -1,0 +1,69 @@
+{
+ "dataset": "TON_IoT-IoT_Weather",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   256,
+   128
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   256,
+   128
+  ],
+  "epochs": 30
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.8344494627005139,
+   "train_time_s": 8.030906900006812
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.8251923983037537,
+   "train_time_s": 4.469138699998439
+  }
+ ],
+ "test": {
+  "accuracy": 0.8208457624144587,
+  "precision": 0.9339328951919751,
+  "recall": 0.7648725212464589,
+  "f1": 0.8409904999221305,
+  "macro_f1": 0.8179234195411336,
+  "roc_auc": 0.9253853879739884,
+  "pr_auc": 0.9568949281443179,
+  "fpr": 0.0880590133702167,
+  "fnr": 0.23512747875354106,
+  "confusion_matrix": [
+   [
+    1978,
+    191
+   ],
+   [
+    830,
+    2700
+   ]
+  ],
+  "n_test": 5699,
+  "n_attack": 3530,
+  "train_time_s": 8.030906900006812,
+  "inference_s_per_1000": 0.0011292507457903143
+ },
+ "n_features_in": 3,
+ "n_features_encoded": 3,
+ "dropped_extra": []
+}

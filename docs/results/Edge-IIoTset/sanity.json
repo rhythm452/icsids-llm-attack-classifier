@@ -1,0 +1,173 @@
+{
+ "dataset": "Edge-IIoTset",
+ "flag_accuracy_over_99": {
+  "RandomForest": 0.9918032786885246,
+  "LightGBM": 0.9938524590163934
+ },
+ "train_test_overlap": {
+  "test_rows": 976,
+  "test_rows_seen_in_train": 27,
+  "pct_seen_in_train": 2.7663934426229506,
+  "seen_with_same_label": 24,
+  "seen_with_other_label_only": 3
+ },
+ "single_feature": [
+  {
+   "feature": "http.request.method",
+   "train_auc": 0.8647234678624813,
+   "stump_test_f1": 0.8397565922920892
+  },
+  {
+   "feature": "http.request.version",
+   "train_auc": 0.8647234678624813,
+   "stump_test_f1": 0.8362156663275687
+  },
+  {
+   "feature": "len_http_uri",
+   "train_auc": 0.8626681614349776,
+   "stump_test_f1": 0.8385786802030457
+  },
+  {
+   "feature": "len_http_file_data",
+   "train_auc": 0.8180119581464873,
+   "stump_test_f1": 0.7738478027867095
+  },
+  {
+   "feature": "http.content_length",
+   "train_auc": 0.8178251121076233,
+   "stump_test_f1": 0.7698924731182796
+  },
+  {
+   "feature": "len_http_query",
+   "train_auc": 0.7683109118086697,
+   "stump_test_f1": 0.7029478458049887
+  },
+  {
+   "feature": "udp.port",
+   "train_auc": 0.7112882761792612,
+   "stump_test_f1": 0.8417954378219279
+  },
+  {
+   "feature": "udp.time_delta",
+   "train_auc": 0.7087996058886735,
+   "stump_test_f1": 0.8340740740740741
+  },
+  {
+   "feature": "tcp.flags",
+   "train_auc": 0.6793319535472002,
+   "stump_test_f1": 0.8215892053973014
+  },
+  {
+   "feature": "tcp.flags.ack",
+   "train_auc": 0.6775282201948354,
+   "stump_test_f1": 0.789838337182448
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "http.request.method_0",
+   "share": 0.4911877044430519
+  },
+  {
+   "feature": "udp.port",
+   "share": 0.1737850667444262
+  },
+  {
+   "feature": "service_port",
+   "share": 0.1511149123955203
+  },
+  {
+   "feature": "http.request.version_0",
+   "share": 0.07286153383368847
+  },
+  {
+   "feature": "tcp.flags",
+   "share": 0.03663629591892598
+  },
+  {
+   "feature": "udp.time_delta",
+   "share": 0.029873553074355436
+  },
+  {
+   "feature": "tcp.len",
+   "share": 0.022922518370621724
+  },
+  {
+   "feature": "tcp.connection.fin",
+   "share": 0.006857045220368125
+  },
+  {
+   "feature": "len_tcp_payload",
+   "share": 0.005749690960925573
+  },
+  {
+   "feature": "tcp.connection.rst",
+   "share": 0.0046181758549953805
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "http.request.method",
+   0.49118770444305204
+  ],
+  [
+   "udp.port",
+   0.1737850667444262
+  ],
+  [
+   "service_port",
+   0.1511149123955203
+  ],
+  [
+   "http.request.version",
+   0.07290679751116898
+  ],
+  [
+   "tcp.flags",
+   0.03663629591892598
+  ],
+  [
+   "udp.time_delta",
+   0.029873553074355436
+  ],
+  [
+   "tcp.len",
+   0.022922518370621724
+  ],
+  [
+   "tcp.connection.fin",
+   0.006857045220368125
+  ],
+  [
+   "len_tcp_payload",
+   0.005749690960925573
+  ],
+  [
+   "tcp.connection.rst",
+   0.0046181758549953805
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9938524590163934,
+   "f1": 0.9947460595446584,
+   "macro_f1": 0.9936693260686256,
+   "roc_auc": 0.9995218271827183,
+   "pr_auc": 0.9996490500832065
+  },
+  "without top-1 feature (http.request.method)": {
+   "accuracy": 0.9948770491803278,
+   "f1": 0.9956255468066492,
+   "macro_f1": 0.9947225385454754,
+   "roc_auc": 0.9995434639617808,
+   "pr_auc": 0.9996669066904021
+  }
+ },
+ "edge_without_misaligned_classes": {
+  "note": "LightGBM test metrics excluding DDoS_UDP and MITM rows (misaligned in source CSV)",
+  "n_excluded": 17,
+  "accuracy": 0.9937434827945777,
+  "f1": 0.9945848375451264,
+  "roc_auc": 0.9995071804477744
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "rows_raw": 38960,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-IoT_GPS_Tracker",
+ "kind": "IoT/IIoT device telemetry",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 38960,
+ "rows_after_dedup": 38661,
+ "duplicates_removed": 299,
+ "type_counts_before_dedup": {
+  "normal": 15000,
+  "ddos": 5000,
+  "backdoor": 5000,
+  "injection": 5000,
+  "password": 5000,
+  "ransomware": 2833,
+  "xss": 577,
+  "scanning": 550
+ },
+ "type_counts_after_dedup": {
+  "normal": 14709,
+  "backdoor": 5000,
+  "injection": 5000,
+  "ddos": 4999,
+  "password": 4995,
+  "ransomware": 2832,
+  "xss": 576,
+  "scanning": 550
+ },
+ "conflicting_label_rows": 5,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "latitude",
+  "longitude"
+ ],
+ "features_categorical": [],
+ "dropped_columns": {
+  "date": "timestamp/date: identifies capture session, not behaviour",
+  "time": "timestamp/date: identifies capture session, not behaviour; leading-space format differs by label (leak)"
+ },
+ "n_rows": {
+  "train": 27062,
+  "val": 5799,
+  "test": 5800
+ },
+ "attack_ratio": {
+  "train": 0.6195403148326066,
+  "val": 0.6195895844111053,
+  "test": 0.6194827586206897
+ },
+ "type_counts": {
+  "train": {
+   "normal": 10296,
+   "injection": 3500,
+   "backdoor": 3500,
+   "ddos": 3499,
+   "password": 3497,
+   "ransomware": 1982,
+   "xss": 403,
+   "scanning": 385
+  },
+  "val": {
+   "normal": 2206,
+   "ddos": 750,
+   "backdoor": 750,
+   "injection": 750,
+   "password": 749,
+   "ransomware": 425,
+   "xss": 86,
+   "scanning": 83
+  },
+  "test": {
+   "normal": 2207,
+   "injection": 750,
+   "ddos": 750,
+   "backdoor": 750,
+   "password": 749,
+   "ransomware": 425,
+   "xss": 87,
+   "scanning": 82
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}

@@ -1,0 +1,69 @@
+{
+ "dataset": "X-IIoTID",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   256,
+   128
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   256,
+   128
+  ],
+  "epochs": 24
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.9859943977591037,
+   "train_time_s": 56.6124994999991
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.9851445549080106,
+   "train_time_s": 31.609731600001396
+  }
+ ],
+ "test": {
+  "accuracy": 0.9859729592789142,
+  "precision": 0.9905692926969523,
+  "recall": 0.9794177848533091,
+  "f1": 0.9849619760992624,
+  "macro_f1": 0.9859092739067027,
+  "roc_auc": 0.998762284124783,
+  "pr_auc": 0.9987795297998533,
+  "fpr": 0.008236653106323138,
+  "fnr": 0.020582215146690924,
+  "confusion_matrix": [
+   [
+    19747,
+    164
+   ],
+   [
+    362,
+    17226
+   ]
+  ],
+  "n_test": 37499,
+  "n_attack": 17588,
+  "train_time_s": 56.6124994999991,
+  "inference_s_per_1000": 0.003457316195111038
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 118,
+ "dropped_extra": []
+}

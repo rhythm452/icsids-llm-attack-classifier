@@ -1,0 +1,69 @@
+{
+ "dataset": "TON_IoT-IoT_GPS_Tracker",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   256,
+   128
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   256,
+   128
+  ],
+  "epochs": 24
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.8977013039387014,
+   "train_time_s": 51.210079899996344
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.8817747823645044,
+   "train_time_s": 15.028459499997552
+  }
+ ],
+ "test": {
+  "accuracy": 0.8677586206896551,
+  "precision": 0.866441908713693,
+  "recall": 0.9298636237127749,
+  "f1": 0.8970331588132635,
+  "macro_f1": 0.8561292028708573,
+  "roc_auc": 0.9386303554802665,
+  "pr_auc": 0.9638130566121247,
+  "fpr": 0.23334843679202538,
+  "fnr": 0.07013637628722516,
+  "confusion_matrix": [
+   [
+    1692,
+    515
+   ],
+   [
+    252,
+    3341
+   ]
+  ],
+  "n_test": 5800,
+  "n_attack": 3593,
+  "train_time_s": 51.210079899996344,
+  "inference_s_per_1000": 0.002303896552144453
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": []
+}

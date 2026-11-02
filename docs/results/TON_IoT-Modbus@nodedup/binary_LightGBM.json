@@ -1,0 +1,75 @@
+{
+ "dataset": "TON_IoT-Modbus@nodedup",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 1870
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9461732548359967,
+   "train_time_s": 2.518346199998632
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9711055276381909,
+   "train_time_s": 5.855008799997449
+  }
+ ],
+ "test": {
+  "accuracy": 0.9714959279897128,
+  "precision": 0.9830723656369023,
+  "recall": 0.9615066225165563,
+  "f1": 0.9721699100230173,
+  "macro_f1": 0.9714792005638917,
+  "roc_auc": 0.9942871596762325,
+  "pr_auc": 0.9900582652582771,
+  "fpr": 0.017777777777777778,
+  "fnr": 0.03849337748344371,
+  "confusion_matrix": [
+   [
+    2210,
+    40
+   ],
+   [
+    93,
+    2323
+   ]
+  ],
+  "n_test": 4666,
+  "n_attack": 2416,
+  "train_time_s": 5.855008799997449,
+  "inference_s_per_1000": 0.055954886412790825
+ },
+ "n_features_in": 4,
+ "n_features_encoded": 4,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "FC3_Read_Holding_Register",
+   "share": 0.25423376613365745
+  },
+  {
+   "feature": "FC2_Read_Discrete_Value",
+   "share": 0.25257948183380236
+  },
+  {
+   "feature": "FC4_Read_Coil",
+   "share": 0.25224364706563507
+  },
+  {
+   "feature": "FC1_Read_Input_Register",
+   "share": 0.24094310496690513
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "rows_raw": 39944,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-IoT_Fridge",
+ "kind": "IoT/IIoT device telemetry",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 39944,
+ "rows_after_dedup": 1057,
+ "duplicates_removed": 38887,
+ "type_counts_before_dedup": {
+  "normal": 15000,
+  "backdoor": 5000,
+  "ddos": 5000,
+  "injection": 5000,
+  "password": 5000,
+  "ransomware": 2902,
+  "xss": 2042
+ },
+ "type_counts_after_dedup": {
+  "ddos": 151,
+  "backdoor": 151,
+  "injection": 151,
+  "normal": 151,
+  "password": 151,
+  "ransomware": 151,
+  "xss": 151
+ },
+ "conflicting_label_rows": 1057,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "fridge_temperature"
+ ],
+ "features_categorical": [
+  "temp_condition"
+ ],
+ "dropped_columns": {
+  "date": "timestamp/date: identifies capture session, not behaviour",
+  "time": "timestamp/date: identifies capture session, not behaviour; leading-space format differs by label (leak)"
+ },
+ "n_rows": {
+  "train": 739,
+  "val": 159,
+  "test": 159
+ },
+ "attack_ratio": {
+  "train": 0.857916102841678,
+  "val": 0.8553459119496856,
+  "test": 0.8553459119496856
+ },
+ "type_counts": {
+  "train": {
+   "ransomware": 106,
+   "injection": 106,
+   "backdoor": 106,
+   "ddos": 106,
+   "normal": 105,
+   "xss": 105,
+   "password": 105
+  },
+  "val": {
+   "ddos": 23,
+   "normal": 23,
+   "password": 23,
+   "ransomware": 23,
+   "xss": 23,
+   "injection": 22,
+   "backdoor": 22
+  },
+  "test": {
+   "normal": 23,
+   "password": 23,
+   "injection": 23,
+   "xss": 23,
+   "backdoor": 23,
+   "ransomware": 22,
+   "ddos": 22
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}

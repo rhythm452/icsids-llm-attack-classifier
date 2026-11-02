@@ -1,0 +1,69 @@
+{
+ "dataset": "TON_IoT-IoT_Thermostat",
+ "task": "binary",
+ "tag": "",
+ "model": "MLP",
+ "selected_params": {
+  "hidden": [
+   256,
+   128
+  ]
+ },
+ "refit_params": {
+  "hidden": [
+   256,
+   128
+  ],
+  "epochs": 2
+ },
+ "val_search": [
+  {
+   "params": {
+    "hidden": [
+     256,
+     128
+    ]
+   },
+   "val_score": 0.633496373756114,
+   "train_time_s": 11.992972000000009
+  },
+  {
+   "params": {
+    "hidden": [
+     128,
+     64
+    ]
+   },
+   "val_score": 0.4613604812586765,
+   "train_time_s": 5.852734000000055
+  }
+ ],
+ "test": {
+  "accuracy": 0.524558380008617,
+  "precision": 0.5477974228348816,
+  "recall": 0.723673792557403,
+  "f1": 0.6235715504008187,
+  "macro_f1": 0.4892192741773167,
+  "roc_auc": 0.4955943069206903,
+  "pr_auc": 0.5391559602199221,
+  "fpr": 0.7131379962192816,
+  "fnr": 0.276326207442597,
+  "confusion_matrix": [
+   [
+    607,
+    1509
+   ],
+   [
+    698,
+    1828
+   ]
+  ],
+  "n_test": 4642,
+  "n_attack": 2526,
+  "train_time_s": 11.992972000000009,
+  "inference_s_per_1000": 0.017983713915750835
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": []
+}

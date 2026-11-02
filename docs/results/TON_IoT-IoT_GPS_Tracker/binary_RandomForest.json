@@ -1,0 +1,68 @@
+{
+ "dataset": "TON_IoT-IoT_GPS_Tracker",
+ "task": "binary",
+ "tag": "",
+ "model": "RandomForest",
+ "selected_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "refit_params": {
+  "max_depth": null,
+  "min_samples_leaf": 1
+ },
+ "val_search": [
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.9603487064116986,
+   "train_time_s": 2.2466949000008754
+  },
+  {
+   "params": {
+    "max_depth": null,
+    "min_samples_leaf": 5
+   },
+   "val_score": 0.9528662420382166,
+   "train_time_s": 2.254458800001885
+  },
+  {
+   "params": {
+    "max_depth": 20,
+    "min_samples_leaf": 1
+   },
+   "val_score": 0.9551738583996648,
+   "train_time_s": 2.3689836999983527
+  }
+ ],
+ "test": {
+  "accuracy": 0.9412068965517242,
+  "precision": 0.9648370497427101,
+  "recall": 0.9393264681324798,
+  "f1": 0.9519108729375264,
+  "macro_f1": 0.9381421741046027,
+  "roc_auc": 0.973835874543854,
+  "pr_auc": 0.986219850224614,
+  "fpr": 0.05573176257362936,
+  "fnr": 0.060673531867520177,
+  "confusion_matrix": [
+   [
+    2084,
+    123
+   ],
+   [
+    218,
+    3375
+   ]
+  ],
+  "n_test": 5800,
+  "n_attack": 3593,
+  "train_time_s": 2.2466949000008754,
+  "inference_s_per_1000": 0.017445258621090285
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": []
+}

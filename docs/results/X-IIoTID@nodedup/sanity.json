@@ -1,0 +1,158 @@
+{
+ "dataset": "X-IIoTID@nodedup",
+ "flag_accuracy_over_99": {
+  "LightGBM": 0.9966132430198139
+ },
+ "train_test_overlap": {
+  "test_rows": 37499,
+  "test_rows_seen_in_train": 3320,
+  "pct_seen_in_train": 8.853569428518092,
+  "seen_with_same_label": 3320,
+  "seen_with_other_label_only": 0
+ },
+ "single_feature": [
+  {
+   "feature": "service_port",
+   "train_auc": 0.8120156389921853,
+   "stump_test_f1": 0.6802685782866781
+  },
+  {
+   "feature": "Avg_num_cswch/s",
+   "train_auc": 0.7371962561213306,
+   "stump_test_f1": 0.6392796848621272
+  },
+  {
+   "feature": "Avg_system_time",
+   "train_auc": 0.7236926796224272,
+   "stump_test_f1": 0.6526055442959706
+  },
+  {
+   "feature": "Avg_ideal_time",
+   "train_auc": 0.7119648967855785,
+   "stump_test_f1": 0.6275921936790664
+  },
+  {
+   "feature": "Avg_user_time",
+   "train_auc": 0.6931493461771074,
+   "stump_test_f1": 0.49088901159580345
+  },
+  {
+   "feature": "Avg_ldavg_1",
+   "train_auc": 0.6784511813308503,
+   "stump_test_f1": 0.5015870644908323
+  },
+  {
+   "feature": "Std_system_time",
+   "train_auc": 0.6753264396538468,
+   "stump_test_f1": 0.4900215149491802
+  },
+  {
+   "feature": "std_num_cswch/s",
+   "train_auc": 0.6572209366700315,
+   "stump_test_f1": 0.5028518216738447
+  },
+  {
+   "feature": "Service",
+   "train_auc": 0.654214913756517,
+   "stump_test_f1": 0.7531725091091845
+  },
+  {
+   "feature": "Scr_packts_ratio",
+   "train_auc": 0.6392274421141535,
+   "stump_test_f1": 0.5028166213798131
+  }
+ ],
+ "lightgbm_top_importance": [
+  {
+   "feature": "Avg_num_cswch/s",
+   "share": 0.20447848018191103
+  },
+  {
+   "feature": "is_with_payload",
+   "share": 0.13457992920335843
+  },
+  {
+   "feature": "read_write_physical.process",
+   "share": 0.1145260488244743
+  },
+  {
+   "feature": "Duration",
+   "share": 0.08109116935153182
+  },
+  {
+   "feature": "service_port",
+   "share": 0.07506431752205393
+  },
+  {
+   "feature": "Service_dns",
+   "share": 0.04993533015901639
+  },
+  {
+   "feature": "Des_bytes_ratio",
+   "share": 0.03532871507196863
+  },
+  {
+   "feature": "Login_attempt",
+   "share": 0.03321492395446006
+  },
+  {
+   "feature": "Service_mqtt",
+   "share": 0.02558470367319049
+  },
+  {
+   "feature": "Service_modbus",
+   "share": 0.024383811465881453
+  }
+ ],
+ "lightgbm_importance_by_raw_feature": [
+  [
+   "Avg_num_cswch/s",
+   0.20447848018191103
+  ],
+  [
+   "is_with_payload",
+   0.13457992920335843
+  ],
+  [
+   "read_write_physical.process",
+   0.1145260488244743
+  ],
+  [
+   "Service",
+   0.10788506191189047
+  ],
+  [
+   "Duration",
+   0.08109116935153182
+  ],
+  [
+   "service_port",
+   0.07506431752205393
+  ],
+  [
+   "Des_bytes_ratio",
+   0.03532871507196863
+  ],
+  [
+   "Login_attempt",
+   0.03321492395446006
+  ],
+  [
+   "Des_ip_bytes",
+   0.023613521560682055
+  ],
+  [
+   "Conn_state",
+   0.021755210272656467
+  ]
+ ],
+ "ablations_lightgbm": {
+  "baseline": {
+   "accuracy": 0.9966132430198139,
+   "f1": 0.9966616723181663,
+   "macro_f1": 0.996612530111187,
+   "roc_auc": 0.9999390349116543,
+   "pr_auc": 0.9999449556158648
+  }
+ }
+}

@@ -1,0 +1,63 @@
+{
+ "dataset": "TON_IoT-IoT_Fridge",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 1.0
+ },
+ "refit_params": {
+  "C": 1.0
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.6457399103139013,
+   "train_time_s": 0.007907100000011269
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.6547085201793722,
+   "train_time_s": 0.006622499997320119
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.6547085201793722,
+   "train_time_s": 0.006850600002508145
+  }
+ ],
+ "test": {
+  "accuracy": 0.5283018867924528,
+  "precision": 0.8588235294117647,
+  "recall": 0.5367647058823529,
+  "f1": 0.6606334841628959,
+  "macro_f1": 0.44371880393711804,
+  "roc_auc": 0.498881074168798,
+  "pr_auc": 0.8436873852043334,
+  "fpr": 0.5217391304347826,
+  "fnr": 0.4632352941176471,
+  "confusion_matrix": [
+   [
+    11,
+    12
+   ],
+   [
+    63,
+    73
+   ]
+  ],
+  "n_test": 159,
+  "n_attack": 136,
+  "train_time_s": 0.006622499997320119,
+  "inference_s_per_1000": 0.042581761029985316
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 3,
+ "dropped_extra": []
+}

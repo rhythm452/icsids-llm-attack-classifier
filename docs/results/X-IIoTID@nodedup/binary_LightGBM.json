@@ -1,0 +1,159 @@
+{
+ "dataset": "X-IIoTID@nodedup",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 31
+ },
+ "refit_params": {
+  "num_leaves": 31,
+  "n_estimators": 980
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.9966089219526301,
+   "train_time_s": 11.601596600004996
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.9964248159831756,
+   "train_time_s": 7.437273199997435
+  }
+ ],
+ "test": {
+  "accuracy": 0.9966132430198139,
+  "precision": 0.997999578858707,
+  "recall": 0.9953273481388145,
+  "f1": 0.9966616723181663,
+  "macro_f1": 0.996612530111187,
+  "roc_auc": 0.9999390349116543,
+  "pr_auc": 0.9999449556158648,
+  "fpr": 0.0020593973553002386,
+  "fnr": 0.004672651861185488,
+  "confusion_matrix": [
+   [
+    18414,
+    38
+   ],
+   [
+    89,
+    18958
+   ]
+  ],
+  "n_test": 37499,
+  "n_attack": 19047,
+  "train_time_s": 11.601596600004996,
+  "inference_s_per_1000": 0.01936284434245563
+ },
+ "n_features_in": 58,
+ "n_features_encoded": 117,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "Avg_num_cswch/s",
+   "share": 0.20447848018191103
+  },
+  {
+   "feature": "is_with_payload",
+   "share": 0.13457992920335843
+  },
+  {
+   "feature": "read_write_physical.process",
+   "share": 0.1145260488244743
+  },
+  {
+   "feature": "Duration",
+   "share": 0.08109116935153182
+  },
+  {
+   "feature": "service_port",
+   "share": 0.07506431752205393
+  },
+  {
+   "feature": "Service_dns",
+   "share": 0.04993533015901639
+  },
+  {
+   "feature": "Des_bytes_ratio",
+   "share": 0.03532871507196863
+  },
+  {
+   "feature": "Login_attempt",
+   "share": 0.03321492395446006
+  },
+  {
+   "feature": "Service_mqtt",
+   "share": 0.02558470367319049
+  },
+  {
+   "feature": "Service_modbus",
+   "share": 0.024383811465881453
+  },
+  {
+   "feature": "Des_ip_bytes",
+   "share": 0.023613521560682055
+  },
+  {
+   "feature": "Conn_state",
+   "share": 0.021755210272656467
+  },
+  {
+   "feature": "Des_bytes",
+   "share": 0.01815921762378415
+  },
+  {
+   "feature": "Scr_bytes",
+   "share": 0.01284094093401693
+  },
+  {
+   "feature": "Avg_nice_time",
+   "share": 0.012654838516829747
+  },
+  {
+   "feature": "Scr_ip_bytes",
+   "share": 0.009620863033434532
+  },
+  {
+   "feature": "Service_other",
+   "share": 0.007981216613802142
+  },
+  {
+   "feature": "FIN or RST",
+   "share": 0.007740665680925353
+  },
+  {
+   "feature": "is_syn_only",
+   "share": 0.00713517060395486
+  },
+  {
+   "feature": "anomaly_alert",
+   "share": 0.006394089766748346
+  },
+  {
+   "feature": "Scr_bytes_ratio",
+   "share": 0.0059887847493074915
+  },
+  {
+   "feature": "OSSEC_alert_level",
+   "share": 0.005981931201237807
+  },
+  {
+   "feature": "Scr_pkts",
+   "share": 0.005586821082875662
+  },
+  {
+   "feature": "total_bytes",
+   "share": 0.005585897162532755
+  },
+  {
+   "feature": "paket_rate",
+   "share": 0.004737491728795199
+  }
+ ]
+}

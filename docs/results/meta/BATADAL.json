@@ -1,0 +1,101 @@
+{
+ "rows_raw": 12938,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "label_noise": "ATT_FLAG=-999 in dataset04 (3958 rows) treated as normal; the BATADAL organisers left some dataset04 attacks unlabelled, so some of these rows may be attacks.",
+ "name": "BATADAL",
+ "kind": "process/sensor telemetry (water distribution SCADA, hourly)",
+ "split": "chronological: train < 2016-10-20 (dataset03 + dataset04 windows 1-2), val < 2016-11-15 (window 3), test after (windows 4-5)",
+ "rows_after_cleaning": 12938,
+ "rows_after_dedup": 12938,
+ "duplicates_removed": 0,
+ "type_counts_before_dedup": {
+  "normal": 12719,
+  "attack": 219
+ },
+ "type_counts_after_dedup": {
+  "normal": 12719,
+  "attack": 219
+ },
+ "conflicting_label_rows": 0,
+ "sampling": {
+  "sampled": false
+ },
+ "features_numeric": [
+  "L_T1",
+  "L_T2",
+  "L_T3",
+  "L_T4",
+  "L_T5",
+  "L_T6",
+  "L_T7",
+  "F_PU1",
+  "F_PU2",
+  "S_PU2",
+  "F_PU4",
+  "S_PU4",
+  "F_PU6",
+  "S_PU6",
+  "F_PU7",
+  "S_PU7",
+  "F_PU8",
+  "S_PU8",
+  "F_PU10",
+  "S_PU10",
+  "F_PU11",
+  "S_PU11",
+  "F_V2",
+  "S_V2",
+  "P_J280",
+  "P_J269",
+  "P_J300",
+  "P_J256",
+  "P_J289",
+  "P_J415",
+  "P_J302",
+  "P_J306",
+  "P_J307",
+  "P_J317",
+  "P_J14",
+  "P_J422"
+ ],
+ "features_categorical": [],
+ "dropped_columns": {
+  "DATETIME": "timestamp/date: identifies capture session, not behaviour (used only to order rows for the chronological split)",
+  "S_PU1": "constant in training split",
+  "F_PU3": "constant in training split",
+  "S_PU3": "constant in training split",
+  "F_PU5": "constant in training split",
+  "S_PU5": "constant in training split",
+  "F_PU9": "constant in training split",
+  "S_PU9": "constant in training split"
+ },
+ "n_rows": {
+  "train": 11353,
+  "val": 624,
+  "test": 961
+ },
+ "attack_ratio": {
+  "train": 0.008984409407205143,
+  "val": 0.05929487179487179,
+  "test": 0.08324661810613944
+ },
+ "type_counts": {
+  "train": {
+   "normal": 11251,
+   "attack": 102
+  },
+  "val": {
+   "normal": 587,
+   "attack": 37
+  },
+  "test": {
+   "normal": 881,
+   "attack": 80
+  }
+ },
+ "multiclass": false,
+ "evaluable": true,
+ "variant": "dedup"
+}

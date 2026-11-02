@@ -1,0 +1,67 @@
+{
+ "dataset": "TON_IoT-IoT_Thermostat",
+ "task": "binary",
+ "tag": "",
+ "model": "LightGBM",
+ "selected_params": {
+  "num_leaves": 127
+ },
+ "refit_params": {
+  "num_leaves": 127,
+  "n_estimators": 2
+ },
+ "val_search": [
+  {
+   "params": {
+    "num_leaves": 31
+   },
+   "val_score": 0.47573028772238085,
+   "train_time_s": 0.3222968000045512
+  },
+  {
+   "params": {
+    "num_leaves": 127
+   },
+   "val_score": 0.5108786610878661,
+   "train_time_s": 0.8356019000057131
+  }
+ ],
+ "test": {
+  "accuracy": 0.502585092632486,
+  "precision": 0.5477763099955967,
+  "recall": 0.4924782264449723,
+  "f1": 0.5186574942672504,
+  "macro_f1": 0.5020298837505184,
+  "roc_auc": 0.49804284963786827,
+  "pr_auc": 0.5414680080700645,
+  "fpr": 0.4853497164461248,
+  "fnr": 0.5075217735550277,
+  "confusion_matrix": [
+   [
+    1089,
+    1027
+   ],
+   [
+    1282,
+    1244
+   ]
+  ],
+  "n_test": 4642,
+  "n_attack": 2526,
+  "train_time_s": 0.8356019000057131,
+  "inference_s_per_1000": 0.0008217147779191544
+ },
+ "n_features_in": 2,
+ "n_features_encoded": 2,
+ "dropped_extra": [],
+ "feature_importance_gain": [
+  {
+   "feature": "current_temperature",
+   "share": 0.9720390375080723
+  },
+  {
+   "feature": "thermostat_status",
+   "share": 0.0279609624919277
+  }
+ ]
+}

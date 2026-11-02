@@ -1,0 +1,63 @@
+{
+ "dataset": "TON_IoT-IoT_Weather",
+ "task": "binary",
+ "tag": "",
+ "model": "LogReg",
+ "selected_params": {
+  "C": 0.1
+ },
+ "refit_params": {
+  "C": 0.1
+ },
+ "val_search": [
+  {
+   "params": {
+    "C": 0.1
+   },
+   "val_score": 0.598151001540832,
+   "train_time_s": 0.037345999997342005
+  },
+  {
+   "params": {
+    "C": 1.0
+   },
+   "val_score": 0.598151001540832,
+   "train_time_s": 0.040863400005036965
+  },
+  {
+   "params": {
+    "C": 10.0
+   },
+   "val_score": 0.598151001540832,
+   "train_time_s": 0.04127349999907892
+  }
+ ],
+ "test": {
+  "accuracy": 0.555886997718898,
+  "precision": 0.6701873935264054,
+  "recall": 0.5572237960339943,
+  "f1": 0.608507347254447,
+  "macro_f1": 0.5477160697350686,
+  "roc_auc": 0.5642529226533552,
+  "pr_auc": 0.7085358914910851,
+  "fpr": 0.446288612263716,
+  "fnr": 0.44277620396600564,
+  "confusion_matrix": [
+   [
+    1201,
+    968
+   ],
+   [
+    1563,
+    1967
+   ]
+  ],
+  "n_test": 5699,
+  "n_attack": 3530,
+  "train_time_s": 0.037345999997342005,
+  "inference_s_per_1000": 0.0023678013686017825
+ },
+ "n_features_in": 3,
+ "n_features_encoded": 3,
+ "dropped_extra": []
+}
