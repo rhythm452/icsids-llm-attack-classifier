@@ -78,6 +78,8 @@ python app.py
 HF_HUB_OFFLINE=1 python app.py
 ```
 
+If the model files are missing the app stops at startup and says where it looked. To check the app against the 60 held-out sample events (expects 58/60), run `python scripts/check_samples.py`; `python -m pytest` runs the unit tests.
+
 Open http://127.0.0.1:8000. Interactive API docs are at `/docs`. `POST /api/analyze_event` takes a structured event (merged detector); `POST /api/analyze` takes free text (experimental zero-shot).
 
 ## Re-running the study
@@ -89,3 +91,7 @@ See "Re-running the study" in [docs/README.md](docs/README.md). The raw datasets
 The first version of this project (`ics_llm_ids.py`, `results.json`) only did zero-shot matching of event text to the 97 ATT&CK technique descriptions with all-MiniLM-L6-v2. On the 271 MITRE procedure examples it reached top-1 accuracy 0.321 and top-3 accuracy 0.480 for 97-way technique classification. `results.json` comes from that prototype, not from the final merged model. The later study showed this approach does not detect attacks in real traffic (see Key results).
 
 To rerun it: `python build_dataset.py` (pulls MITRE ATT&CK for ICS data), then `python ics_llm_ids.py`.
+
+## License
+
+Code is released under the [MIT License](LICENSE). The datasets are not part of this repository and keep their own licences (for example Edge-IIoTset is CC BY-NC-SA 4.0); the base paper PDF is under IEEE copyright.
