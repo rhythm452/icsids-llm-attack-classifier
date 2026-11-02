@@ -63,7 +63,7 @@ pip install -r requirements.txt
 
 ### Model
 
-The app needs `classifier.joblib` and `model_card.json` in a directory, by default `models/ics_ids_merged_v1/`. Set `ICS_MODEL_DIR` to use another location. `model_card.json` is also in `docs/results/final_model_card.json`. See the notes in `models/README.md` for where to get the classifier file.
+The app needs `classifier.joblib` and `model_card.json` in a directory, by default `models/ics_ids_merged_v1/`. Set `ICS_MODEL_DIR` to use another location. `model_card.json` is also in `docs/results/final_model_card.json`. The trained classifier (1.4 MB) is included in this repository; see `models/README.md`.
 
 ### Run the web app
 
