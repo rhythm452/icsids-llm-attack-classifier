@@ -1,28 +1,73 @@
-# LLM-Based Intrusion Detection for ICS — Implementation
+# Leakage-Aware, Explainable Intrusion Detection for ICS
 
-Implements and **evaluates** the approach the base paper only *describes*:
+Course project (NLP). Team: Rhythm Jain, Shourya Chopra, Mini Aggarwal. Department of Computer Science & Engineering, Bennett University, Greater Noida, India.
 
-> Yoo et al., "A Preliminary Study on an Intrusion Detection Method using
-> Large Language Models in Industrial Control Systems," ICUFN 2024.
-> DOI: 10.1109/ICUFN61752.2024.10625633
+This repository implements and evaluates the idea proposed (as a concept, without a prototype or results) in:
 
-The base paper gathers MITRE ATT&CK ICS data, structures it, and trains an
-LLM — but its abstract/results/conclusion report **no experimental
-results**. This project runs the missing evaluation.
+> S. Ann, S. Cho, H. Kim, "A Preliminary Study on an Intrusion Detection Method using Large Language Models in Industrial Control Systems," in Proc. 15th Int. Conf. Ubiquitous and Future Networks (ICUFN), 2024, pp. 600-602. DOI: [10.1109/ICUFN61752.2024.10625633](https://doi.org/10.1109/ICUFN61752.2024.10625633)
 
-## Setup (run once, needs internet)
+Our paper: **"Leakage-Aware, Explainable Intrusion Detection for Industrial Control Systems Using Sentence Embeddings and MITRE ATT&CK for ICS"** ([PDF](papers/ICS_IDS_IEEE_ResearchPaper.pdf)). Slides: [presentation/](presentation/).
+
+## What we did
+
+- Evaluated five public ICS/IIoT datasets under one leakage-aware protocol: BATADAL, Edge-IIoTset, X-IIoTID, TON_IoT-Network and TON_IoT-Modbus.
+- Preprocessing: drop identifiers (IPs, timestamps, counters, raw option bytes), de-duplicate after identifier removal, cap at 250,000 rows (stratified by attack type, at least 1,000 per class), split 70/15/15 stratified (BATADAL is split chronologically), seed 42.
+- Trained four supervised models per dataset (logistic regression, random forest, LightGBM, MLP) and a zero-shot ATT&CK similarity method (all-MiniLM-L6-v2 embeddings against 97 ATT&CK for ICS technique texts).
+- Built a merged detector: each event is rendered as text, embedded with MiniLM (384 dimensions) and classified by one LightGBM. It is trained on Edge-IIoTset, TON_IoT-Network and X-IIoTID. BATADAL and TON_IoT-Modbus are excluded because no learnable signal remains after de-duplication.
+- Served it as a FastAPI web app with a structured-event mode (merged detector) and an experimental free-text mode (zero-shot).
+
+## Key results
+
+| Result | Value |
+|---|---|
+| Rows removed by de-duplication | Edge-IIoTset 99.7% (2,219,201 raw rows to 6,513 unique), TON_IoT-Modbus 71.5%, TON_IoT-Network 50.4%, X-IIoTID 10.5%, BATADAL 0% |
+| TON_IoT-Modbus LightGBM accuracy, before to after de-duplication | 0.9715 to 0.5409 |
+| LightGBM attack F1 | Edge-IIoTset 0.995, X-IIoTID 0.996, TON_IoT-Network 0.998 (BATADAL and Modbus: no learnable signal) |
+| Zero-shot ATT&CK matching, ROC-AUC | 0.43-0.51 on four datasets, 0.74 on TON_IoT-Network (does not detect attacks) |
+| Merged model, held-out test | pooled F1 0.986 (ROC-AUC 0.998, FPR 0.020); Edge-IIoTset 0.993, TON_IoT-Network 0.994, X-IIoTID 0.968 |
+| Merged model on 271 handwritten attack descriptions | ROC-AUC 0.55 (near chance) |
+| Web app on 60 held-out sample events | 58/60 correct (misses: one MITM, one fuzzing) |
+
+Full tables, plots and per-dataset results are in [docs/](docs/README.md).
+
+## Limitations
+
+- Scores are in-testbed: each dataset was recorded in one lab, and cross-dataset transfer is poor.
+- The model is near chance on free-text attack descriptions; free-text mode is experimental.
+- ATT&CK technique matches are approximate explanations, not ground truth.
+- No zero-day claim is made; evaluation on unseen attack types was not done.
+- Single seed (42).
+- BATADAL and TON_IoT-Modbus gave no reliable signal under this protocol.
+
+## Repository map
+
+| Path | Purpose |
+|---|---|
+| `app.py`, `static/index.html` | FastAPI web app and its frontend |
+| `event_template.py`, `event_schema.json` | Turn a structured event into the exact text used in training |
+| `samples/heldout_events.json` | 60 held-out events for trying the app |
+| `techniques.json`, `procedure_examples.json`, `build_dataset.py` | MITRE ATT&CK for ICS data (97 techniques, 271 procedure examples) |
+| `ics_llm_ids.py`, `results.json` | First prototype (zero-shot only), see below |
+| `docs/` | Dataset study: report, plots, results and the study code |
+| `datasets/` | Train/validation/test split information, see [datasets/README.md](datasets/README.md) |
+| `models/` | Trained merged detector (see "Model" below) |
+| `papers/` | Our paper and the base paper |
+| `presentation/` | Project slides |
+| `outputs/` | Early milestone report |
+
+## Setup and run
 
 ```bash
 pip install -r requirements.txt
-python build_dataset.py      # pulls the official MITRE ATT&CK ICS data
-python ics_llm_ids.py         # downloads the language model (first run only,
-                               # then cached — runs fully offline after that)
 ```
 
-Run `ics_llm_ids.py` once so the model is cached locally
-(`~/.cache/huggingface`). After that, set `HF_HUB_OFFLINE=1` to skip the
-Hugging Face Hub freshness check entirely and avoid demo failures on
-flaky wifi:
+### Model
+
+The app needs `classifier.joblib` and `model_card.json` in a directory, by default `models/ics_ids_merged_v1/`. Set `ICS_MODEL_DIR` to use another location. `model_card.json` is also in `docs/results/final_model_card.json`. See the notes in `models/README.md` for where to get the classifier file.
+
+### Run the web app
+
+The first run downloads `all-MiniLM-L6-v2` from the Hugging Face Hub and caches it. After that, set `HF_HUB_OFFLINE=1` to skip the Hub check:
 
 ```bash
 # Windows PowerShell
@@ -33,87 +78,14 @@ python app.py
 HF_HUB_OFFLINE=1 python app.py
 ```
 
-## Live prototype — web UI (`app.py`)
+Open http://127.0.0.1:8000. Interactive API docs are at `/docs`. `POST /api/analyze_event` takes a structured event (merged detector); `POST /api/analyze` takes free text (experimental zero-shot).
 
-Same classifier, served as a local web app with a dashboard-style UI —
-type an event in the browser instead of a terminal:
+## Re-running the study
 
-```bash
-# Windows PowerShell
-$env:HF_HUB_OFFLINE = "1"
-python app.py
+See "Re-running the study" in [docs/README.md](docs/README.md). The raw datasets are not in this repository; see [datasets/README.md](datasets/README.md) for sources.
 
-# bash
-HF_HUB_OFFLINE=1 python app.py
-```
+## First prototype (zero-shot only)
 
-Then open **http://127.0.0.1:8000**. The model and knowledge base load
-once at startup (leave the process running for the whole demo), and
-every query after that is sub-second. Shows a colored ATTACK/BENIGN
-badge, similarity score vs. threshold, a grounded explanation +
-mitigation suggestion (templated from the matched technique's own MITRE
-description — no fabricated content), the top-3 matched techniques with
-tactic + description, and a scrollable history of every query on the
-page. The backend also exposes `POST /api/analyze` directly (JSON in,
-JSON out) and interactive API docs at `/docs`.
+The first version of this project (`ics_llm_ids.py`, `results.json`) only did zero-shot matching of event text to the 97 ATT&CK technique descriptions with all-MiniLM-L6-v2. On the 271 MITRE procedure examples it reached top-1 accuracy 0.321 and top-3 accuracy 0.480 for 97-way technique classification. `results.json` comes from that prototype, not from the final merged model. The later study showed this approach does not detect attacks in real traffic (see Key results).
 
-## What it does
-
-1. **Reference set** (`techniques.json`) — 97 real ICS attack techniques
-   from the official MITRE ATT&CK ICS matrix (name + description each).
-2. **Evaluation set** (`procedure_examples.json`) — 271 real descriptions
-   of how specific malware/intrusion-sets/campaigns used a specific
-   technique, pulled from MITRE's own "uses" relationships. These stand
-   in for observed intrusion events.
-3. **Classifier** — a pretrained transformer language model
-   (`all-MiniLM-L6-v2`) embeds both sets; each event is classified by
-   nearest-neighbor cosine similarity to a technique description. This is
-   **zero-shot / in-context matching** — no technique-specific training —
-   directly testing the base paper's own claim that LLMs can "identify
-   emerging threats even in cases where they haven't been explicitly
-   trained on them."
-4. **Task A** — 97-way technique classification: top-1 / top-3 accuracy,
-   macro-F1, per-technique breakdown.
-5. **Task B** — benign vs. attack detection, using a small author-written
-   synthetic set of normal ICS operational log lines (clearly marked in
-   code, not from MITRE) to test the detector's false-positive behavior.
-
-## Results (real run, no synthetic labels — see `results.json`)
-
-| Metric | Value |
-|---|---|
-| Task A top-1 accuracy (97-way) | 0.321 |
-| Task A top-3 accuracy | 0.480 |
-| Task A macro F1 | 0.265 |
-| Task B benign/attack detection accuracy | 0.745 |
-| Task B attack recall | 203/271 (0.749) |
-| Task B false positive rate (benign flagged as attack) | 5/15 (0.33) |
-
-Chance level for Task A is ~1% (1-in-97), so 32%/48% top-1/top-3 accuracy
-with zero attack-specific training is a meaningful signal, not a solved
-problem — plenty of techniques are confused with semantically similar
-neighbors (e.g. "Loss of View" vs. "Manipulate I/O Image"). This is
-reported honestly rather than inflated.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `build_dataset.py` | Pulls + structures the real MITRE ATT&CK ICS data |
-| `techniques.json` | Reference set (already built — 97 techniques) |
-| `procedure_examples.json` | Evaluation set (already built — 271 real examples) |
-| `ics_llm_ids.py` | Embeds, classifies, evaluates, prints + saves results |
-| `app.py` | FastAPI web app — same classifier behind a browser UI + JSON API |
-| `static/index.html` | Frontend for `app.py` |
-| `results.json` | Produced after running `ics_llm_ids.py` |
-
-## Mapping to Milestone 1 claims
-
-- **Novelty**: base paper stops at data prep/training setup with zero
-  evaluation. This is the first empirical test of that exact pipeline.
-- **Differs from existing work**: classifies to the *specific ATT&CK
-  technique* (actionable for an analyst), not just a binary anomaly flag
-  like traditional signature-based ICS IDS.
-- **Zero-shot design**: no attack-specific training data required —
-  matches the paper's generalization claim and means the same code
-  extends to new ATT&CK techniques MITRE adds later, with no retraining.
+To rerun it: `python build_dataset.py` (pulls MITRE ATT&CK for ICS data), then `python ics_llm_ids.py`.

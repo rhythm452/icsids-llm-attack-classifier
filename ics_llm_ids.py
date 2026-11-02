@@ -6,7 +6,7 @@ tested) in the base paper:
 
   "A Preliminary Study on an Intrusion Detection Method using Large
    Language Models in Industrial Control Systems"
-   (Yoo et al., ICUFN 2024, DOI: 10.1109/ICUFN61752.2024.10625633)
+   (Ann et al., ICUFN 2024, DOI: 10.1109/ICUFN61752.2024.10625633)
 
 The base paper describes gathering MITRE ATT&CK ICS data, organizing
 it into a structured learning format, and training an LLM -- but
