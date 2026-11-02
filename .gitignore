@@ -5,4 +5,5 @@ venv/
 .env
 *.joblib
 data/
-models/
+models/*
+!models/README.md
