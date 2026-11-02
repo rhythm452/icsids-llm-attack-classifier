@@ -2,7 +2,15 @@
 
 The raw datasets are public and are **not** redistributed here. This page records what the study used and how to regenerate the train/validation/test splits.
 
-> **Status:** the split files themselves (`train/val/test.parquet`) have not been added to this repository yet. They are generated locally by `docs/dataset_study_code/prepare.py` and were not saved with the code. Until they are added, regenerate them as described below.
+## Files in this repository
+
+Each folder holds `train.parquet`, `val.parquet`, `test.parquet` and `meta.json` (cleaning counts and class balance) for one dataset: `BATADAL/`, `Edge-IIoTset/`, `X-IIoTID/`, `TON_IoT-Network/`, `TON_IoT-Modbus/` (about 25 MB in total). `SHA256SUMS.txt` lists a checksum for every parquet file (`cd datasets && sha256sum -c SHA256SUMS.txt`).
+
+Columns: the cleaned features plus `__y` (0 = normal, 1 = attack), `__type` (attack type), `__multi` and, for some datasets, helper columns such as `__txt_http`, `__time` and `__part`.
+
+**How these were produced.** The original split files were lost, so they were regenerated from the public raw datasets with `docs/dataset_study_code/prepare.py` (seed 42). Row counts match the tables below exactly for BATADAL, Edge-IIoTset, X-IIoTID and TON_IoT-Network. **TON_IoT-Modbus does not reproduce** (see below).
+
+**Licences.** These are processed subsets of the public datasets and remain under their original licences (for example Edge-IIoTset is CC BY-NC-SA 4.0: non-commercial, attribution, share-alike). They are included for coursework and reproducibility; cite the original dataset papers.
 
 ## Sources
 
@@ -30,6 +38,8 @@ Drop identifiers (IPs, timestamps, counters, raw option bytes), de-duplicate aft
 | TON_IoT-Network | 73,305 | 15,708 | 15,709 |
 | TON_IoT-Modbus | 6,207 | 1,330 | 1,331 |
 
+**TON_IoT-Modbus discrepancy.** The Modbus split in this repository has **9,883 / 2,118 / 2,118** rows (14,119 unique rows after de-duplication of 51,106), not the 6,207 / 1,330 / 1,331 in the table above. The only copy of the raw file available for regeneration was a third-party GitHub copy (3.3 MB), not the original UNSW file, so it is probably not the file used for the original numbers. The original Modbus split sizes and the 71.5% de-duplication figure were therefore not reproduced here. The merged model does not use Modbus data.
+
 Per-dataset metadata (class balance and cleaning counts) is in [`docs/results/meta/`](../docs/results/meta/).
 
 ## Merged model training subset
@@ -46,4 +56,4 @@ From `docs/results/final_model_card.json`:
 
 1. Download the raw files above into `<project>/data/raw/` and follow the layout in [`docs/README.md`](../docs/README.md#re-running-the-study).
 2. Run `python dataset_study/prepare.py`. Splits are cached as `dataset_study/cache/<dataset>/{train,val,test}.parquet`.
-3. Check that the row counts match the table above.
+3. Check the row counts against the table above (all but Modbus should match).

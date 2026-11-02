@@ -1,0 +1,87 @@
+{
+ "rows_raw": 51106,
+ "coercion": {
+  "non_numeric_coerced": {}
+ },
+ "name": "TON_IoT-Modbus",
+ "kind": "IoT/IIoT device telemetry (Modbus function-code register values)",
+ "split": "stratified random 70/15/15 by finest attack type (no usable time order)",
+ "rows_after_cleaning": 51106,
+ "rows_after_dedup": 14119,
+ "duplicates_removed": 36987,
+ "type_counts_before_dedup": {
+  "normal": 35000,
+  "injection": 5000,
+  "backdoor": 5000,
+  "password": 5000,
+  "xss": 577,
+  "scanning": 529
+ },
+ "type_counts_after_dedup": {
+  "normal": 8864,
+  "password": 1752,
+  "backdoor": 1595,
+  "injection": 1348,
+  "scanning": 304,
+  "xss": 256
+ },
+ "conflicting_label_rows": 0,
+ "sampling": {
+  "sampled": false,
+  "train_only_tiny_classes": {}
+ },
+ "features_numeric": [
+  "ts",
+  "FC1_Read_Input_Register",
+  "FC2_Read_Discrete_Value",
+  "FC3_Read_Holding_Register",
+  "FC4_Read_Coil"
+ ],
+ "features_categorical": [],
+ "dropped_columns": {
+  "date": "timestamp/date: identifies capture session, not behaviour",
+  "time": "timestamp/date: identifies capture session, not behaviour; leading-space format differs by label (leak)"
+ },
+ "derived_features": [],
+ "derived_doc": {},
+ "text_only_columns": [],
+ "n_rows": {
+  "train": 9883,
+  "val": 2118,
+  "test": 2118
+ },
+ "attack_ratio": {
+  "train": 0.3721542041890114,
+  "val": 0.3720491029272899,
+  "test": 0.37252124645892354
+ },
+ "type_counts": {
+  "train": {
+   "normal": 6205,
+   "password": 1226,
+   "backdoor": 1116,
+   "injection": 944,
+   "scanning": 213,
+   "xss": 179
+  },
+  "val": {
+   "normal": 1330,
+   "password": 263,
+   "backdoor": 239,
+   "injection": 202,
+   "scanning": 46,
+   "xss": 38
+  },
+  "test": {
+   "normal": 1329,
+   "password": 263,
+   "backdoor": 240,
+   "injection": 202,
+   "scanning": 45,
+   "xss": 39
+  }
+ },
+ "multiclass": true,
+ "evaluable": true,
+ "variant": "dedup"
+}
