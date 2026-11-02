@@ -42,7 +42,7 @@ from event_template import SCHEMA, describe_event
 MODEL_NAME = "all-MiniLM-L6-v2"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.environ.get("ICS_MODEL_DIR",
-                           os.path.join(BASE_DIR, "..", "models", "ics_ids_merged_v1"))
+                           os.path.join(BASE_DIR, "models", "ics_ids_merged_v1"))
 SAMPLES_PATH = os.path.join(BASE_DIR, "samples", "heldout_events.json")
 
 
@@ -66,6 +66,14 @@ def load_threshold(default=0.42):
 
 
 def load_detector(model_dir):
+    missing = [f for f in ("model_card.json", "classifier.joblib")
+               if not os.path.isfile(os.path.join(model_dir, f))]
+    if missing:
+        raise SystemExit(
+            f"Detector files missing in {model_dir}: {', '.join(missing)}.
+"
+            "Put them in models/ics_ids_merged_v1/ (see models/README.md) or set ICS_MODEL_DIR "
+            "to the directory that holds them.")
     card = json.load(open(os.path.join(model_dir, "model_card.json"), encoding="utf-8"))
     if card["embedding_model"].split("/")[-1] != MODEL_NAME:
         raise RuntimeError(f"detector expects {card['embedding_model']}, app loads {MODEL_NAME}")
