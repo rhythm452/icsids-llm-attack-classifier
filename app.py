@@ -70,8 +70,7 @@ def load_detector(model_dir):
                if not os.path.isfile(os.path.join(model_dir, f))]
     if missing:
         raise SystemExit(
-            f"Detector files missing in {model_dir}: {', '.join(missing)}.
-"
+            f"Detector files missing in {model_dir}: {', '.join(missing)}. "
             "Put them in models/ics_ids_merged_v1/ (see models/README.md) or set ICS_MODEL_DIR "
             "to the directory that holds them.")
     card = json.load(open(os.path.join(model_dir, "model_card.json"), encoding="utf-8"))

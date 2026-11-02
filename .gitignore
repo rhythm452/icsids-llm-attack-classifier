@@ -4,6 +4,8 @@ __pycache__/
 venv/
 .env
 *.joblib
+!models/ics_ids_merged_v1/classifier.joblib
 data/
 models/*
 !models/README.md
+!models/ics_ids_merged_v1/
